@@ -124,6 +124,11 @@ type EngineeringConnection = {
 };
 ```
 
+Canonical ownership direction is instrument to owner: an ownership connection uses the instrument
+as `sourceEntityId`, its owning equipment or boundary as `targetEntityId`, `kind="ownership"`, and
+`direction="source_to_target"`. Reverse lookups such as “which instruments belong to this equipment?”
+traverse incoming ownership edges.
+
 ## 4. Evidence
 
 ```ts

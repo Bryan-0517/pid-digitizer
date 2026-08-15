@@ -1,0 +1,97 @@
+{
+  "brokenInstrumentOwnerReferences": [
+    {
+      "ownerNodeId": "N_V310006A",
+      "reason": "ambiguous duplicate source node ID",
+      "sourceInstrumentId": "I017"
+    },
+    {
+      "ownerNodeId": "N_V310006B",
+      "reason": "ambiguous duplicate source node ID",
+      "sourceInstrumentId": "I018"
+    }
+  ],
+  "brokenSourceTargetReferences": [
+    {
+      "ambiguousNodeIds": [
+        "N_V310006A"
+      ],
+      "missingNodeIds": [],
+      "sourceConnectionId": "C003"
+    },
+    {
+      "ambiguousNodeIds": [
+        "N_V310006B"
+      ],
+      "missingNodeIds": [],
+      "sourceConnectionId": "C004"
+    },
+    {
+      "ambiguousNodeIds": [
+        "N_V310006A"
+      ],
+      "missingNodeIds": [],
+      "sourceConnectionId": "C007"
+    },
+    {
+      "ambiguousNodeIds": [
+        "N_V310006B"
+      ],
+      "missingNodeIds": [],
+      "sourceConnectionId": "C013"
+    }
+  ],
+  "connectionCount": 321,
+  "documentId": "benchmark:hydrolysis",
+  "duplicateSourceNodeWarnings": [
+    {
+      "areaId": "H01",
+      "occurrence": 1,
+      "sourceNodeId": "N_V310006A"
+    },
+    {
+      "areaId": "H01",
+      "occurrence": 1,
+      "sourceNodeId": "N_V310006B"
+    },
+    {
+      "areaId": "H03",
+      "occurrence": 2,
+      "sourceNodeId": "N_V310006A"
+    },
+    {
+      "areaId": "H03",
+      "occurrence": 2,
+      "sourceNodeId": "N_V310006B"
+    }
+  ],
+  "duplicateTagWarnings": [
+    {
+      "count": 2,
+      "tag": "FIT_0830"
+    },
+    {
+      "count": 2,
+      "tag": "FIT_0836"
+    },
+    {
+      "count": 2,
+      "tag": "V310006A"
+    },
+    {
+      "count": 2,
+      "tag": "V310006B"
+    }
+  ],
+  "entityCount": 278,
+  "equipmentNodeCount": 156,
+  "instrumentCount": 122,
+  "missingInstrumentOwners": [],
+  "ownershipConnectionsCreated": 120,
+  "unsupportedUnmappedSourceRecords": [],
+  "validationErrors": [],
+  "validationWarnings": [
+    "All pageId values use the T007 unassigned sentinel; source screens remain in provenance.",
+    "No geometry was imported because the source registers contain no verified normalized geometry."
+  ]
+}
