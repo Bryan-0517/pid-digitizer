@@ -39,3 +39,14 @@ Run from the repository root with the API package available:
 $env:PYTHONPATH='services/api'
 python benchmarks/hydrolysis/convert.py
 ```
+
+## IMG_6807 page fixture
+
+T008 derives `expected/pages/IMG_6807.page.json` from explicit provenance links only. Its page ID is
+`benchmark:hydrolysis:IMG_6807.JPG`. In this page-scoped view, page association means “supported by
+this source page,” not exclusive ownership by that page. Multi-screen and workbook provenance is
+preserved. The global T007 graph retains its unassigned page sentinel.
+
+The page fixture reads the real image dimensions and marks every linked object
+`missing_verified_geometry`. Verified geometry coverage is zero; no coordinates or overlays are
+generated.

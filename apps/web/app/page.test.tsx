@@ -111,6 +111,28 @@ test("reopens a persisted document and graph from the URL", async () => {
   expect(screen.getByLabelText("Tag")).toHaveValue("P-SAVED");
 });
 
+test("opens explicit hydrolysis benchmark mode without upload or mock overlays", async () => {
+  window.history.replaceState(null, "", "/?benchmark=hydrolysis&screen=IMG_6807.JPG");
+  const graph = { schemaVersion: "0.1", documentId: "benchmark:hydrolysis", entities: [persistedEntity], connections: [], metadata: { sourceKind: "dcs" } };
+  vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: async () => ({
+    graph,
+    page: {
+      pageId: "benchmark:hydrolysis:IMG_6807.JPG", documentId: "benchmark:hydrolysis",
+      sourceFilename: "IMG_6807.JPG", widthPx: 5712, heightPx: 4284,
+      linkedEntityIds: ["entity-1"], linkedConnectionIds: [], linkedInstrumentIds: [],
+      counts: { entities: 1, instruments: 0, connections: 0, multiSourceObjects: 1 },
+      geometryCoverage: { status: "missing_verified_geometry", totalObjectsWithVerifiedGeometry: 0 },
+      warnings: ["No verified geometry"],
+    },
+  }) }));
+  render(<Home />);
+  await waitFor(() => expect(screen.getByRole("img", { name: "Interactive page 1 of IMG_6807.JPG" })).toBeInTheDocument());
+  expect(screen.getByText(/Reference mode:/)).toBeInTheDocument();
+  expect(screen.getByText(/Verified geometry coverage:/)).toHaveTextContent("0");
+  expect(screen.queryByLabelText("Engineering diagram")).not.toBeInTheDocument();
+  expect(screen.queryByText(/Mock overlay/)).not.toBeInTheDocument();
+});
+
 test("shows a clear backend upload error", async () => {
   vi.stubGlobal("fetch", vi.fn()
     .mockResolvedValueOnce({ ok: true, json: async () => ({ id: "doc-1" }) })

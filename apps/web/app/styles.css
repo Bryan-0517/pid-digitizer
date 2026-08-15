@@ -32,6 +32,8 @@ button { padding: 0.55rem 1rem; }
 .connection-list { padding-left: 1.25rem; max-height: 12rem; overflow: auto; }
 .connection-list li { margin: .35rem 0; }
 .connection-list span { display: block; color: #9a6700; font-size: .8rem; }
+.benchmark-summary { border: 2px solid #b45309; padding: 1rem; max-height: 75vh; overflow: auto; }
+.benchmark-warning { color: #9a3412; }
 .entity-inspector form { display: grid; margin-block: 1rem; }
 .entity-inspector form label { display: grid; gap: 0.3rem; }
 .entity-inspector input, .entity-inspector select, .entity-inspector textarea { box-sizing: border-box; width: 100%; padding: 0.4rem; }

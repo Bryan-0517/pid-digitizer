@@ -6,8 +6,10 @@ import type { Document, DocumentPage, EngineeringConnection, EngineeringEntity, 
 import { sourceTypeForFilename, supportedInputMessage } from "./upload-validation";
 import EntityInspector from "../components/entity-inspector";
 import ConnectionInspector from "../components/connection-inspector";
+import BenchmarkSummary, { BenchmarkPageFixture } from "../components/benchmark-summary";
 
 type DocumentDetail = { document: Document; page?: DocumentPage };
+type BenchmarkData = { page: BenchmarkPageFixture; graph: EngineeringGraph };
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 const DiagramViewer = dynamic(() => import("../components/diagram-viewer"), {
@@ -24,11 +26,28 @@ export default function Home() {
   const [selectedEntityId, setSelectedEntityId] = useState<string | null>(null);
   const [selectedConnectionId, setSelectedConnectionId] = useState<string | null>(null);
   const [loadingDocument, setLoadingDocument] = useState(false);
+  const [benchmark, setBenchmark] = useState<BenchmarkData | null>(null);
 
   useEffect(() => {
-    const documentId = new URLSearchParams(window.location.search).get("documentId");
+    const parameters = new URLSearchParams(window.location.search);
+    if (parameters.get("benchmark") === "hydrolysis" && parameters.get("screen") === "IMG_6807.JPG") {
+      void loadBenchmark();
+      return;
+    }
+    const documentId = parameters.get("documentId");
     if (documentId) void loadDocument(documentId);
   }, []);
+
+  async function loadBenchmark() {
+    setLoadingDocument(true); setError(null);
+    try {
+      const response = await fetch("/api/benchmark/hydrolysis?screen=IMG_6807.JPG");
+      if (!response.ok) throw new Error(await errorMessage(response));
+      setBenchmark(await response.json() as BenchmarkData);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Benchmark page could not be loaded");
+    } finally { setLoadingDocument(false); }
+  }
 
   async function loadDocument(documentId: string) {
     setLoadingDocument(true);
@@ -136,7 +155,7 @@ export default function Home() {
     <main>
       <h1>P&amp;ID Digitizer</h1>
       <p>Upload a PNG, JPG/JPEG, or single-page PDF.</p>
-      {!detail && <form onSubmit={upload}>
+      {!detail && !benchmark && <form onSubmit={upload}>
         <label htmlFor="diagram">Engineering diagram</label>
         <input
           id="diagram"
@@ -180,6 +199,19 @@ export default function Home() {
           </div>
         </section>
       )}
+      {benchmark && <section aria-label="Hydrolysis benchmark page">
+        <h2>{benchmark.page.sourceFilename}</h2>
+        <div className="document-workspace benchmark-mode">
+          <DiagramViewer
+            page={{ id: benchmark.page.pageId, documentId: benchmark.page.documentId, pageNumber: 1,
+              imageUri: "/api/benchmark/hydrolysis/image", widthPx: benchmark.page.widthPx, heightPx: benchmark.page.heightPx }}
+            imageUrl="/api/benchmark/hydrolysis/image" documentName={benchmark.page.sourceFilename}
+            graph={benchmark.graph} selectedEntityId={null} selectedConnectionId={null}
+            onSelectEntity={() => undefined} onSelectConnection={() => undefined} onClearSelection={() => undefined}
+          />
+          <BenchmarkSummary fixture={benchmark.page} graph={benchmark.graph} />
+        </div>
+      </section>}
     </main>
   );
 }
