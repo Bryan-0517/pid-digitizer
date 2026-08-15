@@ -18,7 +18,7 @@ services:
   api:
     build: ./services/api
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/pid_digitizer
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/pid_digitizer
       STORAGE_DIR: /app/data
       DIGITIZER_PROVIDER: fake
       DEXPI_ENABLED: "false"
@@ -27,6 +27,8 @@ services:
         condition: service_healthy
     ports:
       - "8000:8000"
+    volumes:
+      - document_storage:/app/data
 
   web:
     build:
@@ -42,3 +44,4 @@ services:
 
 volumes:
   postgres_data:
+  document_storage:

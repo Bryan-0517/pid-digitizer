@@ -10,3 +10,5 @@ __pycache__/
 data/
 *.pyc
 .DS_Store
+apps/web/tsconfig.tsbuildinfo
+services/api/.pytest-cache-*/

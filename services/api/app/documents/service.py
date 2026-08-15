@@ -1,0 +1,65 @@
+from dataclasses import dataclass
+from io import BytesIO
+from pathlib import Path
+
+import pypdfium2 as pdfium
+from PIL import Image, UnidentifiedImageError
+
+
+class UploadValidationError(ValueError):
+    pass
+
+
+@dataclass(frozen=True)
+class NormalizedPage:
+    image: Image.Image
+    source_extension: str
+    extension: str = "png"
+
+
+def normalize_upload(content: bytes, declared_source_type: str) -> NormalizedPage:
+    if declared_source_type == "image":
+        return _normalize_image(content)
+    if declared_source_type == "pdf":
+        return _normalize_pdf(content)
+    raise UploadValidationError("v0.1 supports only PNG, JPG, and single-page PDF files")
+
+
+def save_page(page: NormalizedPage, storage_dir: Path, document_id: str, page_id: str) -> str:
+    relative_path = Path(document_id) / f"{page_id}.{page.extension}"
+    destination = storage_dir / relative_path
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    page.image.save(destination, format="PNG")
+    return f"/files/{relative_path.as_posix()}"
+
+
+def save_source(content: bytes, page: NormalizedPage, storage_dir: Path, document_id: str) -> None:
+    destination = storage_dir / document_id / f"source.{page.source_extension}"
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(content)
+
+
+def _normalize_image(content: bytes) -> NormalizedPage:
+    try:
+        image = Image.open(BytesIO(content))
+        image.load()
+    except (UnidentifiedImageError, OSError) as exc:
+        raise UploadValidationError("v0.1 supports only valid PNG or JPG image files") from exc
+    if image.format not in {"PNG", "JPEG"}:
+        raise UploadValidationError("v0.1 supports only PNG or JPG image files")
+    source_extension = "png" if image.format == "PNG" else "jpg"
+    return NormalizedPage(image.convert("RGB"), source_extension=source_extension)
+
+
+def _normalize_pdf(content: bytes) -> NormalizedPage:
+    try:
+        pdf = pdfium.PdfDocument(content)
+    except Exception as exc:
+        raise UploadValidationError("The uploaded file is not a valid PDF") from exc
+    try:
+        if len(pdf) != 1:
+            raise UploadValidationError("v0.1 supports single-page PDFs only")
+        bitmap = pdf[0].render(scale=2)
+        return NormalizedPage(bitmap.to_pil().convert("RGB"), source_extension="pdf")
+    finally:
+        pdf.close()

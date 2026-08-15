@@ -1,6 +1,13 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+
+from app.config import settings
+from app.database import create_schema
+from app.documents.router import router as documents_router
 
 
 class HealthResponse(BaseModel):
@@ -8,13 +15,23 @@ class HealthResponse(BaseModel):
     service: str
 
 
-app = FastAPI(title="P&ID Digitizer API", version="0.1.0")
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    settings.storage_dir.mkdir(parents=True, exist_ok=True)
+    create_schema()
+    yield
+
+
+app = FastAPI(title="P&ID Digitizer API", version="0.1.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
-    allow_methods=["GET"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
+app.mount("/files", StaticFiles(directory=settings.storage_dir, check_dir=False), name="files")
+app.include_router(documents_router)
 
 
 @app.get("/health", response_model=HealthResponse)
