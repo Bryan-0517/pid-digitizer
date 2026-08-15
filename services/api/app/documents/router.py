@@ -8,7 +8,14 @@ from app.config import settings
 from app.database import get_session
 from app.documents.repository import DocumentRepository
 from app.documents.schemas import CreateDocumentRequest, DocumentDetail
-from app.documents.service import UploadValidationError, normalize_upload, save_page, save_source
+from app.documents.service import (
+    SUPPORTED_INPUT_MESSAGE,
+    UploadValidationError,
+    normalize_upload,
+    save_page,
+    save_source,
+    validate_upload_filename,
+)
 from app.domain.models import Document, DocumentPage
 
 router = APIRouter(prefix="/documents", tags=["documents"])
@@ -47,7 +54,7 @@ def create_document(request: CreateDocumentRequest, session: Session = Depends(g
     if request.source_type not in {"image", "pdf"}:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail="v0.1 supports only PNG, JPG, and single-page PDF files",
+            detail=SUPPORTED_INPUT_MESSAGE,
         )
     if not request.name.strip():
         raise HTTPException(status_code=422, detail="Document name must not be empty")
@@ -68,6 +75,7 @@ async def upload_document(
         raise HTTPException(status_code=409, detail="Document already has an uploaded page")
     repository.set_status(record, "processing")
     try:
+        validate_upload_filename(file.filename, record.source_type)
         content = await file.read()
         normalized = normalize_upload(content, record.source_type)
         page_id = str(uuid4())

@@ -3,7 +3,9 @@ from io import BytesIO
 from pathlib import Path
 
 import pypdfium2 as pdfium
-from PIL import Image, UnidentifiedImageError
+from PIL import Image, ImageOps, UnidentifiedImageError
+
+SUPPORTED_INPUT_MESSAGE = "v0.1 supports only PNG, JPG/JPEG, or single-page PDF files"
 
 
 class UploadValidationError(ValueError):
@@ -22,7 +24,14 @@ def normalize_upload(content: bytes, declared_source_type: str) -> NormalizedPag
         return _normalize_image(content)
     if declared_source_type == "pdf":
         return _normalize_pdf(content)
-    raise UploadValidationError("v0.1 supports only PNG, JPG, and single-page PDF files")
+    raise UploadValidationError(SUPPORTED_INPUT_MESSAGE)
+
+
+def validate_upload_filename(filename: str | None, declared_source_type: str) -> None:
+    suffix = Path(filename or "").suffix.lower()
+    source_type = "pdf" if suffix == ".pdf" else "image" if suffix in {".png", ".jpg", ".jpeg"} else None
+    if source_type is None or source_type != declared_source_type:
+        raise UploadValidationError(SUPPORTED_INPUT_MESSAGE)
 
 
 def save_page(page: NormalizedPage, storage_dir: Path, document_id: str, page_id: str) -> str:
@@ -41,14 +50,30 @@ def save_source(content: bytes, page: NormalizedPage, storage_dir: Path, documen
 
 def _normalize_image(content: bytes) -> NormalizedPage:
     try:
-        image = Image.open(BytesIO(content))
-        image.load()
-    except (UnidentifiedImageError, OSError) as exc:
-        raise UploadValidationError("v0.1 supports only valid PNG or JPG image files") from exc
-    if image.format not in {"PNG", "JPEG"}:
-        raise UploadValidationError("v0.1 supports only PNG or JPG image files")
-    source_extension = "png" if image.format == "PNG" else "jpg"
-    return NormalizedPage(image.convert("RGB"), source_extension=source_extension)
+        with Image.open(BytesIO(content)) as candidate:
+            detected_format = candidate.format
+            candidate.verify()
+    except UnidentifiedImageError as exc:
+        raise UploadValidationError(
+            "Image validation failed: Pillow could not identify the uploaded image data"
+        ) from exc
+    except (Image.DecompressionBombError, OSError, SyntaxError, ValueError) as exc:
+        raise UploadValidationError(f"Image validation failed: {exc}") from exc
+
+    if detected_format not in {"PNG", "JPEG", "MPO"}:
+        raise UploadValidationError(
+            f"Unsupported decoded image format: {detected_format or 'unknown'}; expected PNG or JPEG"
+        )
+
+    try:
+        with Image.open(BytesIO(content)) as decoded:
+            decoded.load()
+            normalized = ImageOps.exif_transpose(decoded).convert("RGB")
+    except (Image.DecompressionBombError, OSError, SyntaxError, ValueError) as exc:
+        raise UploadValidationError(f"Image decoding failed: {exc}") from exc
+
+    source_extension = "png" if detected_format == "PNG" else "jpg"
+    return NormalizedPage(normalized, source_extension=source_extension)
 
 
 def _normalize_pdf(content: bytes) -> NormalizedPage:

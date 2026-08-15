@@ -48,6 +48,24 @@ def png_bytes(width: int = 12, height: int = 8) -> bytes:
     return output.getvalue()
 
 
+def jpeg_bytes(width: int = 7, height: int = 9, orientation: int | None = None) -> bytes:
+    output = BytesIO()
+    image = Image.new("RGB", (width, height), "white")
+    exif = image.getexif()
+    if orientation is not None:
+        exif[274] = orientation
+    image.save(output, format="JPEG", exif=exif)
+    return output.getvalue()
+
+
+def mpo_jpeg_bytes(width: int = 7, height: int = 9) -> bytes:
+    output = BytesIO()
+    first = Image.new("RGB", (width, height), "white")
+    second = Image.new("RGB", (width, height), "black")
+    first.save(output, format="MPO", save_all=True, append_images=[second])
+    return output.getvalue()
+
+
 def pdf_bytes(page_count: int) -> bytes:
     objects: list[bytes] = [
         b"<< /Type /Catalog /Pages 2 0 R >>",
@@ -114,18 +132,59 @@ def test_png_upload_persists_document_and_page(client: TestClient, tmp_path: Pat
     assert persisted.json() == detail
 
 
-def test_jpg_upload_is_supported(client: TestClient) -> None:
-    output = BytesIO()
-    Image.new("RGB", (7, 9), "white").save(output, format="JPEG")
+@pytest.mark.parametrize("filename", ["diagram.jpg", "IMG_6754.JPG", "diagram.jpeg", "diagram.JPEG"])
+def test_jpg_and_jpeg_filenames_are_supported_case_insensitively(
+    client: TestClient, filename: str
+) -> None:
     created = create_document(client)
 
     response = client.post(
         f"/documents/{created['id']}/upload",
-        files={"file": ("diagram.jpg", output.getvalue(), "image/jpeg")},
+        files={"file": (filename, jpeg_bytes(), "image/jpeg")},
     )
 
     assert response.status_code == 200
     assert response.json()["page"]["widthPx"] == 7
+
+
+@pytest.mark.parametrize("filename", ["IMG_6754.JPG", "camera.jpeg"])
+def test_camera_jpeg_with_exif_orientation_is_decoded(
+    client: TestClient, filename: str
+) -> None:
+    created = create_document(client)
+
+    response = client.post(
+        f"/documents/{created['id']}/upload",
+        files={"file": (filename, jpeg_bytes(7, 9, orientation=6), "image/jpeg")},
+    )
+
+    assert response.status_code == 200
+    assert response.json()["page"]["widthPx"] == 9
+    assert response.json()["page"]["heightPx"] == 7
+
+
+def test_camera_mpo_jpeg_container_is_accepted_as_jpeg(client: TestClient) -> None:
+    created = create_document(client)
+
+    response = client.post(
+        f"/documents/{created['id']}/upload",
+        files={"file": ("IMG_6754.JPG", mpo_jpeg_bytes(), "image/jpeg")},
+    )
+
+    assert response.status_code == 200
+    assert response.json()["page"]["widthPx"] == 7
+
+
+@pytest.mark.parametrize("filename", ["diagram.png", "diagram.PNG"])
+def test_png_filename_is_supported_case_insensitively(client: TestClient, filename: str) -> None:
+    created = create_document(client)
+
+    response = client.post(
+        f"/documents/{created['id']}/upload",
+        files={"file": (filename, png_bytes(), "image/png")},
+    )
+
+    assert response.status_code == 200
 
 
 def test_single_page_pdf_is_rendered_to_png(client: TestClient) -> None:
@@ -165,7 +224,23 @@ def test_unsupported_content_returns_clear_v01_error(client: TestClient) -> None
     )
 
     assert response.status_code == 422
-    assert response.json() == {"detail": "v0.1 supports only valid PNG or JPG image files"}
+    assert response.json() == {
+        "detail": "v0.1 supports only PNG, JPG/JPEG, or single-page PDF files"
+    }
+
+
+def test_supported_extension_does_not_bypass_content_validation(client: TestClient) -> None:
+    created = create_document(client)
+
+    response = client.post(
+        f"/documents/{created['id']}/upload",
+        files={"file": ("fake.JPG", b"not an image", "image/jpeg")},
+    )
+
+    assert response.status_code == 422
+    assert response.json() == {
+        "detail": "Image validation failed: Pillow could not identify the uploaded image data"
+    }
 
 
 def test_unsupported_declared_source_type_is_rejected(client: TestClient) -> None:

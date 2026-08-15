@@ -3,6 +3,7 @@
 import React, { FormEvent, useState } from "react";
 import dynamic from "next/dynamic";
 import type { Document, DocumentPage } from "../types/engineering-graph";
+import { sourceTypeForFilename, supportedInputMessage } from "./upload-validation";
 
 type DocumentDetail = { document: Document; page?: DocumentPage };
 
@@ -22,10 +23,14 @@ export default function Home() {
     event.preventDefault();
     const file = selectedFile;
     if (!file || file.size === 0) return;
+    const sourceType = sourceTypeForFilename(file.name);
+    if (!sourceType) {
+      setError(supportedInputMessage);
+      return;
+    }
     setUploading(true);
     setError(null);
     try {
-      const sourceType = file.type === "application/pdf" ? "pdf" : "image";
       const createdResponse = await fetch(`${apiUrl}/documents`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -51,7 +56,7 @@ export default function Home() {
   return (
     <main>
       <h1>P&amp;ID Digitizer</h1>
-      <p>Upload a PNG, JPG, or single-page PDF.</p>
+      <p>Upload a PNG, JPG/JPEG, or single-page PDF.</p>
       <form onSubmit={upload}>
         <label htmlFor="diagram">Engineering diagram</label>
         <input
