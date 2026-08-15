@@ -14,7 +14,10 @@ type DiagramViewerProps = {
   documentName: string;
   graph: EngineeringGraph;
   selectedEntityId: string | null;
+  selectedConnectionId: string | null;
   onSelectEntity: (entityId: string | null) => void;
+  onSelectConnection: (connectionId: string | null) => void;
+  onClearSelection: () => void;
 };
 
 type Size = { width: number; height: number };
@@ -23,7 +26,8 @@ const INITIAL_VIEW: ViewTransform = { x: 0, y: 0, scale: 1 };
 const WHEEL_SCALE = 1.08;
 
 export default function DiagramViewer({
-  page, imageUrl, documentName, graph, selectedEntityId, onSelectEntity,
+  page, imageUrl, documentName, graph, selectedEntityId, selectedConnectionId,
+  onSelectEntity, onSelectConnection, onClearSelection,
 }: DiagramViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<Konva.Stage>(null);
@@ -150,10 +154,10 @@ export default function DiagramViewer({
             onTouchMove={handleTouchMove}
             onTouchEnd={() => { lastPinchRef.current = null; }}
             onClick={(event) => {
-              if (event.target === event.target.getStage()) onSelectEntity(null);
+              if (event.target === event.target.getStage()) onClearSelection();
             }}
             onTap={(event) => {
-              if (event.target === event.target.getStage()) onSelectEntity(null);
+              if (event.target === event.target.getStage()) onClearSelection();
             }}
           >
             <Layer listening={false}>
@@ -171,16 +175,19 @@ export default function DiagramViewer({
               graph={graph}
               imageSize={{ width: page.widthPx, height: page.heightPx }}
               selectedEntityId={selectedEntityId}
+              selectedConnectionId={selectedConnectionId}
               showEntities={showEntities}
               showConnections={showConnections}
               viewScale={view.scale}
               onSelectEntity={onSelectEntity}
+              onSelectConnection={onSelectConnection}
             />
           </Stage>
         )}
         {imageError && <p className="viewer-error" role="alert">Page image could not be loaded.</p>}
       </div>
       <output aria-label="Selected entity">{selectedEntityId ?? "None"}</output>
+      <output aria-label="Selected connection">{selectedConnectionId ?? "None"}</output>
       <p className="viewer-help">Drag to pan. Scroll or pinch to zoom.</p>
     </div>
   );

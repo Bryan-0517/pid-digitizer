@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from app.domain.models import EngineeringConnection, EngineeringEntity, EngineeringGraph, GraphMetadata
 from app.graphs.db_models import GraphConnectionRecord, GraphEntityRecord, GraphRevisionRecord
 from app.graphs.fixture import create_demo_graph
-from app.graphs.schemas import EntityPatch
+from app.graphs.schemas import ConnectionCreate, ConnectionPatch, EntityPatch
 
 
 class GraphRepository:
@@ -96,6 +96,116 @@ class GraphRepository:
         self.session.commit()
         return candidate
 
+    def create_connection(
+        self, document_id: str, request: ConnectionCreate
+    ) -> EngineeringConnection:
+        now = datetime.now(UTC)
+        timestamp = now.isoformat().replace("+00:00", "Z")
+        connection = EngineeringConnection.model_validate({
+            "id": str(uuid4()),
+            "documentId": document_id,
+            **request.model_dump(by_alias=True),
+            "assertion": {
+                "mode": "human_added",
+                "reviewStatus": request.assertion.review_status,
+            },
+            "provenance": [],
+            "createdAt": timestamp,
+            "updatedAt": timestamp,
+        })
+        graph = self.graph(document_id)
+        EngineeringGraph.model_validate({
+            **graph.model_dump(by_alias=True),
+            "connections": [
+                *[item.model_dump(by_alias=True) for item in graph.connections],
+                connection.model_dump(by_alias=True),
+            ],
+        })
+        self.session.add(connection_record(connection))
+        self.session.add(GraphRevisionRecord(
+            id=str(uuid4()), document_id=document_id, object_type="connection",
+            object_id=connection.id, operation="create", field_path="$",
+            before=None, after=connection.model_dump(by_alias=True, exclude_none=True),
+            actor_type="user", created_at=now,
+        ))
+        self.session.commit()
+        return connection
+
+    def patch_connection(
+        self, connection_id: str, patch: ConnectionPatch
+    ) -> EngineeringConnection | None:
+        record = self.session.get(GraphConnectionRecord, connection_id)
+        if record is None:
+            return None
+        before_connection = connection_from_record(record)
+        changes = patch.model_dump(exclude_unset=True)
+        for required in (
+            "source_entity_id", "target_entity_id", "kind", "properties", "allow_self_loop"
+        ):
+            if required in changes and changes[required] is None:
+                raise ValueError(f"{_to_camel(required)} cannot be null")
+
+        candidate_data = before_connection.model_dump(by_alias=True)
+        for field in (
+            "source_entity_id", "target_entity_id", "kind", "medium", "direction",
+            "properties", "allow_self_loop",
+        ):
+            if field in changes:
+                candidate_data[_to_camel(field)] = changes[field]
+        if "assertion" in changes and changes["assertion"] is not None:
+            candidate_data["assertion"]["reviewStatus"] = changes["assertion"]["review_status"]
+        candidate_data["updatedAt"] = datetime.now(UTC).isoformat().replace("+00:00", "Z")
+        candidate = EngineeringConnection.model_validate(candidate_data)
+
+        graph = self.graph(record.document_id)
+        EngineeringGraph.model_validate({
+            **graph.model_dump(by_alias=True),
+            "connections": [
+                (candidate if item.id == connection_id else item).model_dump(by_alias=True)
+                for item in graph.connections
+            ],
+        })
+        field_changes = _connection_field_changes(before_connection, candidate, changes)
+        if not field_changes:
+            return before_connection
+        record.source_entity_id = candidate.source_entity_id
+        record.target_entity_id = candidate.target_entity_id
+        record.kind = candidate.kind
+        record.medium = candidate.medium
+        record.direction = candidate.direction
+        record.properties = candidate.properties
+        record.assertion = candidate.assertion.model_dump(by_alias=True)
+        record.allow_self_loop = candidate.allow_self_loop
+        record.updated_at = _parse_timestamp(candidate.updated_at)
+        now = datetime.now(UTC)
+        self.session.add_all([
+            GraphRevisionRecord(
+                id=str(uuid4()), document_id=record.document_id, object_type="connection",
+                object_id=record.id, operation="update", field_path=path,
+                before=before, after=after, actor_type="user", created_at=now,
+            )
+            for path, before, after in field_changes
+        ])
+        self.session.commit()
+        return candidate
+
+    def delete_connection(self, connection_id: str) -> EngineeringConnection | None:
+        record = self.session.get(GraphConnectionRecord, connection_id)
+        if record is None:
+            return None
+        connection = connection_from_record(record)
+        now = datetime.now(UTC)
+        revision = GraphRevisionRecord(
+            id=str(uuid4()), document_id=record.document_id, object_type="connection",
+            object_id=record.id, operation="delete", field_path="$",
+            before=connection.model_dump(by_alias=True, exclude_none=True), after=None,
+            actor_type="user", created_at=now,
+        )
+        self.session.delete(record)
+        self.session.add(revision)
+        self.session.commit()
+        return connection
+
 
 def entity_record(entity: EngineeringEntity) -> GraphEntityRecord:
     return GraphEntityRecord(
@@ -150,6 +260,21 @@ def connection_from_record(record: GraphConnectionRecord) -> EngineeringConnecti
 def _field_changes(before: EngineeringEntity, after: EngineeringEntity, changes: dict) -> list[tuple[str, object, object]]:
     result: list[tuple[str, object, object]] = []
     for field in ("kind", "subtype", "tag", "display_name", "properties"):
+        if field in changes and getattr(before, field) != getattr(after, field):
+            result.append((_to_camel(field), getattr(before, field), getattr(after, field)))
+    if "assertion" in changes and before.assertion.review_status != after.assertion.review_status:
+        result.append(("assertion.reviewStatus", before.assertion.review_status, after.assertion.review_status))
+    return result
+
+
+def _connection_field_changes(
+    before: EngineeringConnection, after: EngineeringConnection, changes: dict
+) -> list[tuple[str, object, object]]:
+    result: list[tuple[str, object, object]] = []
+    for field in (
+        "source_entity_id", "target_entity_id", "kind", "medium", "direction",
+        "properties", "allow_self_loop",
+    ):
         if field in changes and getattr(before, field) != getattr(after, field):
             result.append((_to_camel(field), getattr(before, field), getattr(after, field)))
     if "assertion" in changes and before.assertion.review_status != after.assertion.review_status:

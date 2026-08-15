@@ -145,3 +145,142 @@ def revision_rows() -> list[GraphRevisionRecord]:
         return list(session.scalars(select(GraphRevisionRecord)).all())
     finally:
         generator.close()
+
+
+def connection_payload(source_id: str, target_id: str, **overrides: object) -> dict:
+    payload = {
+        "sourceEntityId": source_id,
+        "targetEntityId": target_id,
+        "kind": "signal",
+        "medium": "electrical",
+        "direction": "source_to_target",
+        "properties": {"service": "status"},
+        "assertion": {"reviewStatus": "unreviewed"},
+        "allowSelfLoop": False,
+    }
+    payload.update(overrides)
+    return payload
+
+
+def test_connection_create_update_delete_persists_and_revises(
+    client: TestClient, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    document_id, _ = upload_demo_document(client, tmp_path, monkeypatch)
+    entities = client.get(f"/documents/{document_id}/graph").json()["entities"]
+
+    created_response = client.post(
+        f"/documents/{document_id}/connections",
+        json=connection_payload(entities[0]["id"], entities[1]["id"]),
+    )
+    assert created_response.status_code == 201
+    created = created_response.json()
+    assert created["geometry"] is None
+    assert created["assertion"]["mode"] == "human_added"
+    assert created["provenance"] == []
+
+    updated_response = client.patch(
+        f"/connections/{created['id']}",
+        json={
+            "targetEntityId": entities[2]["id"],
+            "medium": "data",
+            "properties": {"protocol": "digital"},
+            "assertion": {"reviewStatus": "confirmed"},
+        },
+    )
+    assert updated_response.status_code == 200
+    assert updated_response.json()["targetEntityId"] == entities[2]["id"]
+    assert updated_response.json()["assertion"]["reviewStatus"] == "confirmed"
+
+    refreshed = client.get(f"/documents/{document_id}/graph").json()
+    persisted = next(item for item in refreshed["connections"] if item["id"] == created["id"])
+    assert persisted["medium"] == "data"
+    assert persisted["properties"] == {"protocol": "digital"}
+
+    deleted_response = client.delete(f"/connections/{created['id']}")
+    assert deleted_response.status_code == 204
+    assert all(
+        item["id"] != created["id"]
+        for item in client.get(f"/documents/{document_id}/graph").json()["connections"]
+    )
+
+    revisions = [row for row in revision_rows() if row.object_id == created["id"]]
+    assert [row.operation for row in revisions] == [
+        "create", "update", "update", "update", "update", "delete"
+    ]
+    assert revisions[0].before is None
+    assert revisions[0].after["id"] == created["id"]
+    assert {row.field_path for row in revisions[1:-1]} == {
+        "targetEntityId", "medium", "properties", "assertion.reviewStatus"
+    }
+    assert revisions[-1].before["id"] == created["id"]
+    assert revisions[-1].after is None
+    assert all(row.actor_type == "user" for row in revisions)
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("sourceEntityId", "missing-source"),
+        ("targetEntityId", "missing-target"),
+        ("kind", "invalid-kind"),
+        ("direction", "sideways"),
+        ("assertion", {"reviewStatus": "approved"}),
+        ("properties", "not-an-object"),
+        ("id", "immutable"),
+        ("documentId", "immutable"),
+    ],
+)
+def test_connection_create_rejects_invalid_fields(
+    client: TestClient, tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+    field: str, value: object,
+) -> None:
+    document_id, _ = upload_demo_document(client, tmp_path, monkeypatch)
+    entities = client.get(f"/documents/{document_id}/graph").json()["entities"]
+    payload = connection_payload(entities[0]["id"], entities[1]["id"])
+    payload[field] = value
+    assert client.post(f"/documents/{document_id}/connections", json=payload).status_code == 422
+
+
+def test_connection_rejects_cross_document_reference_and_disallowed_self_loop(
+    client: TestClient, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    first_id, _ = upload_demo_document(client, tmp_path, monkeypatch)
+    second_id, _ = upload_demo_document(client, tmp_path, monkeypatch)
+    first_entities = client.get(f"/documents/{first_id}/graph").json()["entities"]
+    second_entity = client.get(f"/documents/{second_id}/graph").json()["entities"][0]
+
+    cross = connection_payload(first_entities[0]["id"], second_entity["id"])
+    assert client.post(f"/documents/{first_id}/connections", json=cross).status_code == 422
+
+    loop = connection_payload(first_entities[0]["id"], first_entities[0]["id"])
+    assert client.post(f"/documents/{first_id}/connections", json=loop).status_code == 422
+    loop["allowSelfLoop"] = True
+    accepted = client.post(f"/documents/{first_id}/connections", json=loop)
+    assert accepted.status_code == 201
+    assert accepted.json()["allowSelfLoop"] is True
+
+
+def test_connection_patch_revalidates_references_and_immutable_fields(
+    client: TestClient, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    document_id, _ = upload_demo_document(client, tmp_path, monkeypatch)
+    graph = client.get(f"/documents/{document_id}/graph").json()
+    connection_id = graph["connections"][0]["id"]
+
+    assert client.patch(
+        f"/connections/{connection_id}", json={"targetEntityId": "missing"}
+    ).status_code == 422
+    assert client.patch(
+        f"/connections/{connection_id}", json={"id": "changed"}
+    ).status_code == 422
+    assert client.patch(
+        f"/connections/{connection_id}", json={"documentId": "changed"}
+    ).status_code == 422
+
+    other_document_id, _ = upload_demo_document(client, tmp_path, monkeypatch)
+    other_entity_id = client.get(
+        f"/documents/{other_document_id}/graph"
+    ).json()["entities"][0]["id"]
+    assert client.patch(
+        f"/connections/{connection_id}", json={"targetEntityId": other_entity_id}
+    ).status_code == 422

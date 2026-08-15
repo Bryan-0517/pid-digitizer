@@ -232,8 +232,8 @@ POST   /documents/{id}/digitize
 GET    /digitization-jobs/{id}
 
 PATCH  /entities/{id}
+POST   /documents/{id}/connections
 PATCH  /connections/{id}
-POST   /connections
 DELETE /connections/{id}
 
 POST   /documents/{id}/graph/query

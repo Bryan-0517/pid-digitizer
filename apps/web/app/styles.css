@@ -23,7 +23,15 @@ button { padding: 0.55rem 1rem; }
 .viewer-help { margin: 0; color: #777; font-size: 0.9rem; }
 .viewer-error { position: absolute; inset: 1rem; color: #f88; }
 .document-workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem); gap: 1rem; align-items: start; }
+.inspectors { display: grid; gap: 1rem; align-content: start; }
 .entity-inspector { border: 1px solid #777; padding: 1rem; max-height: 75vh; overflow: auto; }
+.connection-inspector { border: 1px solid #777; padding: 1rem; max-height: 75vh; overflow: auto; }
+.connection-inspector form { display: grid; margin-block: 1rem; }
+.connection-inspector form label { display: grid; gap: 0.3rem; }
+.connection-inspector input, .connection-inspector select, .connection-inspector textarea { box-sizing: border-box; width: 100%; padding: 0.4rem; }
+.connection-list { padding-left: 1.25rem; max-height: 12rem; overflow: auto; }
+.connection-list li { margin: .35rem 0; }
+.connection-list span { display: block; color: #9a6700; font-size: .8rem; }
 .entity-inspector form { display: grid; margin-block: 1rem; }
 .entity-inspector form label { display: grid; gap: 0.3rem; }
 .entity-inspector input, .entity-inspector select, .entity-inspector textarea { box-sizing: border-box; width: 100%; padding: 0.4rem; }

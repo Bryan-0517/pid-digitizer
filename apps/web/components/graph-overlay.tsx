@@ -7,10 +7,12 @@ type GraphOverlayProps = {
   graph: EngineeringGraph;
   imageSize: { width: number; height: number };
   selectedEntityId: string | null;
+  selectedConnectionId: string | null;
   showEntities: boolean;
   showConnections: boolean;
   viewScale: number;
   onSelectEntity: (entityId: string) => void;
+  onSelectConnection: (connectionId: string) => void;
 };
 
 export function entityLabel(entity: EngineeringEntity): string {
@@ -20,11 +22,11 @@ export function entityLabel(entity: EngineeringEntity): string {
 export default function GraphOverlay({
   graph,
   imageSize,
-  selectedEntityId,
+  selectedEntityId, selectedConnectionId,
   showEntities,
   showConnections,
   viewScale,
-  onSelectEntity,
+  onSelectEntity, onSelectConnection,
 }: GraphOverlayProps) {
   const strokeWidth = 2 / viewScale;
   const fontSize = 14 / viewScale;
@@ -32,16 +34,25 @@ export default function GraphOverlay({
   return (
     <>
       {showConnections && (
-        <Layer listening={false} name="connections">
+        <Layer name="connections">
           {graph.connections.map((connection) => connection.geometry?.polyline && (
             <Line
               key={connection.id}
               id={connection.id}
               points={normalizedPointsToImage(connection.geometry.polyline, imageSize)}
-              stroke="#38bdf8"
-              strokeWidth={strokeWidth}
+              stroke={connection.id === selectedConnectionId ? "#facc15" : "#38bdf8"}
+              strokeWidth={connection.id === selectedConnectionId ? strokeWidth * 2 : strokeWidth}
               lineCap="round"
               lineJoin="round"
+              hitStrokeWidth={12 / viewScale}
+              onClick={(event) => {
+                event.cancelBubble = true;
+                onSelectConnection(connection.id);
+              }}
+              onTap={(event) => {
+                event.cancelBubble = true;
+                onSelectConnection(connection.id);
+              }}
             />
           ))}
         </Layer>

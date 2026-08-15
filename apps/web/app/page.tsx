@@ -2,9 +2,10 @@
 
 import React, { FormEvent, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import type { Document, DocumentPage, EngineeringEntity, EngineeringGraph } from "../types/engineering-graph";
+import type { Document, DocumentPage, EngineeringConnection, EngineeringEntity, EngineeringGraph } from "../types/engineering-graph";
 import { sourceTypeForFilename, supportedInputMessage } from "./upload-validation";
 import EntityInspector from "../components/entity-inspector";
+import ConnectionInspector from "../components/connection-inspector";
 
 type DocumentDetail = { document: Document; page?: DocumentPage };
 
@@ -21,6 +22,7 @@ export default function Home() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [graph, setGraph] = useState<EngineeringGraph | null>(null);
   const [selectedEntityId, setSelectedEntityId] = useState<string | null>(null);
+  const [selectedConnectionId, setSelectedConnectionId] = useState<string | null>(null);
   const [loadingDocument, setLoadingDocument] = useState(false);
 
   useEffect(() => {
@@ -41,6 +43,7 @@ export default function Home() {
       setDetail((await documentResponse.json()) as DocumentDetail);
       setGraph((await graphResponse.json()) as EngineeringGraph);
       setSelectedEntityId(null);
+      setSelectedConnectionId(null);
     } catch (reason) {
       setDetail(null);
       setGraph(null);
@@ -82,6 +85,7 @@ export default function Home() {
       setDetail(uploaded);
       setGraph((await graphResponse.json()) as EngineeringGraph);
       setSelectedEntityId(null);
+      setSelectedConnectionId(null);
       window.history.replaceState(null, "", `?documentId=${encodeURIComponent(created.id)}`);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Upload failed");
@@ -94,6 +98,7 @@ export default function Home() {
     setDetail(null);
     setGraph(null);
     setSelectedEntityId(null);
+    setSelectedConnectionId(null);
     setError(null);
     window.history.replaceState(null, "", window.location.pathname);
   }
@@ -105,7 +110,27 @@ export default function Home() {
     } : current);
   }
 
+  function connectionCreated(created: EngineeringConnection) {
+    setGraph((current) => current ? { ...current, connections: [...current.connections, created] } : current);
+    setSelectedEntityId(null);
+    setSelectedConnectionId(created.id);
+  }
+
+  function connectionSaved(saved: EngineeringConnection) {
+    setGraph((current) => current ? { ...current, connections: current.connections.map((item) => item.id === saved.id ? saved : item) } : current);
+  }
+
+  function connectionDeleted(id: string) {
+    setGraph((current) => current ? { ...current, connections: current.connections.filter((item) => item.id !== id) } : current);
+    setSelectedConnectionId(null);
+  }
+
+  function selectEntity(id: string | null) { setSelectedEntityId(id); if (id) setSelectedConnectionId(null); }
+  function selectConnection(id: string | null) { setSelectedConnectionId(id); if (id) setSelectedEntityId(null); }
+  function clearSelection() { setSelectedEntityId(null); setSelectedConnectionId(null); }
+
   const selectedEntity = graph?.entities.find((entity) => entity.id === selectedEntityId) ?? null;
+  const selectedConnection = graph?.connections.find((connection) => connection.id === selectedConnectionId) ?? null;
 
   return (
     <main>
@@ -138,9 +163,20 @@ export default function Home() {
               documentName={detail.document.name}
               graph={graph}
               selectedEntityId={selectedEntityId}
-              onSelectEntity={setSelectedEntityId}
+              selectedConnectionId={selectedConnectionId}
+              onSelectEntity={selectEntity}
+              onSelectConnection={selectConnection}
+              onClearSelection={clearSelection}
             />
-            <EntityInspector entity={selectedEntity} apiUrl={apiUrl} onSaved={entitySaved} />
+            <div className="inspectors">
+              <EntityInspector entity={selectedEntity} apiUrl={apiUrl} onSaved={entitySaved} />
+              <ConnectionInspector
+                apiUrl={apiUrl} documentId={graph.documentId} entities={graph.entities}
+                connections={graph.connections} connection={selectedConnection}
+                onSelect={selectConnection} onCreated={connectionCreated}
+                onSaved={connectionSaved} onDeleted={connectionDeleted}
+              />
+            </div>
           </div>
         </section>
       )}

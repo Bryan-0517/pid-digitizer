@@ -50,7 +50,7 @@ vi.mock("react-konva", () => ({
   ),
   Rect: ({ stroke }: { stroke: string }) => <span data-testid="entity-rect" data-stroke={stroke} />,
   Text: ({ text }: { text: string }) => <span data-testid="entity-label">{text}</span>,
-  Line: ({ id }: { id: string }) => <span data-testid="connection-line" data-connection-id={id} />,
+  Line: ({ id, onClick, stroke }: { id: string; stroke: string; onClick?: (event: { cancelBubble: boolean }) => void }) => <button type="button" data-testid="connection-line" data-connection-id={id} data-stroke={stroke} onClick={(event) => { event.stopPropagation(); onClick?.({ cancelBubble: false }); }} />,
 }));
 
 const graph = testGraph();
@@ -103,7 +103,10 @@ test("mounts the page image at native dimensions inside a responsive stage", asy
       }}
       graph={graph}
       selectedEntityId={null}
+      selectedConnectionId={null}
       onSelectEntity={vi.fn()}
+      onSelectConnection={vi.fn()}
+      onClearSelection={vi.fn()}
     />,
   );
 
@@ -128,7 +131,10 @@ test("fit-to-screen restores the fitted transform after pointer zoom", async () 
       }}
       graph={graph}
       selectedEntityId={null}
+      selectedConnectionId={null}
       onSelectEntity={vi.fn()}
+      onSelectConnection={vi.fn()}
+      onClearSelection={vi.fn()}
     />,
   );
 
@@ -180,12 +186,20 @@ test("renders only a connection with explicit polyline geometry", () => {
   );
 });
 
+test("selects a rendered connection independently", () => {
+  renderViewer();
+  fireEvent.click(screen.getByTestId("connection-line"));
+  expect(screen.getByLabelText("Selected connection")).toHaveTextContent("mock-connection-with-geometry");
+  expect(screen.getByLabelText("Selected entity")).toHaveTextContent("None");
+});
+
 function renderViewer() {
   return render(<ViewerHarness />);
 }
 
 function ViewerHarness() {
   const [selected, setSelected] = useState<string | null>(null);
+  const [selectedConnection, setSelectedConnection] = useState<string | null>(null);
   return (
     <DiagramViewer
       documentName="diagram.png"
@@ -200,7 +214,10 @@ function ViewerHarness() {
       }}
       graph={graph}
       selectedEntityId={selected}
-      onSelectEntity={setSelected}
+      selectedConnectionId={selectedConnection}
+      onSelectEntity={(id) => { setSelected(id); if (id) setSelectedConnection(null); }}
+      onSelectConnection={(id) => { setSelectedConnection(id); if (id) setSelected(null); }}
+      onClearSelection={() => { setSelected(null); setSelectedConnection(null); }}
     />
   );
 }
