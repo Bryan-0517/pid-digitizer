@@ -113,6 +113,13 @@ class DigitizerProvider(Protocol):
 
 A provider may internally perform OCR, symbol recognition or multiple model calls. That complexity must not leak into the domain model.
 
+The provider boundary accepts a normalized page-image input, instructions, task prompt, requested
+JSON Schema, and optional provider settings. It returns validated proposal data plus normalized
+provider/model, request ID, latency, usage, warning, and safe debug metadata. Provider output remains
+a proposal and cannot mutate EngineeringGraph until a later validation/adapter stage. T009 supplies
+only a deterministic fixture-driven mock; no real vendor is selected. `AI_PROVIDER`, `AI_MODEL`, and
+`AI_API_KEY` are optional until AI functionality is invoked.
+
 ## 7. Two-stage extraction strategy
 
 Prefer two logical stages:
