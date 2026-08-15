@@ -6,7 +6,9 @@ label { font-weight: 600; flex-basis: 100%; }
 button { padding: 0.55rem 1rem; }
 .error { min-height: 1.5rem; color: #c33; }
 .diagram-viewer { display: grid; gap: 0.5rem; }
-.viewer-toolbar { display: flex; align-items: center; gap: 1rem; }
+.viewer-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+.viewer-toolbar label { display: inline-flex; align-items: center; gap: 0.3rem; font-weight: 500; }
+.mock-notice { padding: 0.25rem 0.5rem; border: 1px solid #d97706; color: #f59e0b; font-size: 0.85rem; }
 .canvas-container {
   position: relative;
   width: 100%;

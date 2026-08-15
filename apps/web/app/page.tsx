@@ -4,6 +4,7 @@ import React, { FormEvent, useState } from "react";
 import dynamic from "next/dynamic";
 import type { Document, DocumentPage } from "../types/engineering-graph";
 import { sourceTypeForFilename, supportedInputMessage } from "./upload-validation";
+import { createMockEngineeringGraph } from "../fixtures/mock-engineering-graph";
 
 type DocumentDetail = { document: Document; page?: DocumentPage };
 
@@ -77,6 +78,7 @@ export default function Home() {
             page={detail.page}
             imageUrl={`${apiUrl}${detail.page.imageUri}`}
             documentName={detail.document.name}
+            graph={createMockEngineeringGraph(detail.document.id, detail.page.id)}
           />
         </section>
       )}

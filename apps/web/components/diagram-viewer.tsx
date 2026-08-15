@@ -4,13 +4,15 @@ import Konva from "konva";
 import React from "react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Image as KonvaImage, Layer, Stage } from "react-konva";
-import type { DocumentPage } from "../types/engineering-graph";
+import type { DocumentPage, EngineeringGraph } from "../types/engineering-graph";
+import GraphOverlay from "./graph-overlay";
 import { fitTransform, Point, ViewTransform, zoomAtPoint } from "./view-transform";
 
 type DiagramViewerProps = {
   page: DocumentPage;
   imageUrl: string;
   documentName: string;
+  graph: EngineeringGraph;
 };
 
 type Size = { width: number; height: number };
@@ -18,7 +20,7 @@ type Size = { width: number; height: number };
 const INITIAL_VIEW: ViewTransform = { x: 0, y: 0, scale: 1 };
 const WHEEL_SCALE = 1.08;
 
-export default function DiagramViewer({ page, imageUrl, documentName }: DiagramViewerProps) {
+export default function DiagramViewer({ page, imageUrl, documentName, graph }: DiagramViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<Konva.Stage>(null);
   const lastPinchRef = useRef<{ center: Point; distance: number } | null>(null);
@@ -27,6 +29,9 @@ export default function DiagramViewer({ page, imageUrl, documentName }: DiagramV
   const [imageError, setImageError] = useState(false);
   const [view, setView] = useState<ViewTransform>(INITIAL_VIEW);
   const [fitMode, setFitMode] = useState(true);
+  const [selectedEntityId, setSelectedEntityId] = useState<string | null>(null);
+  const [showEntities, setShowEntities] = useState(true);
+  const [showConnections, setShowConnections] = useState(true);
 
   useLayoutEffect(() => {
     const container = containerRef.current;
@@ -111,6 +116,9 @@ export default function DiagramViewer({ page, imageUrl, documentName }: DiagramV
       <div className="viewer-toolbar" aria-label="Diagram view controls">
         <button type="button" onClick={fitToScreen}>Fit to screen</button>
         <output aria-label="Zoom level">{Math.round(view.scale * 100)}%</output>
+        <label><input type="checkbox" checked={showEntities} onChange={(event) => setShowEntities(event.target.checked)} /> Entities</label>
+        <label><input type="checkbox" checked={showConnections} onChange={(event) => setShowConnections(event.target.checked)} /> Connections</label>
+        <span className="mock-notice">Mock overlay — unreviewed</span>
       </div>
       <div
         ref={containerRef}
@@ -136,6 +144,12 @@ export default function DiagramViewer({ page, imageUrl, documentName }: DiagramV
             onWheel={handleWheel}
             onTouchMove={handleTouchMove}
             onTouchEnd={() => { lastPinchRef.current = null; }}
+            onClick={(event) => {
+              if (event.target === event.target.getStage()) setSelectedEntityId(null);
+            }}
+            onTap={(event) => {
+              if (event.target === event.target.getStage()) setSelectedEntityId(null);
+            }}
           >
             <Layer listening={false}>
               {image && (
@@ -148,10 +162,20 @@ export default function DiagramViewer({ page, imageUrl, documentName }: DiagramV
                 />
               )}
             </Layer>
+            <GraphOverlay
+              graph={graph}
+              imageSize={{ width: page.widthPx, height: page.heightPx }}
+              selectedEntityId={selectedEntityId}
+              showEntities={showEntities}
+              showConnections={showConnections}
+              viewScale={view.scale}
+              onSelectEntity={setSelectedEntityId}
+            />
           </Stage>
         )}
         {imageError && <p className="viewer-error" role="alert">Page image could not be loaded.</p>}
       </div>
+      <output aria-label="Selected entity">{selectedEntityId ?? "None"}</output>
       <p className="viewer-help">Drag to pan. Scroll or pinch to zoom.</p>
     </div>
   );
