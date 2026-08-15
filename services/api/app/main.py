@@ -7,6 +7,7 @@ from pydantic import BaseModel
 
 from app.config import settings
 from app.database import create_schema
+from app.digitization.router import router as digitization_router
 from app.documents.router import router as documents_router
 from app.graphs.router import router as graphs_router
 
@@ -33,6 +34,7 @@ app.add_middleware(
 )
 app.mount("/files", StaticFiles(directory=settings.storage_dir, check_dir=False), name="files")
 app.include_router(documents_router)
+app.include_router(digitization_router)
 app.include_router(graphs_router)
 
 

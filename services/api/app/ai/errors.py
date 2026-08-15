@@ -43,8 +43,11 @@ class MalformedStructuredOutputError(AIProviderError):
 
 
 class ResponseParsingError(AIProviderError):
-    def __init__(self) -> None:
-        super().__init__(AIErrorCode.PARSING_FAILED, "AI provider response could not be parsed")
+    def __init__(self, reason: str | None = None) -> None:
+        message = "AI provider response could not be parsed"
+        if reason:
+            message += f" ({reason})"
+        super().__init__(AIErrorCode.PARSING_FAILED, message)
 
 
 class UnsupportedMediaInputError(AIProviderError):

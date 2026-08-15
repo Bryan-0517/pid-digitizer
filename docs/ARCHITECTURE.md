@@ -120,6 +120,15 @@ a proposal and cannot mutate EngineeringGraph until a later validation/adapter s
 only a deterministic fixture-driven mock; no real vendor is selected. `AI_PROVIDER`, `AI_MODEL`, and
 `AI_API_KEY` are optional until AI functionality is invoked.
 
+T010 adds an OpenAI adapter using the Responses API with image input and Pydantic structured-output
+parsing. It is selected only with `AI_PROVIDER=openai`; `AI_MODEL` remains explicit configuration.
+Validated entity candidates remain proposals and are not written to EngineeringGraph.
+
+T011 exposes a synchronous, proposal-only `POST /documents/{id}/digitize` development path. It
+runs entity extraction followed by topology extraction against the normalized page image. Topology
+may reference only returned entity candidate IDs, all proposed relationships remain inferred, and
+neither pass writes to the canonical EngineeringGraph. Durable job execution remains a later concern.
+
 ## 7. Two-stage extraction strategy
 
 Prefer two logical stages:
