@@ -17,6 +17,7 @@ from app.documents.service import (
     validate_upload_filename,
 )
 from app.domain.models import Document, DocumentPage
+from app.graphs.repository import GraphRepository
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 
@@ -84,6 +85,8 @@ async def upload_document(
         page_record = repository.save_page(
             record, page_id, image_uri, normalized.image.width, normalized.image.height
         )
+        if settings.demo_mock_graph:
+            GraphRepository(session).seed_demo_if_empty(record.id, page_record.id)
     except UploadValidationError as exc:
         repository.set_status(record, "error")
         raise HTTPException(status_code=422, detail=str(exc)) from exc

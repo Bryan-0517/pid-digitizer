@@ -198,6 +198,15 @@ Large source files/page renders stay outside PostgreSQL; store paths/URIs in the
 
 Use JSONB for flexible entity properties, but keep frequently queried identity/topology fields relational.
 
+`EngineeringGraph` records are persisted in `graph_entities` and `graph_connections`; edits create
+field-level rows in `graph_revisions`. `GET /documents/{id}/graph` reconstructs the canonical aggregate
+from those records. New documents have an empty graph by default. The development-only
+`DEMO_MOCK_GRAPH` flag may idempotently seed the explicit T004 fixture after upload; it defaults to
+`false` and must not be treated as normal product digitization.
+
+The web application identifies a reopened document with the `documentId` URL query parameter and
+reloads both the document/page and its canonical graph from the API.
+
 ## 11. Revision model
 
 Every user edit should be attributable.

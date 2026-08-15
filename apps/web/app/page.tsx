@@ -1,10 +1,10 @@
 "use client";
 
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import type { Document, DocumentPage } from "../types/engineering-graph";
+import type { Document, DocumentPage, EngineeringEntity, EngineeringGraph } from "../types/engineering-graph";
 import { sourceTypeForFilename, supportedInputMessage } from "./upload-validation";
-import { createMockEngineeringGraph } from "../fixtures/mock-engineering-graph";
+import EntityInspector from "../components/entity-inspector";
 
 type DocumentDetail = { document: Document; page?: DocumentPage };
 
@@ -19,6 +19,36 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [graph, setGraph] = useState<EngineeringGraph | null>(null);
+  const [selectedEntityId, setSelectedEntityId] = useState<string | null>(null);
+  const [loadingDocument, setLoadingDocument] = useState(false);
+
+  useEffect(() => {
+    const documentId = new URLSearchParams(window.location.search).get("documentId");
+    if (documentId) void loadDocument(documentId);
+  }, []);
+
+  async function loadDocument(documentId: string) {
+    setLoadingDocument(true);
+    setError(null);
+    try {
+      const [documentResponse, graphResponse] = await Promise.all([
+        fetch(`${apiUrl}/documents/${documentId}`),
+        fetch(`${apiUrl}/documents/${documentId}/graph`),
+      ]);
+      if (!documentResponse.ok) throw new Error(await errorMessage(documentResponse));
+      if (!graphResponse.ok) throw new Error(await errorMessage(graphResponse));
+      setDetail((await documentResponse.json()) as DocumentDetail);
+      setGraph((await graphResponse.json()) as EngineeringGraph);
+      setSelectedEntityId(null);
+    } catch (reason) {
+      setDetail(null);
+      setGraph(null);
+      setError(reason instanceof Error ? reason.message : "Document could not be loaded");
+    } finally {
+      setLoadingDocument(false);
+    }
+  }
 
   async function upload(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -46,7 +76,13 @@ export default function Home() {
         body: uploadBody,
       });
       if (!uploadResponse.ok) throw new Error(await errorMessage(uploadResponse));
-      setDetail((await uploadResponse.json()) as DocumentDetail);
+      const uploaded = (await uploadResponse.json()) as DocumentDetail;
+      const graphResponse = await fetch(`${apiUrl}/documents/${created.id}/graph`);
+      if (!graphResponse.ok) throw new Error(await errorMessage(graphResponse));
+      setDetail(uploaded);
+      setGraph((await graphResponse.json()) as EngineeringGraph);
+      setSelectedEntityId(null);
+      window.history.replaceState(null, "", `?documentId=${encodeURIComponent(created.id)}`);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Upload failed");
     } finally {
@@ -54,11 +90,28 @@ export default function Home() {
     }
   }
 
+  function returnToUpload() {
+    setDetail(null);
+    setGraph(null);
+    setSelectedEntityId(null);
+    setError(null);
+    window.history.replaceState(null, "", window.location.pathname);
+  }
+
+  function entitySaved(saved: EngineeringEntity) {
+    setGraph((current) => current ? {
+      ...current,
+      entities: current.entities.map((entity) => entity.id === saved.id ? saved : entity),
+    } : current);
+  }
+
+  const selectedEntity = graph?.entities.find((entity) => entity.id === selectedEntityId) ?? null;
+
   return (
     <main>
       <h1>P&amp;ID Digitizer</h1>
       <p>Upload a PNG, JPG/JPEG, or single-page PDF.</p>
-      <form onSubmit={upload}>
+      {!detail && <form onSubmit={upload}>
         <label htmlFor="diagram">Engineering diagram</label>
         <input
           id="diagram"
@@ -69,17 +122,26 @@ export default function Home() {
           required
         />
         <button type="submit" disabled={uploading}>{uploading ? "Uploading…" : "Upload"}</button>
-      </form>
+      </form>}
+      {loadingDocument && <p aria-live="polite">Loading document…</p>}
       <p className="error" role="alert">{error}</p>
-      {detail?.page && (
+      {error && new URLSearchParams(typeof window === "undefined" ? "" : window.location.search).has("documentId") && (
+        <button type="button" onClick={returnToUpload}>Return to upload</button>
+      )}
+      {detail?.page && graph && (
         <section aria-label="Uploaded document">
           <h2>{detail.document.name}</h2>
-          <DiagramViewer
-            page={detail.page}
-            imageUrl={`${apiUrl}${detail.page.imageUri}`}
-            documentName={detail.document.name}
-            graph={createMockEngineeringGraph(detail.document.id, detail.page.id)}
-          />
+          <div className="document-workspace">
+            <DiagramViewer
+              page={detail.page}
+              imageUrl={`${apiUrl}${detail.page.imageUri}`}
+              documentName={detail.document.name}
+              graph={graph}
+              selectedEntityId={selectedEntityId}
+              onSelectEntity={setSelectedEntityId}
+            />
+            <EntityInspector entity={selectedEntity} apiUrl={apiUrl} onSaved={entitySaved} />
+          </div>
         </section>
       )}
     </main>

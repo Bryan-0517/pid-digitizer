@@ -7,6 +7,7 @@ from pathlib import Path
 class Settings:
     database_url: str
     storage_dir: Path
+    demo_mock_graph: bool
 
 
 def _database_url() -> str:
@@ -22,4 +23,5 @@ def _database_url() -> str:
 settings = Settings(
     database_url=_database_url(),
     storage_dir=Path(os.getenv("STORAGE_DIR", "data")),
+    demo_mock_graph=os.getenv("DEMO_MOCK_GRAPH", "false").lower() in {"1", "true", "yes"},
 )

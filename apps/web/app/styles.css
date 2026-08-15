@@ -22,3 +22,14 @@ button { padding: 0.55rem 1rem; }
 .canvas-container:active { cursor: grabbing; }
 .viewer-help { margin: 0; color: #777; font-size: 0.9rem; }
 .viewer-error { position: absolute; inset: 1rem; color: #f88; }
+.document-workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem); gap: 1rem; align-items: start; }
+.entity-inspector { border: 1px solid #777; padding: 1rem; max-height: 75vh; overflow: auto; }
+.entity-inspector form { display: grid; margin-block: 1rem; }
+.entity-inspector form label { display: grid; gap: 0.3rem; }
+.entity-inspector input, .entity-inspector select, .entity-inspector textarea { box-sizing: border-box; width: 100%; padding: 0.4rem; }
+.inspector-actions { display: flex; gap: 0.5rem; }
+.read-only-fields { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.25rem 0.75rem; font-size: 0.85rem; }
+.read-only-fields dt { font-weight: 700; }
+.read-only-fields dd { margin: 0; overflow-wrap: anywhere; }
+.entity-inspector pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.75rem; }
+@media (max-width: 800px) { .document-workspace { grid-template-columns: 1fr; } }

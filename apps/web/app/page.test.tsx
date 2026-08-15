@@ -5,14 +5,29 @@ import Home from "./page";
 import { sourceTypeForFilename } from "./upload-validation";
 
 vi.mock("../components/diagram-viewer", () => ({
-  default: ({ documentName }: { documentName: string }) => (
-    <div role="img" aria-label={`Interactive page 1 of ${documentName}`} />
+  default: ({ documentName, graph, onSelectEntity }: {
+    documentName: string;
+    graph: { entities: Array<{ id: string }> };
+    onSelectEntity: (id: string) => void;
+  }) => (
+    <div role="img" aria-label={`Interactive page 1 of ${documentName}`}>
+      {graph.entities[0] && <button onClick={() => onSelectEntity(graph.entities[0].id)}>Select fixture entity</button>}
+    </div>
   ),
 }));
+
+const persistedEntity = {
+  id: "entity-1", documentId: "doc-1", pageId: "page-1", kind: "equipment",
+  tag: "P-SAVED", displayName: "Persisted pump", properties: {},
+  assertion: { mode: "human_added", reviewStatus: "unreviewed" }, provenance: [],
+  geometry: { bbox: { x: 0.1, y: 0.1, width: 0.2, height: 0.2 } },
+  createdAt: "2026-01-01T00:00:00Z", updatedAt: "2026-01-01T00:00:00Z",
+};
 
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
+  window.history.replaceState(null, "", "/");
 });
 
 test.each([
@@ -55,6 +70,10 @@ test("uploads and displays a normalized document page", async () => {
         document: { id: "doc-1", name: "diagram.png", sourceType: "image", status: "ready" },
         page: { id: "page-1", documentId: "doc-1", pageNumber: 1, imageUri: "/files/page.png", widthPx: 20, heightPx: 10 },
       }),
+    })
+    .mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ schemaVersion: "0.1", documentId: "doc-1", entities: [], connections: [], metadata: {} }),
     });
   vi.stubGlobal("fetch", fetchMock);
   render(<Home />);
@@ -66,7 +85,30 @@ test("uploads and displays a normalized document page", async () => {
   await waitFor(() => expect(screen.getByRole("img", {
     name: "Interactive page 1 of diagram.png",
   })).toBeInTheDocument());
-  expect(fetchMock).toHaveBeenCalledTimes(2);
+  expect(fetchMock).toHaveBeenCalledTimes(3);
+  expect(window.location.search).toBe("?documentId=doc-1");
+});
+
+test("reopens a persisted document and graph from the URL", async () => {
+  window.history.replaceState(null, "", "/?documentId=doc-1");
+  const fetchMock = vi.fn()
+    .mockResolvedValueOnce({ ok: true, json: async () => ({
+      document: { id: "doc-1", name: "saved.png", sourceType: "image", status: "ready" },
+      page: { id: "page-1", documentId: "doc-1", pageNumber: 1, imageUri: "/files/page.png", widthPx: 20, heightPx: 10 },
+    }) })
+    .mockResolvedValueOnce({ ok: true, json: async () => ({
+      schemaVersion: "0.1", documentId: "doc-1", entities: [persistedEntity], connections: [], metadata: {},
+    }) });
+  vi.stubGlobal("fetch", fetchMock);
+
+  render(<Home />);
+
+  await waitFor(() => expect(screen.getByRole("img", {
+    name: "Interactive page 1 of saved.png",
+  })).toBeInTheDocument());
+  expect(fetchMock).toHaveBeenCalledWith("http://localhost:8000/documents/doc-1/graph");
+  fireEvent.click(screen.getByRole("button", { name: "Select fixture entity" }));
+  expect(screen.getByLabelText("Tag")).toHaveValue("P-SAVED");
 });
 
 test("shows a clear backend upload error", async () => {

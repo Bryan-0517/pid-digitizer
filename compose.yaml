@@ -22,6 +22,7 @@ services:
       STORAGE_DIR: /app/data
       DIGITIZER_PROVIDER: fake
       DEXPI_ENABLED: "false"
+      DEMO_MOCK_GRAPH: "true"
     depends_on:
       db:
         condition: service_healthy

@@ -1,8 +1,8 @@
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import React, { useImperativeHandle } from "react";
+import React, { useImperativeHandle, useState } from "react";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import DiagramViewer from "./diagram-viewer";
-import { createMockEngineeringGraph } from "../fixtures/mock-engineering-graph";
+import type { EngineeringGraph } from "../types/engineering-graph";
 
 vi.mock("react-konva", () => ({
   Stage: React.forwardRef(function MockStage(
@@ -53,7 +53,7 @@ vi.mock("react-konva", () => ({
   Line: ({ id }: { id: string }) => <span data-testid="connection-line" data-connection-id={id} />,
 }));
 
-const graph = createMockEngineeringGraph("doc-1", "page-1");
+const graph = testGraph();
 
 class ResizeObserverMock {
   constructor(private callback: ResizeObserverCallback) {}
@@ -102,6 +102,8 @@ test("mounts the page image at native dimensions inside a responsive stage", asy
         heightPx: 800,
       }}
       graph={graph}
+      selectedEntityId={null}
+      onSelectEntity={vi.fn()}
     />,
   );
 
@@ -125,6 +127,8 @@ test("fit-to-screen restores the fitted transform after pointer zoom", async () 
         heightPx: 800,
       }}
       graph={graph}
+      selectedEntityId={null}
+      onSelectEntity={vi.fn()}
     />,
   );
 
@@ -177,7 +181,12 @@ test("renders only a connection with explicit polyline geometry", () => {
 });
 
 function renderViewer() {
-  return render(
+  return render(<ViewerHarness />);
+}
+
+function ViewerHarness() {
+  const [selected, setSelected] = useState<string | null>(null);
+  return (
     <DiagramViewer
       documentName="diagram.png"
       imageUrl="http://localhost:8000/files/page.png"
@@ -190,6 +199,29 @@ function renderViewer() {
         heightPx: 800,
       }}
       graph={graph}
-    />,
+      selectedEntityId={selected}
+      onSelectEntity={setSelected}
+    />
   );
+}
+
+function testGraph(): EngineeringGraph {
+  const base = {
+    documentId: "doc-1", pageId: "page-1", properties: {},
+    assertion: { mode: "human_added" as const, reviewStatus: "unreviewed" as const },
+    provenance: [], createdAt: "2026-01-01T00:00:00Z", updatedAt: "2026-01-01T00:00:00Z",
+  };
+  return {
+    schemaVersion: "0.1", documentId: "doc-1", metadata: {},
+    entities: [
+      { ...base, id: "mock-equipment-1", kind: "equipment", tag: "P-MOCK-1", geometry: { bbox: { x: .1, y: .1, width: .1, height: .1 } } },
+      { ...base, id: "mock-valve-1", kind: "valve", tag: "V-MOCK-1", geometry: { bbox: { x: .3, y: .1, width: .1, height: .1 } } },
+      { ...base, id: "mock-instrument-1", kind: "instrument", displayName: "Mock indicator", geometry: { bbox: { x: .5, y: .1, width: .1, height: .1 } } },
+      { ...base, id: "mock-boundary-1", kind: "boundary", geometry: { bbox: { x: .7, y: .1, width: .1, height: .1 } } },
+    ],
+    connections: [
+      { ...base, id: "mock-connection-with-geometry", sourceEntityId: "mock-equipment-1", targetEntityId: "mock-valve-1", kind: "process", geometry: { polyline: [{ x: .2, y: .2 }, { x: .3, y: .2 }] } },
+      { ...base, id: "mock-connection-without-geometry", sourceEntityId: "mock-valve-1", targetEntityId: "mock-boundary-1", kind: "process" },
+    ],
+  };
 }

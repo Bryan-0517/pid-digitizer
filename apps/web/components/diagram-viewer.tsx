@@ -13,6 +13,8 @@ type DiagramViewerProps = {
   imageUrl: string;
   documentName: string;
   graph: EngineeringGraph;
+  selectedEntityId: string | null;
+  onSelectEntity: (entityId: string | null) => void;
 };
 
 type Size = { width: number; height: number };
@@ -20,7 +22,9 @@ type Size = { width: number; height: number };
 const INITIAL_VIEW: ViewTransform = { x: 0, y: 0, scale: 1 };
 const WHEEL_SCALE = 1.08;
 
-export default function DiagramViewer({ page, imageUrl, documentName, graph }: DiagramViewerProps) {
+export default function DiagramViewer({
+  page, imageUrl, documentName, graph, selectedEntityId, onSelectEntity,
+}: DiagramViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<Konva.Stage>(null);
   const lastPinchRef = useRef<{ center: Point; distance: number } | null>(null);
@@ -29,7 +33,6 @@ export default function DiagramViewer({ page, imageUrl, documentName, graph }: D
   const [imageError, setImageError] = useState(false);
   const [view, setView] = useState<ViewTransform>(INITIAL_VIEW);
   const [fitMode, setFitMode] = useState(true);
-  const [selectedEntityId, setSelectedEntityId] = useState<string | null>(null);
   const [showEntities, setShowEntities] = useState(true);
   const [showConnections, setShowConnections] = useState(true);
 
@@ -118,7 +121,9 @@ export default function DiagramViewer({ page, imageUrl, documentName, graph }: D
         <output aria-label="Zoom level">{Math.round(view.scale * 100)}%</output>
         <label><input type="checkbox" checked={showEntities} onChange={(event) => setShowEntities(event.target.checked)} /> Entities</label>
         <label><input type="checkbox" checked={showConnections} onChange={(event) => setShowConnections(event.target.checked)} /> Connections</label>
-        <span className="mock-notice">Mock overlay — unreviewed</span>
+        {graph.entities.some((entity) => entity.provenance.some(
+          (evidence) => evidence.sourceRef === "t004-mock-fixture",
+        )) && <span className="mock-notice">Mock overlay — unreviewed</span>}
       </div>
       <div
         ref={containerRef}
@@ -145,10 +150,10 @@ export default function DiagramViewer({ page, imageUrl, documentName, graph }: D
             onTouchMove={handleTouchMove}
             onTouchEnd={() => { lastPinchRef.current = null; }}
             onClick={(event) => {
-              if (event.target === event.target.getStage()) setSelectedEntityId(null);
+              if (event.target === event.target.getStage()) onSelectEntity(null);
             }}
             onTap={(event) => {
-              if (event.target === event.target.getStage()) setSelectedEntityId(null);
+              if (event.target === event.target.getStage()) onSelectEntity(null);
             }}
           >
             <Layer listening={false}>
@@ -169,7 +174,7 @@ export default function DiagramViewer({ page, imageUrl, documentName, graph }: D
               showEntities={showEntities}
               showConnections={showConnections}
               viewScale={view.scale}
-              onSelectEntity={setSelectedEntityId}
+              onSelectEntity={onSelectEntity}
             />
           </Stage>
         )}

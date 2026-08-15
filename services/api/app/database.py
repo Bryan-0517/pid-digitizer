@@ -16,6 +16,7 @@ SessionLocal = sessionmaker(bind=engine, expire_on_commit=False)
 
 def create_schema() -> None:
     from app.documents import db_models  # noqa: F401
+    from app.graphs import db_models as graph_db_models  # noqa: F401
 
     Base.metadata.create_all(engine)
 

@@ -1,45 +1,11 @@
-from collections.abc import Generator
 from io import BytesIO
 from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
 from PIL import Image
-from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker
-from sqlalchemy.pool import StaticPool
 
-import app.documents.router as document_router
-from app.config import Settings
-from app.database import Base, get_session
-from app.documents import db_models  # noqa: F401
 from app.documents.service import UploadValidationError, normalize_upload
-from app.main import app
-
-
-@pytest.fixture
-def client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Generator[TestClient, None, None]:
-    test_engine = create_engine(
-        "sqlite://",
-        connect_args={"check_same_thread": False},
-        poolclass=StaticPool,
-    )
-    Base.metadata.create_all(test_engine)
-    test_sessions = sessionmaker(bind=test_engine, expire_on_commit=False)
-
-    def session_override() -> Generator[Session, None, None]:
-        with test_sessions() as session:
-            yield session
-
-    monkeypatch.setattr(
-        document_router,
-        "settings",
-        Settings(database_url="sqlite://", storage_dir=tmp_path),
-    )
-    app.dependency_overrides[get_session] = session_override
-    yield TestClient(app)
-    app.dependency_overrides.clear()
-    Base.metadata.drop_all(test_engine)
 
 
 def png_bytes(width: int = 12, height: int = 8) -> bytes:

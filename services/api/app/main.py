@@ -8,6 +8,7 @@ from pydantic import BaseModel
 from app.config import settings
 from app.database import create_schema
 from app.documents.router import router as documents_router
+from app.graphs.router import router as graphs_router
 
 
 class HealthResponse(BaseModel):
@@ -27,11 +28,12 @@ app = FastAPI(title="P&ID Digitizer API", version="0.1.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
-    allow_methods=["GET", "POST"],
+    allow_methods=["GET", "POST", "PATCH"],
     allow_headers=["*"],
 )
 app.mount("/files", StaticFiles(directory=settings.storage_dir, check_dir=False), name="files")
 app.include_router(documents_router)
+app.include_router(graphs_router)
 
 
 @app.get("/health", response_model=HealthResponse)
