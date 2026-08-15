@@ -3,6 +3,12 @@ import React from "react";
 import { afterEach, expect, test, vi } from "vitest";
 import Home from "./page";
 
+vi.mock("../components/diagram-viewer", () => ({
+  default: ({ documentName }: { documentName: string }) => (
+    <div role="img" aria-label={`Interactive page 1 of ${documentName}`} />
+  ),
+}));
+
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
@@ -28,7 +34,9 @@ test("uploads and displays a normalized document page", async () => {
   fireEvent.change(input, { target: { files: [file] } });
   fireEvent.submit(input.closest("form")!);
 
-  await waitFor(() => expect(screen.getByAltText("Page 1 of diagram.png")).toBeInTheDocument());
+  await waitFor(() => expect(screen.getByRole("img", {
+    name: "Interactive page 1 of diagram.png",
+  })).toBeInTheDocument());
   expect(fetchMock).toHaveBeenCalledTimes(2);
 });
 

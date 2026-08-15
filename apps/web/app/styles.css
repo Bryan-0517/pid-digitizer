@@ -5,4 +5,18 @@ form { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin
 label { font-weight: 600; flex-basis: 100%; }
 button { padding: 0.55rem 1rem; }
 .error { min-height: 1.5rem; color: #c33; }
-.page-image { display: block; width: 100%; height: auto; border: 1px solid #777; background: white; }
+.diagram-viewer { display: grid; gap: 0.5rem; }
+.viewer-toolbar { display: flex; align-items: center; gap: 1rem; }
+.canvas-container {
+  position: relative;
+  width: 100%;
+  height: clamp(24rem, 70vh, 48rem);
+  overflow: hidden;
+  border: 1px solid #777;
+  background: #25282c;
+  cursor: grab;
+  touch-action: none;
+}
+.canvas-container:active { cursor: grabbing; }
+.viewer-help { margin: 0; color: #777; font-size: 0.9rem; }
+.viewer-error { position: absolute; inset: 1rem; color: #f88; }

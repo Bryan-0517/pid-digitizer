@@ -1,11 +1,16 @@
 "use client";
 
 import React, { FormEvent, useState } from "react";
+import dynamic from "next/dynamic";
 import type { Document, DocumentPage } from "../types/engineering-graph";
 
 type DocumentDetail = { document: Document; page?: DocumentPage };
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+const DiagramViewer = dynamic(() => import("../components/diagram-viewer"), {
+  ssr: false,
+  loading: () => <p>Loading diagram viewer…</p>,
+});
 
 export default function Home() {
   const [detail, setDetail] = useState<DocumentDetail | null>(null);
@@ -63,14 +68,10 @@ export default function Home() {
       {detail?.page && (
         <section aria-label="Uploaded document">
           <h2>{detail.document.name}</h2>
-          {/* This is the static page view; interactive canvas behavior belongs to T003. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            className="page-image"
-            src={`${apiUrl}${detail.page.imageUri}`}
-            width={detail.page.widthPx}
-            height={detail.page.heightPx}
-            alt={`Page 1 of ${detail.document.name}`}
+          <DiagramViewer
+            page={detail.page}
+            imageUrl={`${apiUrl}${detail.page.imageUri}`}
+            documentName={detail.document.name}
           />
         </section>
       )}
