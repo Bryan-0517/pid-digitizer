@@ -1,0 +1,12 @@
+{
+  "name": "pid-digitizer",
+  "private": true,
+  "workspaces": ["apps/web"],
+  "scripts": {
+    "dev": "docker compose up --build",
+    "dev:down": "docker compose down",
+    "lint": "npm run lint --workspace apps/web && python -m ruff check services/api",
+    "test": "npm run test --workspace apps/web && python -m pytest services/api/tests"
+  },
+  "engines": { "node": ">=20" }
+}

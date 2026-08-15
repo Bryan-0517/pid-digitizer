@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "0.1",
+  "documentId": "demo-doc",
+  "entities": [
+    {
+      "id": "e-p101",
+      "documentId": "demo-doc",
+      "pageId": "page-1",
+      "kind": "equipment",
+      "subtype": "pump",
+      "tag": "P-101",
+      "displayName": "Demo Pump",
+      "properties": {},
+      "geometry": {
+        "bbox": {
+          "x": 0.2,
+          "y": 0.4,
+          "width": 0.08,
+          "height": 0.1
+        }
+      },
+      "confidence": 0.95,
+      "assertion": {
+        "mode": "observed",
+        "reviewStatus": "unreviewed"
+      },
+      "provenance": [
+        {
+          "id": "ev-1",
+          "sourceType": "page_image",
+          "sourceRef": "page-1",
+          "confidence": 0.95
+        }
+      ],
+      "dexpi": {
+        "suggestedClass": "Pump",
+        "mappingStatus": "not_checked"
+      },
+      "createdAt": "2026-08-14T00:00:00Z",
+      "updatedAt": "2026-08-14T00:00:00Z"
+    }
+  ],
+  "connections": [],
+  "metadata": {
+    "name": "Minimal example"
+  }
+}
