@@ -47,3 +47,34 @@ export type DexpiMappingReport = {
   };
   warnings: string[];
 };
+
+export type DexpiExportAvailability = {
+  enabled: boolean;
+  available: boolean;
+  pydexpiVersion: "1.2.0";
+  targetDexpiVersion: "1.3";
+  artifactLabel: string;
+  reason?: string;
+};
+
+export type DexpiConversionReport = {
+  status: "ready" | "blocked" | "empty" | "no_exportable_content";
+  pydexpiVersion: "1.2.0";
+  targetDexpiVersion: "1.3";
+  conformanceValidated: false;
+  artifactLabel: string;
+  includedObjects: Array<{ canonicalId: string; canonicalKind: string; pydexpiClass: string; convertedFieldPaths: string[] }>;
+  omittedObjects: Array<{ canonicalId: string; objectType: "entity" | "connection"; canonicalKind: string; t015Disposition: string; reasonCode: string; message: string }>;
+  omittedFields: Array<{ canonicalId: string; path: string; reasonCode: string; message: string }>;
+  blockingObjects: Array<{ canonicalId: string; reasonCodes: string[] }>;
+  warnings: string[];
+};
+
+export type PydexpiCompatibilityArtifact = {
+  artifactLabel: string;
+  conformanceValidated: false;
+  conversionReport: DexpiConversionReport;
+  pydexpiModel: unknown;
+  pydexpiVersion: "1.2.0";
+  targetDexpiVersion: "1.3";
+};

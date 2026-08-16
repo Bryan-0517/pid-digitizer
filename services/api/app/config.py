@@ -11,6 +11,7 @@ class Settings:
     ai_provider: str | None = None
     ai_model: str | None = None
     ai_api_key: str | None = field(default=None, repr=False)
+    pydexpi_export_enabled: bool = False
 
 
 def _database_url() -> str:
@@ -30,4 +31,6 @@ settings = Settings(
     ai_provider=os.getenv("AI_PROVIDER") or None,
     ai_model=os.getenv("AI_MODEL") or None,
     ai_api_key=os.getenv("AI_API_KEY") or None,
+    pydexpi_export_enabled=os.getenv("PYDEXPI_EXPORT_ENABLED", "false").lower()
+    in {"1", "true", "yes"},
 )

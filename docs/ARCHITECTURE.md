@@ -210,7 +210,14 @@ export guarantee. `POST /documents/{id}/dexpi/validate` reconstructs `Engineerin
 deterministic object- and field-level supported, unmapped, and blocked dispositions plus an
 ephemeral neutral preview. Unsupported content and arbitrary properties remain canonical and are
 reported rather than dropped. The endpoint creates no DEXPI objects, files, revisions, or graph
-updates. Actual version selection and conversion/export remain deferred to T016.
+updates.
+
+T016 adds a separate, disabled-by-default version-specific compatibility adapter. When explicitly
+enabled and the optional pinned `pydexpi==1.2.0` dependency is present, it constructs only an
+allowlisted entity subset as real DEXPI 1.3 pyDEXPI objects and returns transient compatibility
+JSON. It uses public pyDEXPI construction and JSON serializer APIs, never replaces canonical state,
+and explicitly reports all omissions. This is a development spike, not standard exchange export or
+conformance certification; see `PYDEXPI_COMPATIBILITY.md`.
 
 ## 10. Persistence
 

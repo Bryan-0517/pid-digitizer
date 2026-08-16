@@ -17,6 +17,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["httpx==0.28.1", "pytest==8.4.1", "ruff==0.12.11"]
+pydexpi = ["pydexpi==1.2.0"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

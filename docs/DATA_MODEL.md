@@ -279,3 +279,11 @@ coverage and review/assertion safety. Unsupported kinds remain valid canonical d
 `unmapped`. The graph status is `empty`, `supported`, `partial`, or `blocked`, with any blocked
 object taking precedence. `dexpi.suggestedClass` is advisory and `dexpi.mappingStatus` is never
 changed by preflight. No target DEXPI version or conformance claim exists at this boundary.
+
+## 12. Version-specific compatibility export
+
+T016 does not add canonical models or persistence. Its pyDEXPI objects, conversion report, and JSON
+bytes exist only during a download request. T015-blocked data prevents construction; unmapped data
+stays in `EngineeringGraph` and is reported as omitted; partial data contributes only explicitly
+supported fields. No export operation changes entities, connections, revisions, `mappingStatus`,
+review status, assertion mode, provenance, confidence, properties, connections, or geometry.

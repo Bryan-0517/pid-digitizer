@@ -47,7 +47,12 @@ const report = {
 test("runs validation and renders statuses, counts, unmapped fields, and blocked reasons", async () => {
   const selectEntity = vi.fn();
   const selectConnection = vi.fn();
-  const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: async () => report });
+  const fetchMock = vi.fn()
+    .mockResolvedValueOnce({ ok: true, json: async () => report })
+    .mockResolvedValueOnce({ ok: true, json: async () => ({
+      enabled: true, available: true, pydexpiVersion: "1.2.0", targetDexpiVersion: "1.3",
+      artifactLabel: "pyDEXPI 1.2.0 / DEXPI 1.3 compatibility JSON",
+    }) });
   vi.stubGlobal("fetch", fetchMock);
   render(<DexpiValidation
     apiUrl="http://api" documentId="doc-1"
@@ -57,6 +62,7 @@ test("runs validation and renders statuses, counts, unmapped fields, and blocked
   fireEvent.click(screen.getByRole("button", { name: "Run validation" }));
   await waitFor(() => expect(screen.getByText("blocked", { selector: "dd" })).toBeInTheDocument());
   expect(fetchMock).toHaveBeenCalledWith("http://api/documents/doc-1/dexpi/validate", { method: "POST" });
+  expect(fetchMock).toHaveBeenCalledWith("http://api/documents/doc-1/dexpi/export/availability");
   expect(screen.getByText("12")).toBeInTheDocument();
   expect(screen.getByText("Partial / unmapped")).toBeInTheDocument();
   expect(screen.getByText("Blocked")).toBeInTheDocument();
@@ -65,7 +71,7 @@ test("runs validation and renders statuses, counts, unmapped fields, and blocked
   fireEvent.click(within(partial).getByText(/entity-partial/));
   expect(within(partial).getByText("properties.custom")).toBeInTheDocument();
   expect(within(partial).getByText("unmapped_arbitrary_property")).toBeInTheDocument();
-  const blocked = screen.getByText(/edge-blocked/).closest("details")!;
+  const blocked = screen.getByRole("button", { name: "edge-blocked" }).closest("details")!;
   fireEvent.click(within(blocked).getByText(/edge-blocked/));
   expect(within(blocked).getByText("blocked_inferred_assertion")).toBeInTheDocument();
 
@@ -73,7 +79,45 @@ test("runs validation and renders statuses, counts, unmapped fields, and blocked
   fireEvent.click(screen.getByRole("button", { name: "edge-blocked" }));
   expect(selectEntity).toHaveBeenCalledWith("entity-ok");
   expect(selectConnection).toHaveBeenCalledWith("edge-blocked");
-  expect(screen.queryByRole("button", { name: /export|download|convert/i })).not.toBeInTheDocument();
+  expect(screen.getByText("Compatibility spike export")).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Download compatibility JSON" })).toBeDisabled();
+});
+
+test("downloads enabled compatibility JSON without changing inspector selection", async () => {
+  const readyReport = { ...report, status: "partial", objects: report.objects.slice(0, 3), counts: {
+    ...report.counts, blockedObjects: 0, blockedFields: 0,
+  } };
+  const conversionReport = {
+    status: "ready", pydexpiVersion: "1.2.0", targetDexpiVersion: "1.3",
+    conformanceValidated: false, artifactLabel: "pyDEXPI 1.2.0 / DEXPI 1.3 compatibility JSON",
+    includedObjects: [{ canonicalId: "entity-ok" }], omittedObjects: [{ canonicalId: "entity-text" }],
+    omittedFields: [], blockingObjects: [], warnings: ["Compatibility spike only."],
+  };
+  const fetchMock = vi.fn()
+    .mockResolvedValueOnce({ ok: true, json: async () => readyReport })
+    .mockResolvedValueOnce({ ok: true, json: async () => ({
+      enabled: true, available: true, pydexpiVersion: "1.2.0", targetDexpiVersion: "1.3",
+      artifactLabel: "pyDEXPI 1.2.0 / DEXPI 1.3 compatibility JSON",
+    }) })
+    .mockResolvedValueOnce({ ok: true, headers: new Headers({
+      "content-disposition": 'attachment; filename="doc-1.dexpi-1.3.pydexpi.json"',
+    }), json: async () => ({ conversionReport }) });
+  vi.stubGlobal("fetch", fetchMock);
+  vi.stubGlobal("URL", { createObjectURL: vi.fn(() => "blob:test"), revokeObjectURL: vi.fn() });
+  const click = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => undefined);
+  const selectEntity = vi.fn();
+  const selectConnection = vi.fn();
+  render(<DexpiValidation apiUrl="http://api" documentId="doc-1"
+    onSelectEntity={selectEntity} onSelectConnection={selectConnection} />);
+  fireEvent.click(screen.getByRole("button", { name: "Run validation" }));
+  await screen.findByRole("button", { name: "Download compatibility JSON" });
+  fireEvent.click(screen.getByRole("button", { name: "Download compatibility JSON" }));
+  await waitFor(() => expect(click).toHaveBeenCalled());
+  expect(screen.getByText("Included: 1; omitted/unmapped: 1.")).toBeInTheDocument();
+  expect(fetchMock).toHaveBeenLastCalledWith("http://api/documents/doc-1/dexpi/export", { method: "POST" });
+  expect(selectEntity).not.toHaveBeenCalled();
+  expect(selectConnection).not.toHaveBeenCalled();
+  click.mockRestore();
 });
 
 test("shows validation errors without selecting or mutating graph state", async () => {

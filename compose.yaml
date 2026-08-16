@@ -16,7 +16,10 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   api:
-    build: ./services/api
+    build:
+      context: ./services/api
+      args:
+        INSTALL_PYDEXPI: ${INSTALL_PYDEXPI:-false}
     environment:
       DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/pid_digitizer
       STORAGE_DIR: /app/data
@@ -26,6 +29,7 @@ services:
       AI_PROVIDER: ${AI_PROVIDER:-}
       AI_MODEL: ${AI_MODEL:-}
       AI_API_KEY: ${AI_API_KEY:-}
+      PYDEXPI_EXPORT_ENABLED: ${PYDEXPI_EXPORT_ENABLED:-false}
     depends_on:
       db:
         condition: service_healthy
