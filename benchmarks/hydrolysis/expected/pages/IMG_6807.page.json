@@ -1,7 +1,10 @@
 {
+  "benchmarkSplit": "dev",
   "counts": {
+    "boundaries": 1,
     "connections": 85,
     "entities": 64,
+    "equipment": 20,
     "instruments": 43,
     "multiScreenObjects": 1,
     "multiSourceObjects": 149
@@ -1861,15 +1864,17 @@
   ],
   "pageId": "benchmark:hydrolysis:IMG_6807.JPG",
   "provenanceNotes": [
-    "Page linkage is based only on explicit provenance sourceRef=IMG_6807.JPG.",
-    "Page relevance does not mean exclusive ownership by this source screen."
+    "Page linkage is based only on explicit page_image provenance sourceRef=IMG_6807.JPG.",
+    "Page relevance does not mean exclusive ownership by this source screen.",
+    "Holdout semantic answers must not be included in extraction prompts."
   ],
   "schemaVersion": "0.1",
   "sourceFilename": "IMG_6807.JPG",
   "sourceImagePath": "benchmarks/hydrolysis/images/IMG_6807.JPG",
   "warnings": [
     "Hydrolysis reference data is pre-DEXPI and is not certified engineering truth.",
-    "Verified geometry coverage is zero; no Canvas overlays may be rendered."
+    "Verified geometry coverage is zero; no Canvas overlays may be rendered.",
+    "1 linked object(s) explicitly cite multiple page images; page membership is non-exclusive."
   ],
   "widthPx": 5712
 }

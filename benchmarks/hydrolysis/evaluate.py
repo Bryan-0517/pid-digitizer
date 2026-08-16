@@ -6,15 +6,21 @@ from app.ai.entity_proposals import EntityExtractionProposal
 from app.ai.topology_proposals import TopologyExtractionProposal
 from app.ai.tiled_extraction import TiledExtractionSnapshot
 from app.digitization.schemas import DigitizationProposalResponse
-from app.evaluation import evaluate_img_6807, render_summary
+from app.evaluation import evaluate_hydrolysis_page, render_summary
+from app.evaluation.evaluator import load_hydrolysis_reference
 from app.evaluation.schemas import EvaluationProviderMetadata, LiveProposalSnapshot
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Evaluate a validated IMG_6807 proposal snapshot")
+    parser = argparse.ArgumentParser(description="Evaluate a validated hydrolysis page proposal snapshot")
     parser.add_argument("proposal", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--run-id", required=True)
+    parser.add_argument(
+        "--page-fixture",
+        type=Path,
+        default=Path(__file__).parent / "expected/pages/IMG_6807.page.json",
+    )
     args = parser.parse_args()
     payload = json.loads(args.proposal.read_text(encoding="utf-8"))
     if "mergedProposal" in payload:
@@ -54,11 +60,12 @@ def main() -> None:
         proposal = EntityExtractionProposal.model_validate(payload)
         topology = TopologyExtractionProposal(connections=[], warnings=[])
         metadata = None
-    result = evaluate_img_6807(
+    result = evaluate_hydrolysis_page(
         proposal=proposal,
         topology=topology,
         run_id=args.run_id,
         provider_metadata=metadata,
+        reference=load_hydrolysis_reference(page_path=args.page_fixture),
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(

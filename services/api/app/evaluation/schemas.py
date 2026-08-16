@@ -76,11 +76,9 @@ class TopologyDiagnostics(AIContract):
 
 class BenchmarkIdentity(AIContract):
     name: Literal["hydrolysis"] = "hydrolysis"
-    document_id: Literal["benchmark:hydrolysis"] = "benchmark:hydrolysis"
-    page_id: Literal["benchmark:hydrolysis:IMG_6807.JPG"] = (
-        "benchmark:hydrolysis:IMG_6807.JPG"
-    )
-    source_filename: Literal["IMG_6807.JPG"] = "IMG_6807.JPG"
+    document_id: str = "benchmark:hydrolysis"
+    page_id: str = "benchmark:hydrolysis:IMG_6807.JPG"
+    source_filename: str = "IMG_6807.JPG"
 
 
 class LiveProposalSnapshot(AIContract):

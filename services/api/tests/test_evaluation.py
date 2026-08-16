@@ -5,8 +5,10 @@ from app.ai.topology_proposals import TopologyExtractionProposal
 from app.domain.models import EngineeringEntity
 from app.evaluation.evaluator import (
     ReferenceScope,
+    evaluate_hydrolysis_page,
     evaluate_img_6807,
     load_img_6807_reference,
+    load_hydrolysis_reference,
     normalize_comparison_text,
 )
 from app.evaluation.schemas import LiveProposalSnapshot
@@ -178,6 +180,22 @@ def test_actual_page_reference_scope_and_repeated_evaluation_are_deterministic()
     assert sum(entity.kind == "instrument" for entity in scope.entities) == 43
     assert scope.connection_count == 85
     assert first.model_dump_json(by_alias=True) == second.model_dump_json(by_alias=True)
+
+
+def test_evaluator_accepts_arbitrary_page_scoped_hydrolysis_fixture() -> None:
+    root = Path(__file__).parents[3]
+    scope = load_hydrolysis_reference(
+        page_path=root / "benchmarks/hydrolysis/expected/pages/IMG_6808.page.json"
+    )
+    proposal = EntityExtractionProposal(candidates=[], warnings=[])
+
+    result = evaluate_hydrolysis_page(proposal=proposal, run_id="img-6808", reference=scope)
+
+    assert result.benchmark.source_filename == "IMG_6808.JPG"
+    assert result.benchmark.page_id == "benchmark:hydrolysis:IMG_6808.JPG"
+    assert result.metrics.references == 25
+    assert result.topology.reference_connection_count == 24
+    assert result.geometry.verified_reference_geometry == 0
 
 
 def test_captured_live_snapshot_is_validated_and_contains_no_secret_fields() -> None:

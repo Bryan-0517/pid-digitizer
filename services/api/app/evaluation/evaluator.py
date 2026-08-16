@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import re
 from collections import Counter, defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from app.ai.entity_proposals import EntityCandidate, EntityExtractionProposal
@@ -40,6 +40,7 @@ class ReferenceScope:
     entities: list[EngineeringEntity]
     connection_count: int
     warnings: list[str]
+    benchmark: BenchmarkIdentity = field(default_factory=BenchmarkIdentity)
 
 
 def normalize_comparison_text(value: str | None) -> str | None:
@@ -49,7 +50,7 @@ def normalize_comparison_text(value: str | None) -> str | None:
     return normalized or None
 
 
-def load_img_6807_reference(
+def load_hydrolysis_reference(
     graph_path: Path = DEFAULT_GRAPH_PATH, page_path: Path = DEFAULT_PAGE_PATH
 ) -> ReferenceScope:
     graph = EngineeringGraph.model_validate_json(graph_path.read_text(encoding="utf-8"))
@@ -60,16 +61,30 @@ def load_img_6807_reference(
     )
     if len(entities) != page["counts"]["entities"]:
         raise ValueError("page fixture entity IDs do not resolve exactly in EngineeringGraph")
-    if page["geometryCoverage"]["entitiesWithVerifiedGeometry"] != 0:
-        raise ValueError("IMG_6807 evaluator requires zero verified reference geometry")
+    if (
+        page["geometryCoverage"]["entitiesWithVerifiedGeometry"] != 0
+        or page["geometryCoverage"]["connectionsWithVerifiedGeometry"] != 0
+    ):
+        raise ValueError("hydrolysis page evaluator requires zero verified reference geometry")
     return ReferenceScope(
         entities=entities,
         connection_count=page["counts"]["connections"],
         warnings=list(page.get("warnings", [])),
+        benchmark=BenchmarkIdentity(
+            document_id=page["documentId"],
+            page_id=page["pageId"],
+            source_filename=page["sourceFilename"],
+        ),
     )
 
 
-def evaluate_img_6807(
+def load_img_6807_reference(
+    graph_path: Path = DEFAULT_GRAPH_PATH, page_path: Path = DEFAULT_PAGE_PATH
+) -> ReferenceScope:
+    return load_hydrolysis_reference(graph_path, page_path)
+
+
+def evaluate_hydrolysis_page(
     *,
     proposal: EntityExtractionProposal,
     topology: TopologyExtractionProposal | None = None,
@@ -77,7 +92,7 @@ def evaluate_img_6807(
     provider_metadata: EvaluationProviderMetadata | None = None,
     reference: ReferenceScope | None = None,
 ) -> EntityEvaluationResult:
-    scope = reference or load_img_6807_reference()
+    scope = reference or load_hydrolysis_reference()
     candidates = sorted(proposal.candidates, key=lambda item: item.candidate_id)
     candidate_id_counts = Counter(candidate.candidate_id for candidate in candidates)
     duplicate_candidate_ids = sorted(
@@ -104,7 +119,7 @@ def evaluate_img_6807(
     if ambiguities:
         warnings.append(f"{len(ambiguities)} candidate match(es) remain ambiguous and unscored")
     return EntityEvaluationResult(
-        benchmark=BenchmarkIdentity(),
+        benchmark=scope.benchmark,
         run_id=run_id,
         provider_metadata=provider_metadata,
         metrics=_metrics(candidates, references, matches),
@@ -124,11 +139,28 @@ def evaluate_img_6807(
         ),
         warnings=warnings,
         limitations=[
-            "Reference membership is semantic provenance support for IMG_6807.JPG, not certified P&ID truth.",
+            f"Reference membership is semantic provenance support for {scope.benchmark.source_filename}, not certified P&ID truth.",
             "No verified entity geometry exists; bbox/IoU/localization accuracy is not scored.",
             "No verified connection geometry exists; connection path accuracy is not scored.",
             "Topology semantics may be compared only after both proposal endpoints match reference entities unambiguously.",
         ],
+    )
+
+
+def evaluate_img_6807(
+    *,
+    proposal: EntityExtractionProposal,
+    topology: TopologyExtractionProposal | None = None,
+    run_id: str,
+    provider_metadata: EvaluationProviderMetadata | None = None,
+    reference: ReferenceScope | None = None,
+) -> EntityEvaluationResult:
+    return evaluate_hydrolysis_page(
+        proposal=proposal,
+        topology=topology,
+        run_id=run_id,
+        provider_metadata=provider_metadata,
+        reference=reference or load_img_6807_reference(),
     )
 
 

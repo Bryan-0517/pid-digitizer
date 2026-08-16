@@ -1,0 +1,197 @@
+{
+  "benchmark": "hydrolysis",
+  "schemaVersion": "0.1",
+  "scopeRule": "explicit page_image provenance sourceRef equality only",
+  "screens": [
+    {
+      "benchmarkSplit": "holdout",
+      "heightPx": 4284,
+      "linkedBoundaryCount": 0,
+      "linkedConnectionCount": 46,
+      "linkedEntityCount": 43,
+      "linkedEquipmentCount": 21,
+      "linkedInstrumentCount": 22,
+      "multiScreenObjectCount": 0,
+      "provenanceAmbiguityWarnings": [
+        "Hydrolysis reference data is pre-DEXPI and is not certified engineering truth.",
+        "Verified geometry coverage is zero; no Canvas overlays may be rendered."
+      ],
+      "sourceFilename": "IMG_6806.JPG",
+      "verifiedConnectionGeometryCount": 0,
+      "verifiedEntityGeometryCount": 0,
+      "widthPx": 5712
+    },
+    {
+      "benchmarkSplit": "dev",
+      "heightPx": 4284,
+      "linkedBoundaryCount": 1,
+      "linkedConnectionCount": 85,
+      "linkedEntityCount": 64,
+      "linkedEquipmentCount": 20,
+      "linkedInstrumentCount": 43,
+      "multiScreenObjectCount": 1,
+      "provenanceAmbiguityWarnings": [
+        "Hydrolysis reference data is pre-DEXPI and is not certified engineering truth.",
+        "Verified geometry coverage is zero; no Canvas overlays may be rendered.",
+        "1 linked object(s) explicitly cite multiple page images; page membership is non-exclusive."
+      ],
+      "sourceFilename": "IMG_6807.JPG",
+      "verifiedConnectionGeometryCount": 0,
+      "verifiedEntityGeometryCount": 0,
+      "widthPx": 5712
+    },
+    {
+      "benchmarkSplit": "holdout",
+      "heightPx": 4284,
+      "linkedBoundaryCount": 1,
+      "linkedConnectionCount": 24,
+      "linkedEntityCount": 25,
+      "linkedEquipmentCount": 13,
+      "linkedInstrumentCount": 11,
+      "multiScreenObjectCount": 1,
+      "provenanceAmbiguityWarnings": [
+        "Hydrolysis reference data is pre-DEXPI and is not certified engineering truth.",
+        "Verified geometry coverage is zero; no Canvas overlays may be rendered.",
+        "1 linked object(s) explicitly cite multiple page images; page membership is non-exclusive."
+      ],
+      "sourceFilename": "IMG_6808.JPG",
+      "verifiedConnectionGeometryCount": 0,
+      "verifiedEntityGeometryCount": 0,
+      "widthPx": 5712
+    },
+    {
+      "benchmarkSplit": "holdout",
+      "heightPx": 4284,
+      "linkedBoundaryCount": 1,
+      "linkedConnectionCount": 32,
+      "linkedEntityCount": 17,
+      "linkedEquipmentCount": 4,
+      "linkedInstrumentCount": 12,
+      "multiScreenObjectCount": 1,
+      "provenanceAmbiguityWarnings": [
+        "Hydrolysis reference data is pre-DEXPI and is not certified engineering truth.",
+        "Verified geometry coverage is zero; no Canvas overlays may be rendered.",
+        "1 linked object(s) explicitly cite multiple page images; page membership is non-exclusive."
+      ],
+      "sourceFilename": "IMG_6809.JPG",
+      "verifiedConnectionGeometryCount": 0,
+      "verifiedEntityGeometryCount": 0,
+      "widthPx": 5712
+    },
+    {
+      "benchmarkSplit": "holdout",
+      "heightPx": 4284,
+      "linkedBoundaryCount": 2,
+      "linkedConnectionCount": 19,
+      "linkedEntityCount": 31,
+      "linkedEquipmentCount": 22,
+      "linkedInstrumentCount": 7,
+      "multiScreenObjectCount": 2,
+      "provenanceAmbiguityWarnings": [
+        "Hydrolysis reference data is pre-DEXPI and is not certified engineering truth.",
+        "Verified geometry coverage is zero; no Canvas overlays may be rendered.",
+        "2 linked object(s) explicitly cite multiple page images; page membership is non-exclusive."
+      ],
+      "sourceFilename": "IMG_6810.JPG",
+      "verifiedConnectionGeometryCount": 0,
+      "verifiedEntityGeometryCount": 0,
+      "widthPx": 5712
+    },
+    {
+      "benchmarkSplit": "holdout",
+      "heightPx": 4284,
+      "linkedBoundaryCount": 2,
+      "linkedConnectionCount": 26,
+      "linkedEntityCount": 23,
+      "linkedEquipmentCount": 15,
+      "linkedInstrumentCount": 6,
+      "multiScreenObjectCount": 2,
+      "provenanceAmbiguityWarnings": [
+        "Hydrolysis reference data is pre-DEXPI and is not certified engineering truth.",
+        "Verified geometry coverage is zero; no Canvas overlays may be rendered.",
+        "2 linked object(s) explicitly cite multiple page images; page membership is non-exclusive."
+      ],
+      "sourceFilename": "IMG_6811.JPG",
+      "verifiedConnectionGeometryCount": 0,
+      "verifiedEntityGeometryCount": 0,
+      "widthPx": 5712
+    },
+    {
+      "benchmarkSplit": "holdout",
+      "heightPx": 4284,
+      "linkedBoundaryCount": 2,
+      "linkedConnectionCount": 34,
+      "linkedEntityCount": 31,
+      "linkedEquipmentCount": 21,
+      "linkedInstrumentCount": 8,
+      "multiScreenObjectCount": 2,
+      "provenanceAmbiguityWarnings": [
+        "Hydrolysis reference data is pre-DEXPI and is not certified engineering truth.",
+        "Verified geometry coverage is zero; no Canvas overlays may be rendered.",
+        "2 linked object(s) explicitly cite multiple page images; page membership is non-exclusive."
+      ],
+      "sourceFilename": "IMG_6812.JPG",
+      "verifiedConnectionGeometryCount": 0,
+      "verifiedEntityGeometryCount": 0,
+      "widthPx": 5712
+    },
+    {
+      "benchmarkSplit": "holdout",
+      "heightPx": 4284,
+      "linkedBoundaryCount": 3,
+      "linkedConnectionCount": 32,
+      "linkedEntityCount": 27,
+      "linkedEquipmentCount": 16,
+      "linkedInstrumentCount": 8,
+      "multiScreenObjectCount": 4,
+      "provenanceAmbiguityWarnings": [
+        "Hydrolysis reference data is pre-DEXPI and is not certified engineering truth.",
+        "Verified geometry coverage is zero; no Canvas overlays may be rendered.",
+        "4 linked object(s) explicitly cite multiple page images; page membership is non-exclusive."
+      ],
+      "sourceFilename": "IMG_6813.JPG",
+      "verifiedConnectionGeometryCount": 0,
+      "verifiedEntityGeometryCount": 0,
+      "widthPx": 5712
+    },
+    {
+      "benchmarkSplit": "holdout",
+      "heightPx": 4284,
+      "linkedBoundaryCount": 2,
+      "linkedConnectionCount": 26,
+      "linkedEntityCount": 16,
+      "linkedEquipmentCount": 9,
+      "linkedInstrumentCount": 5,
+      "multiScreenObjectCount": 3,
+      "provenanceAmbiguityWarnings": [
+        "Hydrolysis reference data is pre-DEXPI and is not certified engineering truth.",
+        "Verified geometry coverage is zero; no Canvas overlays may be rendered.",
+        "3 linked object(s) explicitly cite multiple page images; page membership is non-exclusive."
+      ],
+      "sourceFilename": "IMG_6814.JPG",
+      "verifiedConnectionGeometryCount": 0,
+      "verifiedEntityGeometryCount": 0,
+      "widthPx": 5712
+    }
+  ],
+  "splits": {
+    "dev": [
+      "IMG_6807.JPG"
+    ],
+    "holdout": [
+      "IMG_6806.JPG",
+      "IMG_6808.JPG",
+      "IMG_6809.JPG",
+      "IMG_6810.JPG",
+      "IMG_6811.JPG",
+      "IMG_6812.JPG",
+      "IMG_6813.JPG",
+      "IMG_6814.JPG"
+    ]
+  },
+  "warnings": [
+    "Hydrolysis references are pre-DEXPI and are not certified engineering truth.",
+    "All page fixtures express semantic provenance relevance only; verified geometry is absent.",
+    "Objects may cite multiple screens and therefore appear in multiple page fixtures."
+  ]
+}

@@ -1,0 +1,648 @@
+{
+  "benchmarkSplit": "holdout",
+  "counts": {
+    "boundaries": 1,
+    "connections": 24,
+    "entities": 25,
+    "equipment": 13,
+    "instruments": 11,
+    "multiScreenObjects": 1,
+    "multiSourceObjects": 49
+  },
+  "documentId": "benchmark:hydrolysis",
+  "geometryCoverage": {
+    "connectionsWithVerifiedGeometry": 0,
+    "entitiesWithVerifiedGeometry": 0,
+    "status": "missing_verified_geometry",
+    "totalObjectsWithVerifiedGeometry": 0
+  },
+  "heightPx": 4284,
+  "linkedConnectionIds": [
+    "hydrolysis:process:C072",
+    "hydrolysis:process:C073",
+    "hydrolysis:process:C074",
+    "hydrolysis:process:C075",
+    "hydrolysis:process:C076",
+    "hydrolysis:process:C077",
+    "hydrolysis:process:C078",
+    "hydrolysis:process:C079",
+    "hydrolysis:process:C080",
+    "hydrolysis:process:C081",
+    "hydrolysis:process:C082",
+    "hydrolysis:process:C083",
+    "hydrolysis:process:C084",
+    "hydrolysis:ownership:I066",
+    "hydrolysis:ownership:I067",
+    "hydrolysis:ownership:I068",
+    "hydrolysis:ownership:I069",
+    "hydrolysis:ownership:I070",
+    "hydrolysis:ownership:I071",
+    "hydrolysis:ownership:I072",
+    "hydrolysis:ownership:I073",
+    "hydrolysis:ownership:I074",
+    "hydrolysis:ownership:I075",
+    "hydrolysis:ownership:I076"
+  ],
+  "linkedEntityIds": [
+    "hydrolysis:equipment:BND_CONDENSATE",
+    "hydrolysis:equipment:N_V310014",
+    "hydrolysis:equipment:N_V310007",
+    "hydrolysis:equipment:N_V310010",
+    "hydrolysis:equipment:N_V310006A:H03:2",
+    "hydrolysis:equipment:N_V310006B:H03:2",
+    "hydrolysis:equipment:N_P310005A",
+    "hydrolysis:equipment:N_P310005B",
+    "hydrolysis:equipment:N_P310006A",
+    "hydrolysis:equipment:N_P310006B",
+    "hydrolysis:equipment:N_P310007A",
+    "hydrolysis:equipment:N_P310007B",
+    "hydrolysis:equipment:N_P310008A",
+    "hydrolysis:equipment:N_P310008B",
+    "hydrolysis:instrument:I066",
+    "hydrolysis:instrument:I067",
+    "hydrolysis:instrument:I068",
+    "hydrolysis:instrument:I069",
+    "hydrolysis:instrument:I070",
+    "hydrolysis:instrument:I071",
+    "hydrolysis:instrument:I072",
+    "hydrolysis:instrument:I073",
+    "hydrolysis:instrument:I074",
+    "hydrolysis:instrument:I075",
+    "hydrolysis:instrument:I076"
+  ],
+  "linkedInstrumentIds": [
+    "hydrolysis:instrument:I066",
+    "hydrolysis:instrument:I067",
+    "hydrolysis:instrument:I068",
+    "hydrolysis:instrument:I069",
+    "hydrolysis:instrument:I070",
+    "hydrolysis:instrument:I071",
+    "hydrolysis:instrument:I072",
+    "hydrolysis:instrument:I073",
+    "hydrolysis:instrument:I074",
+    "hydrolysis:instrument:I075",
+    "hydrolysis:instrument:I076"
+  ],
+  "multiScreenObjectIds": [
+    "hydrolysis:process:C072"
+  ],
+  "multiSourceObjectIds": [
+    "hydrolysis:equipment:BND_CONDENSATE",
+    "hydrolysis:equipment:N_V310014",
+    "hydrolysis:equipment:N_V310007",
+    "hydrolysis:equipment:N_V310010",
+    "hydrolysis:equipment:N_V310006A:H03:2",
+    "hydrolysis:equipment:N_V310006B:H03:2",
+    "hydrolysis:equipment:N_P310005A",
+    "hydrolysis:equipment:N_P310005B",
+    "hydrolysis:equipment:N_P310006A",
+    "hydrolysis:equipment:N_P310006B",
+    "hydrolysis:equipment:N_P310007A",
+    "hydrolysis:equipment:N_P310007B",
+    "hydrolysis:equipment:N_P310008A",
+    "hydrolysis:equipment:N_P310008B",
+    "hydrolysis:instrument:I066",
+    "hydrolysis:instrument:I067",
+    "hydrolysis:instrument:I068",
+    "hydrolysis:instrument:I069",
+    "hydrolysis:instrument:I070",
+    "hydrolysis:instrument:I071",
+    "hydrolysis:instrument:I072",
+    "hydrolysis:instrument:I073",
+    "hydrolysis:instrument:I074",
+    "hydrolysis:instrument:I075",
+    "hydrolysis:instrument:I076",
+    "hydrolysis:process:C072",
+    "hydrolysis:process:C073",
+    "hydrolysis:process:C074",
+    "hydrolysis:process:C075",
+    "hydrolysis:process:C076",
+    "hydrolysis:process:C077",
+    "hydrolysis:process:C078",
+    "hydrolysis:process:C079",
+    "hydrolysis:process:C080",
+    "hydrolysis:process:C081",
+    "hydrolysis:process:C082",
+    "hydrolysis:process:C083",
+    "hydrolysis:process:C084",
+    "hydrolysis:ownership:I066",
+    "hydrolysis:ownership:I067",
+    "hydrolysis:ownership:I068",
+    "hydrolysis:ownership:I069",
+    "hydrolysis:ownership:I070",
+    "hydrolysis:ownership:I071",
+    "hydrolysis:ownership:I072",
+    "hydrolysis:ownership:I073",
+    "hydrolysis:ownership:I074",
+    "hydrolysis:ownership:I075",
+    "hydrolysis:ownership:I076"
+  ],
+  "objects": [
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:BND_CONDENSATE",
+      "kind": "boundary",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:BND_CONDENSATE"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:N_V310014",
+      "kind": "equipment",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:N_V310014"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:N_V310007",
+      "kind": "equipment",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:N_V310007"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:N_V310010",
+      "kind": "equipment",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:N_V310010"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:N_V310006A:H03:2",
+      "kind": "equipment",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:N_V310006A"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:N_V310006B:H03:2",
+      "kind": "equipment",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:N_V310006B"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:N_P310005A",
+      "kind": "equipment",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:N_P310005A"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:N_P310005B",
+      "kind": "equipment",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:N_P310005B"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:N_P310006A",
+      "kind": "equipment",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:N_P310006A"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:N_P310006B",
+      "kind": "equipment",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:N_P310006B"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:N_P310007A",
+      "kind": "equipment",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:N_P310007A"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:N_P310007B",
+      "kind": "equipment",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:N_P310007B"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:N_P310008A",
+      "kind": "equipment",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:N_P310008A"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:equipment:N_P310008B",
+      "kind": "equipment",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#equipment_nodes:N_P310008B"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:instrument:I066",
+      "kind": "instrument",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I066"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:instrument:I067",
+      "kind": "instrument",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I067"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:instrument:I068",
+      "kind": "instrument",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I068"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:instrument:I069",
+      "kind": "instrument",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I069"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:instrument:I070",
+      "kind": "instrument",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I070"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:instrument:I071",
+      "kind": "instrument",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I071"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:instrument:I072",
+      "kind": "instrument",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I072"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:instrument:I073",
+      "kind": "instrument",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I073"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:instrument:I074",
+      "kind": "instrument",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I074"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:instrument:I075",
+      "kind": "instrument",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I075"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:instrument:I076",
+      "kind": "instrument",
+      "objectType": "entity",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I076"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:process:C072",
+      "kind": "utility",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6807.JPG",
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#process_connections:C072"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:process:C073",
+      "kind": "utility",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#process_connections:C073"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:process:C074",
+      "kind": "utility",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#process_connections:C074"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:process:C075",
+      "kind": "utility",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#process_connections:C075"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:process:C076",
+      "kind": "utility",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#process_connections:C076"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:process:C077",
+      "kind": "utility",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#process_connections:C077"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:process:C078",
+      "kind": "utility",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#process_connections:C078"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:process:C079",
+      "kind": "utility",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#process_connections:C079"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:process:C080",
+      "kind": "utility",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#process_connections:C080"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:process:C081",
+      "kind": "utility",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#process_connections:C081"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:process:C082",
+      "kind": "utility",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#process_connections:C082"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:process:C083",
+      "kind": "utility",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#process_connections:C083"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:process:C084",
+      "kind": "utility",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#process_connections:C084"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:ownership:I066",
+      "kind": "ownership",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I066"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:ownership:I067",
+      "kind": "ownership",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I067"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:ownership:I068",
+      "kind": "ownership",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I068"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:ownership:I069",
+      "kind": "ownership",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I069"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:ownership:I070",
+      "kind": "ownership",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I070"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:ownership:I071",
+      "kind": "ownership",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I071"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:ownership:I072",
+      "kind": "ownership",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I072"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:ownership:I073",
+      "kind": "ownership",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I073"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:ownership:I074",
+      "kind": "ownership",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I074"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:ownership:I075",
+      "kind": "ownership",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I075"
+      ]
+    },
+    {
+      "geometryStatus": "missing_verified_geometry",
+      "id": "hydrolysis:ownership:I076",
+      "kind": "ownership",
+      "objectType": "connection",
+      "sourceRefs": [
+        "IMG_6808.JPG",
+        "钛一_水解DCS流程数字化_初版.xlsx#instrument_register:I076"
+      ]
+    }
+  ],
+  "pageId": "benchmark:hydrolysis:IMG_6808.JPG",
+  "provenanceNotes": [
+    "Page linkage is based only on explicit page_image provenance sourceRef=IMG_6808.JPG.",
+    "Page relevance does not mean exclusive ownership by this source screen.",
+    "Holdout semantic answers must not be included in extraction prompts."
+  ],
+  "schemaVersion": "0.1",
+  "sourceFilename": "IMG_6808.JPG",
+  "sourceImagePath": "benchmarks/hydrolysis/images/IMG_6808.JPG",
+  "warnings": [
+    "Hydrolysis reference data is pre-DEXPI and is not certified engineering truth.",
+    "Verified geometry coverage is zero; no Canvas overlays may be rendered.",
+    "1 linked object(s) explicitly cite multiple page images; page membership is non-exclusive."
+  ],
+  "widthPx": 5712
+}
