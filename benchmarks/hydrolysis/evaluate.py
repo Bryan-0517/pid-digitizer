@@ -4,9 +4,10 @@ from pathlib import Path
 
 from app.ai.entity_proposals import EntityExtractionProposal
 from app.ai.topology_proposals import TopologyExtractionProposal
+from app.ai.tiled_extraction import TiledExtractionSnapshot
 from app.digitization.schemas import DigitizationProposalResponse
 from app.evaluation import evaluate_img_6807, render_summary
-from app.evaluation.schemas import EvaluationProviderMetadata
+from app.evaluation.schemas import EvaluationProviderMetadata, LiveProposalSnapshot
 
 
 def main() -> None:
@@ -16,8 +17,30 @@ def main() -> None:
     parser.add_argument("--run-id", required=True)
     args = parser.parse_args()
     payload = json.loads(args.proposal.read_text(encoding="utf-8"))
-    if "entities" in payload:
+    if "mergedProposal" in payload:
+        tiled = TiledExtractionSnapshot.model_validate(payload)
+        proposal = tiled.merged_proposal
+        topology = TopologyExtractionProposal(connections=[], warnings=[])
+        first_call = tiled.calls[0] if tiled.calls else None
+        metadata = (
+            EvaluationProviderMetadata(
+                provider=first_call.provider_metadata.provider,
+                model=first_call.provider_metadata.model,
+                request_id=tiled.experiment_id,
+                latency_ms=sum(call.provider_metadata.latency_ms for call in tiled.calls),
+                usage=None,
+            )
+            if first_call
+            else None
+        )
+        snapshot = None
+    elif "capturedProposal" in payload:
+        snapshot = LiveProposalSnapshot.model_validate(payload).captured_proposal
+    elif "entities" in payload:
         snapshot = DigitizationProposalResponse.model_validate(payload)
+    else:
+        snapshot = None
+    if "mergedProposal" not in payload and snapshot is not None:
         proposal = snapshot.entities
         topology = snapshot.topology
         metadata = EvaluationProviderMetadata(
@@ -27,7 +50,7 @@ def main() -> None:
             latency_ms=snapshot.entity_provider_metadata.latency_ms,
             usage=snapshot.entity_provider_metadata.usage,
         )
-    else:
+    elif "mergedProposal" not in payload:
         proposal = EntityExtractionProposal.model_validate(payload)
         topology = TopologyExtractionProposal(connections=[], warnings=[])
         metadata = None

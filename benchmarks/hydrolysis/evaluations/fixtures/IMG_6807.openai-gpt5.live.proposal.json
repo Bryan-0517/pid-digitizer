@@ -1,0 +1,355 @@
+{
+    "snapshotLabel":  "MODEL OUTPUT SNAPSHOT — NOT BENCHMARK TRUTH",
+    "benchmark":  {
+                      "name":  "hydrolysis",
+                      "documentId":  "benchmark:hydrolysis",
+                      "pageId":  "benchmark:hydrolysis:IMG_6807.JPG",
+                      "sourceFilename":  "IMG_6807.JPG"
+                  },
+    "capturedProposal":  {
+                             "documentId":  "c30fd95d-9798-4c7e-8c9f-07ec74e6f134",
+                             "pageId":  "2a7e2c57-89dd-4148-b34e-490a8ddcb0d4",
+                             "entities":  {
+                                              "candidates":  [
+                                                                 {
+                                                                     "candidateId":  "c1",
+                                                                     "kind":  "text",
+                                                                     "subtype":  null,
+                                                                     "tag":  null,
+                                                                     "displayName":  "HollySys logo text",
+                                                                     "properties":  [
+
+                                                                                    ],
+                                                                     "geometry":  {
+                                                                                      "bbox":  {
+                                                                                                   "x":  0.9,
+                                                                                                   "y":  0.035,
+                                                                                                   "width":  0.09,
+                                                                                                   "height":  0.035
+                                                                                               },
+                                                                                      "polygon":  null,
+                                                                                      "anchorPoints":  null
+                                                                                  },
+                                                                     "confidence":  null,
+                                                                     "provenance":  [
+                                                                                        {
+                                                                                            "sourceRef":  "img_0",
+                                                                                            "evidenceText":  "HollySys",
+                                                                                            "note":  "Top-right application banner"
+                                                                                        }
+                                                                                    ]
+                                                                 },
+                                                                 {
+                                                                     "candidateId":  "c2",
+                                                                     "kind":  "text",
+                                                                     "subtype":  null,
+                                                                     "tag":  null,
+                                                                     "displayName":  "logo text",
+                                                                     "properties":  [
+
+                                                                                    ],
+                                                                     "geometry":  {
+                                                                                      "bbox":  {
+                                                                                                   "x":  0.035,
+                                                                                                   "y":  0.07,
+                                                                                                   "width":  0.07,
+                                                                                                   "height":  0.03
+                                                                                               },
+                                                                                      "polygon":  null,
+                                                                                      "anchorPoints":  null
+                                                                                  },
+                                                                     "confidence":  null,
+                                                                     "provenance":  [
+                                                                                        {
+                                                                                            "sourceRef":  "img_0",
+                                                                                            "evidenceText":  "logo",
+                                                                                            "note":  "Top-left corner of HMI window"
+                                                                                        }
+                                                                                    ]
+                                                                 },
+                                                                 {
+                                                                     "candidateId":  "c3",
+                                                                     "kind":  "text",
+                                                                     "subtype":  null,
+                                                                     "tag":  null,
+                                                                     "displayName":  "ThinkVision bezel text",
+                                                                     "properties":  [
+
+                                                                                    ],
+                                                                     "geometry":  {
+                                                                                      "bbox":  {
+                                                                                                   "x":  0.07,
+                                                                                                   "y":  0.95,
+                                                                                                   "width":  0.13,
+                                                                                                   "height":  0.04
+                                                                                               },
+                                                                                      "polygon":  null,
+                                                                                      "anchorPoints":  null
+                                                                                  },
+                                                                     "confidence":  null,
+                                                                     "provenance":  [
+                                                                                        {
+                                                                                            "sourceRef":  "img_0",
+                                                                                            "evidenceText":  "ThinkVision",
+                                                                                            "note":  "Monitor bezel bottom-left"
+                                                                                        }
+                                                                                    ]
+                                                                 },
+                                                                 {
+                                                                     "candidateId":  "c4",
+                                                                     "kind":  "valve",
+                                                                     "subtype":  null,
+                                                                     "tag":  "KV_0816A",
+                                                                     "displayName":  null,
+                                                                     "properties":  [
+
+                                                                                    ],
+                                                                     "geometry":  {
+                                                                                      "bbox":  {
+                                                                                                   "x":  0.23,
+                                                                                                   "y":  0.53,
+                                                                                                   "width":  0.11,
+                                                                                                   "height":  0.04
+                                                                                               },
+                                                                                      "polygon":  null,
+                                                                                      "anchorPoints":  null
+                                                                                  },
+                                                                     "confidence":  null,
+                                                                     "provenance":  [
+                                                                                        {
+                                                                                            "sourceRef":  "img_0",
+                                                                                            "evidenceText":  "KV_0816A",
+                                                                                            "note":  "Label near red/green valve symbol left-middle"
+                                                                                        }
+                                                                                    ]
+                                                                 },
+                                                                 {
+                                                                     "candidateId":  "c5",
+                                                                     "kind":  "valve",
+                                                                     "subtype":  null,
+                                                                     "tag":  "KV_0814C",
+                                                                     "displayName":  null,
+                                                                     "properties":  [
+
+                                                                                    ],
+                                                                     "geometry":  {
+                                                                                      "bbox":  {
+                                                                                                   "x":  0.52,
+                                                                                                   "y":  0.44,
+                                                                                                   "width":  0.12,
+                                                                                                   "height":  0.04
+                                                                                               },
+                                                                                      "polygon":  null,
+                                                                                      "anchorPoints":  null
+                                                                                  },
+                                                                     "confidence":  null,
+                                                                     "provenance":  [
+                                                                                        {
+                                                                                            "sourceRef":  "img_0",
+                                                                                            "evidenceText":  "KV_0814C",
+                                                                                            "note":  "Upper-center label next to vertical valve symbol"
+                                                                                        }
+                                                                                    ]
+                                                                 },
+                                                                 {
+                                                                     "candidateId":  "c6",
+                                                                     "kind":  "valve",
+                                                                     "subtype":  null,
+                                                                     "tag":  "KV_0814D",
+                                                                     "displayName":  null,
+                                                                     "properties":  [
+
+                                                                                    ],
+                                                                     "geometry":  {
+                                                                                      "bbox":  {
+                                                                                                   "x":  0.73,
+                                                                                                   "y":  0.44,
+                                                                                                   "width":  0.12,
+                                                                                                   "height":  0.04
+                                                                                               },
+                                                                                      "polygon":  null,
+                                                                                      "anchorPoints":  null
+                                                                                  },
+                                                                     "confidence":  null,
+                                                                     "provenance":  [
+                                                                                        {
+                                                                                            "sourceRef":  "img_0",
+                                                                                            "evidenceText":  "KV_0814D",
+                                                                                            "note":  "Upper-right-center area"
+                                                                                        }
+                                                                                    ]
+                                                                 },
+                                                                 {
+                                                                     "candidateId":  "c7",
+                                                                     "kind":  "valve",
+                                                                     "subtype":  null,
+                                                                     "tag":  "TV_0806C",
+                                                                     "displayName":  null,
+                                                                     "properties":  [
+
+                                                                                    ],
+                                                                     "geometry":  {
+                                                                                      "bbox":  {
+                                                                                                   "x":  0.6,
+                                                                                                   "y":  0.42,
+                                                                                                   "width":  0.12,
+                                                                                                   "height":  0.04
+                                                                                               },
+                                                                                      "polygon":  null,
+                                                                                      "anchorPoints":  null
+                                                                                  },
+                                                                     "confidence":  null,
+                                                                     "provenance":  [
+                                                                                        {
+                                                                                            "sourceRef":  "img_0",
+                                                                                            "evidenceText":  "TV_0806C",
+                                                                                            "note":  "Upper-center region"
+                                                                                        }
+                                                                                    ]
+                                                                 },
+                                                                 {
+                                                                     "candidateId":  "c8",
+                                                                     "kind":  "valve",
+                                                                     "subtype":  null,
+                                                                     "tag":  "FV_0825",
+                                                                     "displayName":  null,
+                                                                     "properties":  [
+
+                                                                                    ],
+                                                                     "geometry":  {
+                                                                                      "bbox":  {
+                                                                                                   "x":  0.13,
+                                                                                                   "y":  0.68,
+                                                                                                   "width":  0.1,
+                                                                                                   "height":  0.04
+                                                                                               },
+                                                                                      "polygon":  null,
+                                                                                      "anchorPoints":  null
+                                                                                  },
+                                                                     "confidence":  null,
+                                                                     "provenance":  [
+                                                                                        {
+                                                                                            "sourceRef":  "img_0",
+                                                                                            "evidenceText":  "FV_0825",
+                                                                                            "note":  "Lower-left quadrant next to valve symbol"
+                                                                                        }
+                                                                                    ]
+                                                                 },
+                                                                 {
+                                                                     "candidateId":  "c9",
+                                                                     "kind":  "equipment",
+                                                                     "subtype":  null,
+                                                                     "tag":  "P310009",
+                                                                     "displayName":  null,
+                                                                     "properties":  [
+
+                                                                                    ],
+                                                                     "geometry":  {
+                                                                                      "bbox":  {
+                                                                                                   "x":  0.64,
+                                                                                                   "y":  0.9,
+                                                                                                   "width":  0.11,
+                                                                                                   "height":  0.05
+                                                                                               },
+                                                                                      "polygon":  null,
+                                                                                      "anchorPoints":  null
+                                                                                  },
+                                                                     "confidence":  null,
+                                                                     "provenance":  [
+                                                                                        {
+                                                                                            "sourceRef":  "img_0",
+                                                                                            "evidenceText":  "P310009",
+                                                                                            "note":  "Bottom-center near red circular symbol"
+                                                                                        }
+                                                                                    ]
+                                                                 },
+                                                                 {
+                                                                     "candidateId":  "c10",
+                                                                     "kind":  "equipment",
+                                                                     "subtype":  null,
+                                                                     "tag":  "V310001A",
+                                                                     "displayName":  null,
+                                                                     "properties":  [
+
+                                                                                    ],
+                                                                     "geometry":  {
+                                                                                      "bbox":  {
+                                                                                                   "x":  0.1,
+                                                                                                   "y":  0.39,
+                                                                                                   "width":  0.12,
+                                                                                                   "height":  0.04
+                                                                                               },
+                                                                                      "polygon":  null,
+                                                                                      "anchorPoints":  null
+                                                                                  },
+                                                                     "confidence":  null,
+                                                                     "provenance":  [
+                                                                                        {
+                                                                                            "sourceRef":  "img_0",
+                                                                                            "evidenceText":  "V310001A",
+                                                                                            "note":  "Left side near vertical vessel graphic"
+                                                                                        }
+                                                                                    ]
+                                                                 }
+                                                             ],
+                                              "warnings":  [
+                                                               "Only a subset of clearly legible candidates were extracted due to image density and resolution.",
+                                                               "Geometry uses normalized bounding boxes relative to the displayed image and is approximate."
+                                                           ]
+                                          },
+                             "topology":  {
+                                              "connections":  [
+
+                                                              ],
+                                              "warnings":  [
+                                                               "No unambiguous process/utility/signal/ownership/reference relationships between the listed industrial tags (KV_0816A, KV_0814C, KV_0814D, TV_0806C, FV_0825, P310009, V310001A) can be confirmed from the screenshot due to screen glare, resolution, and dense overlapping graphicsâspecific line endpoints and symbols are not reliably traceable (needs_source).",
+                                                               "âHollySys logo textâ appears to be vendor branding on the SCADA UI and âThinkVision bezel textâ is hardware branding on the monitor bezel; these are not part of the plant topology, so no connections are proposed.",
+                                                               "The candidate âlogo textâ is ambiguous in the image (multiple UI items could match). Without a precise reference, no relationship can be asserted (needs_source)."
+                                                           ]
+                                          },
+                             "entityProviderMetadata":  {
+                                                            "provider":  "openai",
+                                                            "model":  "gpt-5-2025-08-07",
+                                                            "requestId":  "11d2dd39-c8f8-4e98-b443-3894831a7fa6:entities",
+                                                            "latencyMs":  56597.976691999065,
+                                                            "usage":  {
+                                                                          "inputTokens":  1352,
+                                                                          "outputTokens":  2398,
+                                                                          "totalTokens":  3750
+                                                                      },
+                                                            "warnings":  [
+
+                                                                         ],
+                                                            "rawResponseRef":  "resp_0bbefdf91d57df4e006a806ed19424819aae1b377992a2419a",
+                                                            "debugMetadata":  {
+                                                                                  "responseStatus":  "completed"
+                                                                              }
+                                                        },
+                             "topologyProviderMetadata":  {
+                                                              "provider":  "openai",
+                                                              "model":  "gpt-5-2025-08-07",
+                                                              "requestId":  "11d2dd39-c8f8-4e98-b443-3894831a7fa6:topology",
+                                                              "latencyMs":  35718.49997800018,
+                                                              "usage":  {
+                                                                            "inputTokens":  1451,
+                                                                            "outputTokens":  1149,
+                                                                            "totalTokens":  2600
+                                                                        },
+                                                              "warnings":  [
+
+                                                                           ],
+                                                              "rawResponseRef":  "resp_0b681777e8d6c814006a806f0b5f908198bc85251aaca7e7c1",
+                                                              "debugMetadata":  {
+                                                                                    "responseStatus":  "completed"
+                                                                                }
+                                                          },
+                             "warnings":  [
+                                              "Only a subset of clearly legible candidates were extracted due to image density and resolution.",
+                                              "Geometry uses normalized bounding boxes relative to the displayed image and is approximate.",
+                                              "No unambiguous process/utility/signal/ownership/reference relationships between the listed industrial tags (KV_0816A, KV_0814C, KV_0814D, TV_0806C, FV_0825, P310009, V310001A) can be confirmed from the screenshot due to screen glare, resolution, and dense overlapping graphicsâspecific line endpoints and symbols are not reliably traceable (needs_source).",
+                                              "âHollySys logo textâ appears to be vendor branding on the SCADA UI and âThinkVision bezel textâ is hardware branding on the monitor bezel; these are not part of the plant topology, so no connections are proposed.",
+                                              "The candidate âlogo textâ is ambiguous in the image (multiple UI items could match). Without a precise reference, no relationship can be asserted (needs_source)."
+                                          ],
+                             "canonicalGraphMutated":  false
+                         }
+}

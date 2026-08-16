@@ -3,6 +3,7 @@ from typing import Literal
 from pydantic import Field
 
 from app.ai.contracts import AIContract, TokenUsage
+from app.digitization.schemas import DigitizationProposalResponse
 
 
 class EvaluationProviderMetadata(AIContract):
@@ -80,6 +81,14 @@ class BenchmarkIdentity(AIContract):
         "benchmark:hydrolysis:IMG_6807.JPG"
     )
     source_filename: Literal["IMG_6807.JPG"] = "IMG_6807.JPG"
+
+
+class LiveProposalSnapshot(AIContract):
+    snapshot_label: Literal["MODEL OUTPUT SNAPSHOT — NOT BENCHMARK TRUTH"] = (
+        "MODEL OUTPUT SNAPSHOT — NOT BENCHMARK TRUTH"
+    )
+    benchmark: BenchmarkIdentity = Field(default_factory=BenchmarkIdentity)
+    captured_proposal: DigitizationProposalResponse
 
 
 class EntityEvaluationResult(AIContract):

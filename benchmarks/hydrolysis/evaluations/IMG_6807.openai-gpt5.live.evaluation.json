@@ -1,0 +1,190 @@
+{
+  "schemaVersion": "0.1",
+  "benchmark": {
+    "name": "hydrolysis",
+    "documentId": "benchmark:hydrolysis",
+    "pageId": "benchmark:hydrolysis:IMG_6807.JPG",
+    "sourceFilename": "IMG_6807.JPG"
+  },
+  "runId": "11d2dd39-c8f8-4e98-b443-3894831a7fa6",
+  "providerMetadata": {
+    "provider": "openai",
+    "model": "gpt-5-2025-08-07",
+    "requestId": "11d2dd39-c8f8-4e98-b443-3894831a7fa6:entities",
+    "latencyMs": 56597.976691999065,
+    "usage": {
+      "inputTokens": 1352,
+      "outputTokens": 2398,
+      "totalTokens": 3750
+    }
+  },
+  "metrics": {
+    "proposed": 10,
+    "references": 64,
+    "matched": 1,
+    "unmatchedCandidates": 9,
+    "unmatchedReferences": 63,
+    "semanticPrecision": {
+      "numerator": 1,
+      "denominator": 10,
+      "value": 0.1
+    },
+    "semanticRecall": {
+      "numerator": 1,
+      "denominator": 64,
+      "value": 0.015625
+    },
+    "semanticF1": 0.027027,
+    "exactTagAccuracy": {
+      "numerator": 1,
+      "denominator": 1,
+      "value": 1.0
+    },
+    "kindAccuracy": {
+      "numerator": 1,
+      "denominator": 1,
+      "value": 1.0
+    },
+    "instrumentPrecision": {
+      "numerator": 0,
+      "denominator": 0,
+      "value": 0.0
+    },
+    "instrumentRecall": {
+      "numerator": 0,
+      "denominator": 43,
+      "value": 0.0
+    },
+    "proposedByKind": {
+      "equipment": 2,
+      "text": 3,
+      "valve": 5
+    },
+    "referenceByKind": {
+      "boundary": 1,
+      "equipment": 20,
+      "instrument": 43
+    },
+    "matchedCorrectKindByKind": {
+      "equipment": 1
+    }
+  },
+  "matches": [
+    {
+      "candidateId": "c9",
+      "referenceId": "hydrolysis:equipment:N_P310009",
+      "method": "exact_tag",
+      "candidateTag": "P310009",
+      "referenceTag": "P310009",
+      "candidateKind": "equipment",
+      "referenceKind": "equipment"
+    }
+  ],
+  "unmatchedCandidateIds": [
+    "c1",
+    "c10",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8"
+  ],
+  "unmatchedReferenceIds": [
+    "hydrolysis:equipment:BND_DILUTION_WATER",
+    "hydrolysis:equipment:N_A310001A",
+    "hydrolysis:equipment:N_A310001B",
+    "hydrolysis:equipment:N_A310001C",
+    "hydrolysis:equipment:N_A310001D",
+    "hydrolysis:equipment:N_A310002A",
+    "hydrolysis:equipment:N_A310002B",
+    "hydrolysis:equipment:N_A310002C",
+    "hydrolysis:equipment:N_A310002D",
+    "hydrolysis:equipment:N_A310002E",
+    "hydrolysis:equipment:N_A310002F",
+    "hydrolysis:equipment:N_A310002G",
+    "hydrolysis:equipment:N_A310002H",
+    "hydrolysis:equipment:N_P310001A",
+    "hydrolysis:equipment:N_P310001B",
+    "hydrolysis:equipment:N_P310001C",
+    "hydrolysis:equipment:N_P310001D",
+    "hydrolysis:equipment:N_P310003A",
+    "hydrolysis:equipment:N_P310003B",
+    "hydrolysis:equipment:N_V310008",
+    "hydrolysis:instrument:I023",
+    "hydrolysis:instrument:I024",
+    "hydrolysis:instrument:I025",
+    "hydrolysis:instrument:I026",
+    "hydrolysis:instrument:I027",
+    "hydrolysis:instrument:I028",
+    "hydrolysis:instrument:I029",
+    "hydrolysis:instrument:I030",
+    "hydrolysis:instrument:I031",
+    "hydrolysis:instrument:I032",
+    "hydrolysis:instrument:I033",
+    "hydrolysis:instrument:I034",
+    "hydrolysis:instrument:I035",
+    "hydrolysis:instrument:I036",
+    "hydrolysis:instrument:I037",
+    "hydrolysis:instrument:I038",
+    "hydrolysis:instrument:I039",
+    "hydrolysis:instrument:I040",
+    "hydrolysis:instrument:I041",
+    "hydrolysis:instrument:I042",
+    "hydrolysis:instrument:I043",
+    "hydrolysis:instrument:I044",
+    "hydrolysis:instrument:I045",
+    "hydrolysis:instrument:I046",
+    "hydrolysis:instrument:I047",
+    "hydrolysis:instrument:I048",
+    "hydrolysis:instrument:I049",
+    "hydrolysis:instrument:I050",
+    "hydrolysis:instrument:I051",
+    "hydrolysis:instrument:I052",
+    "hydrolysis:instrument:I053",
+    "hydrolysis:instrument:I054",
+    "hydrolysis:instrument:I055",
+    "hydrolysis:instrument:I056",
+    "hydrolysis:instrument:I057",
+    "hydrolysis:instrument:I058",
+    "hydrolysis:instrument:I059",
+    "hydrolysis:instrument:I060",
+    "hydrolysis:instrument:I061",
+    "hydrolysis:instrument:I062",
+    "hydrolysis:instrument:I063",
+    "hydrolysis:instrument:I064",
+    "hydrolysis:instrument:I065"
+  ],
+  "ambiguousMatches": [],
+  "geometry": {
+    "label": "geometry proposal coverage/validity",
+    "candidatesWithBbox": 10,
+    "candidatesWithoutBbox": 0,
+    "bboxValuesWithinNormalizedRange": 10,
+    "malformedOrDegenerateBbox": 0,
+    "verifiedReferenceGeometry": 0,
+    "geometryAccuracyScored": false
+  },
+  "topology": {
+    "proposalCount": 0,
+    "referenceConnectionCount": 85,
+    "connectionGeometryScored": false,
+    "semanticScoringStatus": "not_scored_no_proposals"
+  },
+  "warnings": [
+    "Hydrolysis reference data is pre-DEXPI and is not certified engineering truth.",
+    "Verified geometry coverage is zero; no Canvas overlays may be rendered.",
+    "Only a subset of clearly legible candidates were extracted due to image density and resolution.",
+    "Geometry uses normalized bounding boxes relative to the displayed image and is approximate.",
+    "No unambiguous process/utility/signal/ownership/reference relationships between the listed industrial tags (KV_0816A, KV_0814C, KV_0814D, TV_0806C, FV_0825, P310009, V310001A) can be confirmed from the screenshot due to screen glare, resolution, and dense overlapping graphicsâspecific line endpoints and symbols are not reliably traceable (needs_source).",
+    "âHollySys logo textâ appears to be vendor branding on the SCADA UI and âThinkVision bezel textâ is hardware branding on the monitor bezel; these are not part of the plant topology, so no connections are proposed.",
+    "The candidate âlogo textâ is ambiguous in the image (multiple UI items could match). Without a precise reference, no relationship can be asserted (needs_source)."
+  ],
+  "limitations": [
+    "Reference membership is semantic provenance support for IMG_6807.JPG, not certified P&ID truth.",
+    "No verified entity geometry exists; bbox/IoU/localization accuracy is not scored.",
+    "No verified connection geometry exists; connection path accuracy is not scored.",
+    "Topology semantics may be compared only after both proposal endpoints match reference entities unambiguously."
+  ]
+}

@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from app.ai.entity_proposals import EntityCandidate, EntityExtractionProposal
 from app.ai.topology_proposals import TopologyExtractionProposal
 from app.domain.models import EngineeringEntity
@@ -7,6 +9,7 @@ from app.evaluation.evaluator import (
     load_img_6807_reference,
     normalize_comparison_text,
 )
+from app.evaluation.schemas import LiveProposalSnapshot
 
 
 def reference(
@@ -175,3 +178,21 @@ def test_actual_page_reference_scope_and_repeated_evaluation_are_deterministic()
     assert sum(entity.kind == "instrument" for entity in scope.entities) == 43
     assert scope.connection_count == 85
     assert first.model_dump_json(by_alias=True) == second.model_dump_json(by_alias=True)
+
+
+def test_captured_live_snapshot_is_validated_and_contains_no_secret_fields() -> None:
+    root = Path(__file__).parents[3]
+    path = (
+        root
+        / "benchmarks/hydrolysis/evaluations/fixtures"
+        / "IMG_6807.openai-gpt5.live.proposal.json"
+    )
+
+    snapshot = LiveProposalSnapshot.model_validate_json(path.read_text(encoding="utf-8"))
+    serialized = snapshot.model_dump(mode="json", by_alias=True)
+
+    assert snapshot.snapshot_label == "MODEL OUTPUT SNAPSHOT — NOT BENCHMARK TRUTH"
+    assert snapshot.benchmark.source_filename == "IMG_6807.JPG"
+    assert snapshot.captured_proposal.canonical_graph_mutated is False
+    assert "apiKey" not in serialized
+    assert "authorization" not in serialized
