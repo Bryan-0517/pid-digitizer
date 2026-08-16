@@ -193,6 +193,40 @@ test("selects a rendered connection independently", () => {
   expect(screen.getByLabelText("Selected entity")).toHaveTextContent("None");
 });
 
+test("renders multiple chat highlights independently from inspector selection", () => {
+  const highlightedGraph: EngineeringGraph = {
+    ...graph,
+    connections: graph.connections.map((connection) => ({
+      ...connection,
+      geometry: connection.geometry ?? { polyline: [{ x: .4, y: .2 }, { x: .7, y: .2 }] },
+    })),
+  };
+  render(
+    <DiagramViewer
+      documentName="diagram.png"
+      imageUrl="http://localhost:8000/files/page.png"
+      page={{ id: "page-1", documentId: "doc-1", pageNumber: 1,
+        imageUri: "/files/page.png", widthPx: 1600, heightPx: 800 }}
+      graph={highlightedGraph}
+      selectedEntityId="mock-equipment-1"
+      selectedConnectionId={null}
+      highlightedEntityIds={["mock-equipment-1", "mock-valve-1", "mock-instrument-1"]}
+      highlightedConnectionIds={["mock-connection-with-geometry", "mock-connection-without-geometry"]}
+      onSelectEntity={vi.fn()}
+      onSelectConnection={vi.fn()}
+      onClearSelection={vi.fn()}
+    />,
+  );
+
+  const entityStrokes = screen.getAllByTestId("entity-rect").map((item) => item.getAttribute("data-stroke"));
+  expect(entityStrokes).toEqual(["#facc15", "#c084fc", "#c084fc", "#0ea5e9"]);
+  expect(screen.getAllByTestId("connection-line")).toHaveLength(2);
+  expect(screen.getAllByTestId("connection-line").every(
+    (item) => item.getAttribute("data-stroke") === "#c084fc",
+  )).toBe(true);
+  expect(screen.getByLabelText("Selected entity")).toHaveTextContent("mock-equipment-1");
+});
+
 function renderViewer() {
   return render(<ViewerHarness />);
 }

@@ -7,6 +7,7 @@ import { sourceTypeForFilename, supportedInputMessage } from "./upload-validatio
 import EntityInspector from "../components/entity-inspector";
 import ConnectionInspector from "../components/connection-inspector";
 import BenchmarkSummary, { BenchmarkPageFixture } from "../components/benchmark-summary";
+import GraphChat from "../components/graph-chat";
 
 type DocumentDetail = { document: Document; page?: DocumentPage };
 type BenchmarkData = { page: BenchmarkPageFixture; graph: EngineeringGraph };
@@ -25,6 +26,8 @@ export default function Home() {
   const [graph, setGraph] = useState<EngineeringGraph | null>(null);
   const [selectedEntityId, setSelectedEntityId] = useState<string | null>(null);
   const [selectedConnectionId, setSelectedConnectionId] = useState<string | null>(null);
+  const [highlightedEntityIds, setHighlightedEntityIds] = useState<string[]>([]);
+  const [highlightedConnectionIds, setHighlightedConnectionIds] = useState<string[]>([]);
   const [loadingDocument, setLoadingDocument] = useState(false);
   const [benchmark, setBenchmark] = useState<BenchmarkData | null>(null);
 
@@ -63,6 +66,8 @@ export default function Home() {
       setGraph((await graphResponse.json()) as EngineeringGraph);
       setSelectedEntityId(null);
       setSelectedConnectionId(null);
+      setHighlightedEntityIds([]);
+      setHighlightedConnectionIds([]);
     } catch (reason) {
       setDetail(null);
       setGraph(null);
@@ -105,6 +110,8 @@ export default function Home() {
       setGraph((await graphResponse.json()) as EngineeringGraph);
       setSelectedEntityId(null);
       setSelectedConnectionId(null);
+      setHighlightedEntityIds([]);
+      setHighlightedConnectionIds([]);
       window.history.replaceState(null, "", `?documentId=${encodeURIComponent(created.id)}`);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Upload failed");
@@ -118,6 +125,8 @@ export default function Home() {
     setGraph(null);
     setSelectedEntityId(null);
     setSelectedConnectionId(null);
+    setHighlightedEntityIds([]);
+    setHighlightedConnectionIds([]);
     setError(null);
     window.history.replaceState(null, "", window.location.pathname);
   }
@@ -183,11 +192,21 @@ export default function Home() {
               graph={graph}
               selectedEntityId={selectedEntityId}
               selectedConnectionId={selectedConnectionId}
+              highlightedEntityIds={highlightedEntityIds}
+              highlightedConnectionIds={highlightedConnectionIds}
               onSelectEntity={selectEntity}
               onSelectConnection={selectConnection}
               onClearSelection={clearSelection}
             />
             <div className="inspectors">
+              <GraphChat
+                apiUrl={apiUrl}
+                documentId={graph.documentId}
+                onHighlight={(entityIds, connectionIds) => {
+                  setHighlightedEntityIds([...entityIds]);
+                  setHighlightedConnectionIds([...connectionIds]);
+                }}
+              />
               <EntityInspector entity={selectedEntity} apiUrl={apiUrl} onSaved={entitySaved} />
               <ConnectionInspector
                 apiUrl={apiUrl} documentId={graph.documentId} entities={graph.entities}

@@ -8,6 +8,8 @@ type GraphOverlayProps = {
   imageSize: { width: number; height: number };
   selectedEntityId: string | null;
   selectedConnectionId: string | null;
+  highlightedEntityIds: string[];
+  highlightedConnectionIds: string[];
   showEntities: boolean;
   showConnections: boolean;
   viewScale: number;
@@ -23,6 +25,7 @@ export default function GraphOverlay({
   graph,
   imageSize,
   selectedEntityId, selectedConnectionId,
+  highlightedEntityIds, highlightedConnectionIds,
   showEntities,
   showConnections,
   viewScale,
@@ -35,13 +38,16 @@ export default function GraphOverlay({
     <>
       {showConnections && (
         <Layer name="connections">
-          {graph.connections.map((connection) => connection.geometry?.polyline && (
+          {graph.connections.map((connection) => connection.geometry?.polyline && (() => {
+            const selected = connection.id === selectedConnectionId;
+            const highlighted = highlightedConnectionIds.includes(connection.id);
+            return (
             <Line
               key={connection.id}
               id={connection.id}
               points={normalizedPointsToImage(connection.geometry.polyline, imageSize)}
-              stroke={connection.id === selectedConnectionId ? "#facc15" : "#38bdf8"}
-              strokeWidth={connection.id === selectedConnectionId ? strokeWidth * 2 : strokeWidth}
+              stroke={selected ? "#facc15" : highlighted ? "#c084fc" : "#38bdf8"}
+              strokeWidth={selected || highlighted ? strokeWidth * 2 : strokeWidth}
               lineCap="round"
               lineJoin="round"
               hitStrokeWidth={12 / viewScale}
@@ -54,7 +60,8 @@ export default function GraphOverlay({
                 onSelectConnection(connection.id);
               }}
             />
-          ))}
+            );
+          })())}
         </Layer>
       )}
       {showEntities && (
@@ -64,6 +71,7 @@ export default function GraphOverlay({
             if (!bbox) return null;
             const imageBox = normalizedBboxToImage(bbox, imageSize);
             const selected = entity.id === selectedEntityId;
+            const highlighted = highlightedEntityIds.includes(entity.id);
             return (
               <Group
                 key={entity.id}
@@ -79,16 +87,16 @@ export default function GraphOverlay({
               >
                 <Rect
                   {...imageBox}
-                  fill={selected ? "rgba(250, 204, 21, 0.18)" : "rgba(14, 165, 233, 0.08)"}
-                  stroke={selected ? "#facc15" : "#0ea5e9"}
-                  strokeWidth={selected ? strokeWidth * 2 : strokeWidth}
+                  fill={selected ? "rgba(250, 204, 21, 0.18)" : highlighted ? "rgba(192, 132, 252, 0.18)" : "rgba(14, 165, 233, 0.08)"}
+                  stroke={selected ? "#facc15" : highlighted ? "#c084fc" : "#0ea5e9"}
+                  strokeWidth={selected || highlighted ? strokeWidth * 2 : strokeWidth}
                 />
                 <Text
                   x={imageBox.x}
                   y={Math.max(0, imageBox.y - fontSize * 1.3)}
                   text={entityLabel(entity)}
                   fontSize={fontSize}
-                  fill={selected ? "#fef08a" : "#e0f2fe"}
+                  fill={selected ? "#fef08a" : highlighted ? "#e9d5ff" : "#e0f2fe"}
                   stroke="#111827"
                   strokeWidth={0.75 / viewScale}
                 />

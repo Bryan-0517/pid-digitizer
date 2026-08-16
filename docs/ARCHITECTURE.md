@@ -172,6 +172,14 @@ Optional LLM verbalization
 
 The LLM must not invent an upstream/downstream relationship that the graph query did not return.
 
+T014 implements `POST /documents/{id}/chat` as stateless, read-only orchestration. A narrow
+deterministic parser recognizes neighbors, upstream, downstream, shortest-path, and exact lookup
+requests. Entity resolution and every topology fact are obtained through the T013 graph-query
+service. Responses retain the immutable structured query results, supporting IDs, uncertainty
+metadata, and canvas-highlight IDs. Optional text verbalization is disabled by default, is bypassed
+for negative or ambiguous outcomes, and may only reword the deterministic grounded answer. Chat
+does not persist messages and cannot mutate `EngineeringGraph`.
+
 ## 9. DEXPI boundary
 
 `EngineeringGraph` is canonical. `DexpiAdapter` is an output/integration boundary.

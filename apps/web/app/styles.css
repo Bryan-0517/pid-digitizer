@@ -26,6 +26,14 @@ button { padding: 0.55rem 1rem; }
 .inspectors { display: grid; gap: 1rem; align-content: start; }
 .entity-inspector { border: 1px solid #777; padding: 1rem; max-height: 75vh; overflow: auto; }
 .connection-inspector { border: 1px solid #777; padding: 1rem; max-height: 75vh; overflow: auto; }
+.graph-chat { border: 1px solid #777; padding: 1rem; }
+.graph-chat form { display: grid; margin-block: 1rem; }
+.graph-chat input { box-sizing: border-box; width: 100%; padding: 0.4rem; }
+.graph-chat ul { color: #9a6700; padding-left: 1.25rem; }
+.chat-answer { font-weight: 600; }
+.chat-supporting-ids { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: .25rem .75rem; font-size: .8rem; }
+.chat-supporting-ids dt { font-weight: 700; }
+.chat-supporting-ids dd { margin: 0; overflow-wrap: anywhere; }
 .connection-inspector form { display: grid; margin-block: 1rem; }
 .connection-inspector form label { display: grid; gap: 0.3rem; }
 .connection-inspector input, .connection-inspector select, .connection-inspector textarea { box-sizing: border-box; width: 100%; padding: 0.4rem; }

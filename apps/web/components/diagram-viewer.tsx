@@ -15,6 +15,8 @@ type DiagramViewerProps = {
   graph: EngineeringGraph;
   selectedEntityId: string | null;
   selectedConnectionId: string | null;
+  highlightedEntityIds?: string[];
+  highlightedConnectionIds?: string[];
   onSelectEntity: (entityId: string | null) => void;
   onSelectConnection: (connectionId: string | null) => void;
   onClearSelection: () => void;
@@ -27,6 +29,7 @@ const WHEEL_SCALE = 1.08;
 
 export default function DiagramViewer({
   page, imageUrl, documentName, graph, selectedEntityId, selectedConnectionId,
+  highlightedEntityIds = [], highlightedConnectionIds = [],
   onSelectEntity, onSelectConnection, onClearSelection,
 }: DiagramViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -176,6 +179,8 @@ export default function DiagramViewer({
               imageSize={{ width: page.widthPx, height: page.heightPx }}
               selectedEntityId={selectedEntityId}
               selectedConnectionId={selectedConnectionId}
+              highlightedEntityIds={highlightedEntityIds}
+              highlightedConnectionIds={highlightedConnectionIds}
               showEntities={showEntities}
               showConnections={showConnections}
               viewScale={view.scale}
