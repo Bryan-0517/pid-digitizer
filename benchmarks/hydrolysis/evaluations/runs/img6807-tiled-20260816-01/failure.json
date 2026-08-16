@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "0.1",
+  "experimentId": "img6807-tiled-20260816-01",
+  "callNumber": 2,
+  "requestId": "img6807-tiled-20260816-01:equipment_boundary:r0c1",
+  "extractionPass": "equipment_boundary",
+  "tileId": "r0c1",
+  "failureKind": "malformed_structured_output",
+  "safeProviderStatus": "response_received_but_schema_validation_failed",
+  "incompleteMetadata": null,
+  "providerResponseId": null,
+  "validationError": {
+    "path": "candidates.9.geometry.bbox",
+    "message": "bounding box must remain within normalized [0,1] bounds"
+  },
+  "automaticRetryAttempted": false,
+  "finalSnapshotGenerated": false,
+  "evaluationGenerated": false
+}

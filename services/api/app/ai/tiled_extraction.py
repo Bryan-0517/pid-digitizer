@@ -12,7 +12,12 @@ from PIL import Image
 from pydantic import Field
 
 from app.ai.contracts import AIContract, PageImageInput, ProviderMetadata, StructuredExtractionRequest
-from app.ai.entity_proposals import EntityCandidate, EntityExtractionProposal
+from app.ai.entity_proposals import (
+    CandidateValidationWarning,
+    EntityCandidate,
+    EntityExtractionProposal,
+    proposal_validation_diagnostics,
+)
 from app.ai.provider import AIProvider, execute_extraction
 from app.domain.models import BoundingBox, EntityGeometry, Point
 
@@ -47,6 +52,11 @@ class TileCallResult(AIContract):
     extraction_pass: ExtractionPass
     tile: TileSpec
     candidate_count: int
+    candidates_returned: int
+    candidates_fully_valid: int
+    candidates_retained_without_geometry: int
+    candidates_rejected: int
+    geometry_validation_warnings: list[CandidateValidationWarning]
     provider_metadata: ProviderMetadata
     warnings: list[str]
 
@@ -256,6 +266,7 @@ async def run_tiled_extraction(
         response = await execute_extraction(
             provider, request, EntityExtractionProposal, timeout_seconds=240
         )
+        diagnostics = proposal_validation_diagnostics(response.parsed_output)
         transformed = [
             transform_candidate(
                 candidate,
@@ -270,6 +281,13 @@ async def run_tiled_extraction(
             extraction_pass=extraction_pass,
             tile=tile,
             candidate_count=len(transformed),
+            candidates_returned=diagnostics.candidates_returned,
+            candidates_fully_valid=diagnostics.candidates_fully_valid,
+            candidates_retained_without_geometry=(
+                diagnostics.candidates_retained_without_geometry
+            ),
+            candidates_rejected=diagnostics.candidates_rejected,
+            geometry_validation_warnings=diagnostics.geometry_validation_warnings,
             provider_metadata=response.metadata,
             warnings=response.parsed_output.warnings,
         )
@@ -355,6 +373,7 @@ def _extraction_configuration_sha256(maximum_output_tokens: int) -> str:
         )
         configurations.append(
             {
+                "validationPolicyVersion": "candidate-isolation-v1",
                 "pass": extraction_pass,
                 "systemInstruction": request.system_instruction,
                 "taskPrompt": request.task_prompt,

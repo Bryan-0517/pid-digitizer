@@ -1,0 +1,408 @@
+{
+  "schemaVersion": "0.1",
+  "callNumber": 1,
+  "requestId": "img6807-tiled-20260816-01:equipment_boundary:r0c0",
+  "result": {
+    "extractionPass": "equipment_boundary",
+    "tile": {
+      "tileId": "r0c0",
+      "row": 0,
+      "column": 0,
+      "regionInRoi": {
+        "x": 0,
+        "y": 0,
+        "width": 2614,
+        "height": 1477
+      },
+      "regionInOriginal": {
+        "x": 96,
+        "y": 636,
+        "width": 2614,
+        "height": 1477
+      }
+    },
+    "candidateCount": 10,
+    "providerMetadata": {
+      "provider": "openai",
+      "model": "gpt-5-2025-08-07",
+      "requestId": "img6807-tiled-20260816-01:equipment_boundary:r0c0",
+      "latencyMs": 53683.131400001,
+      "usage": {
+        "inputTokens": 1692,
+        "outputTokens": 3434,
+        "totalTokens": 5126
+      },
+      "warnings": [],
+      "rawResponseRef": "resp_0629130faca88eca006a8141ae02a8819a84b286d01630f194",
+      "debugMetadata": {
+        "responseStatus": "completed"
+      }
+    },
+    "warnings": []
+  },
+  "proposal": {
+    "candidates": [
+      {
+        "candidateId": "equipment_boundary:r0c0:equip-1",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": "V310001A",
+        "displayName": "1#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd",
+        "properties": [
+          {
+            "name": "label",
+            "value": "1#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd",
+            "evidenceText": "1#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd"
+          },
+          {
+            "name": "levelTag",
+            "value": "LIT_0852A",
+            "evidenceText": "LIT_0852A"
+          },
+          {
+            "name": "vesselTag",
+            "value": "V310001A",
+            "evidenceText": "V310001A"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.0419765406162465,
+            "y": 0.2725770308123249,
+            "width": 0.08237394957983193,
+            "height": 0.11722222222222224
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Rectangular vessel graphic with green level bar and text '1#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd' and 'V310001A'",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:equip-2",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": "V310001B",
+        "displayName": "2#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd",
+        "properties": [
+          {
+            "name": "label",
+            "value": "2#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd",
+            "evidenceText": "2#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd"
+          },
+          {
+            "name": "levelTag",
+            "value": "LIT_0852B",
+            "evidenceText": "LIT_0852B"
+          },
+          {
+            "name": "vesselTag",
+            "value": "V310001B",
+            "evidenceText": "V310001B"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.04426470588235294,
+            "y": 0.3829038281979459,
+            "width": 0.08237394957983193,
+            "height": 0.07584967320261438
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Lower-left rectangular vessel with green level bar and text '2#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd' and 'V310001B'",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:equip-3",
+        "kind": "equipment",
+        "subtype": "pump",
+        "tag": "P310001D",
+        "displayName": "4#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5",
+        "properties": [
+          {
+            "name": "label",
+            "value": "4#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5",
+            "evidenceText": "4#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5"
+          },
+          {
+            "name": "equipmentTag",
+            "value": "P310001D",
+            "evidenceText": "P310001D"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.1815546218487395,
+            "y": 0.3070541549953315,
+            "width": 0.027457983193277313,
+            "height": 0.03447712418300654
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Red pump symbol beneath '0.00A' with nearby tag 'P310001D'",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:equip-4",
+        "kind": "equipment",
+        "subtype": "pump",
+        "tag": "P310001C",
+        "displayName": "3#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5",
+        "properties": [
+          {
+            "name": "label",
+            "value": "3#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5",
+            "evidenceText": "3#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5"
+          },
+          {
+            "name": "equipmentTag",
+            "value": "P310001C",
+            "evidenceText": "P310001C"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.23189425770308122,
+            "y": 0.3105018674136321,
+            "width": 0.027457983193277313,
+            "height": 0.03447712418300654
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Middle red pump symbol with nearby tag 'P310001C'",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:equip-5",
+        "kind": "equipment",
+        "subtype": "pump",
+        "tag": "P310001B",
+        "displayName": "2#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5",
+        "properties": [
+          {
+            "name": "label",
+            "value": "2#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5",
+            "evidenceText": "2#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5"
+          },
+          {
+            "name": "equipmentTag",
+            "value": "P310001B",
+            "evidenceText": "P310001B"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.28223389355742295,
+            "y": 0.3105018674136321,
+            "width": 0.027457983193277313,
+            "height": 0.03447712418300654
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Right yellow pump symbol with nearby tag 'P310001B'",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:equip-6",
+        "kind": "equipment",
+        "subtype": "fan",
+        "tag": null,
+        "displayName": "2#\u6c34\u89e3\u6392\u98ce\u673a",
+        "properties": [
+          {
+            "name": "label",
+            "value": "2#\u6c34\u89e3\u6392\u98ce\u673a",
+            "evidenceText": "2#\u6c34\u89e3\u6392\u98ce\u673a"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.21587710084033612,
+            "y": 0.3622175536881419,
+            "width": 0.03661064425770308,
+            "height": 0.04137254901960784
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Green circular fan/blower symbol with nearby text '2#\u6c34\u89e3\u6392\u98ce\u673a'",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:equip-7",
+        "kind": "equipment",
+        "subtype": "fan",
+        "tag": null,
+        "displayName": "1#\u6c34\u89e3\u6392\u98ce\u673a",
+        "properties": [
+          {
+            "name": "label",
+            "value": "1#\u6c34\u89e3\u6392\u98ce\u673a",
+            "evidenceText": "1#\u6c34\u89e3\u6392\u98ce\u673a"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.24791141456582633,
+            "y": 0.3966946778711485,
+            "width": 0.0320343137254902,
+            "height": 0.04137254901960784
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Red circular fan/blower symbol with nearby text '1#\u6c34\u89e3\u6392\u98ce\u673a'",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:equip-8",
+        "kind": "equipment",
+        "subtype": "vessel",
+        "tag": "A310001A",
+        "displayName": "1#\u6d53\u949b\u6db2\u9884\u70ed\u69fd\u6405\u62cc",
+        "properties": [
+          {
+            "name": "label",
+            "value": "1#\u6d53\u949b\u6db2\u9884\u70ed\u69fd\u6405\u62cc",
+            "evidenceText": "1#\u6d53\u949b\u6db2\u9884\u70ed\u69fd\u6405\u62cc"
+          },
+          {
+            "name": "vesselTag",
+            "value": "A310001A",
+            "evidenceText": "A310001A"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.3623196778711484,
+            "y": 0.36911297852474323,
+            "width": 0.09152661064425771,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Grey rectangular vessel with agitator icon and tag 'A310001A' next to text '1#\u6d53\u949b\u6db2\u9884\u70ed\u69fd\u6405\u62cc'",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:equip-9",
+        "kind": "equipment",
+        "subtype": "vessel",
+        "tag": null,
+        "displayName": "2#\u6d53\u949b\u6db2\u9884\u70ed\u69fd\u6405\u62cc",
+        "properties": [
+          {
+            "name": "label",
+            "value": "2#\u6d53\u949b\u6db2\u9884\u70ed\u69fd\u6405\u62cc",
+            "evidenceText": "2#\u6d53\u949b\u6db2\u9884\u70ed\u69fd\u6405\u62cc"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.4424054621848739,
+            "y": 0.36911297852474323,
+            "width": 0.0320343137254902,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Partially visible grey rectangular vessel with agitator icon at far right, near text '2#\u6d53\u949b\u6db2\u9884\u70ed\u69fd\u6405\u62cc'",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:equip-10",
+        "kind": "equipment",
+        "subtype": "motor",
+        "tag": null,
+        "displayName": "\u6405\u62cc\u7535\u673a (A310001A)",
+        "properties": [
+          {
+            "name": "label",
+            "value": "M",
+            "evidenceText": "Red 'M' motor symbol above A310001A"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.34630252100840336,
+            "y": 0.34842670401493925,
+            "width": 0.013728991596638656,
+            "height": 0.01723856209150327
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Red 'M' circular motor symbol connected to the 1#\u9884\u70ed\u69fd\u6405\u62cc vessel",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      }
+    ],
+    "warnings": []
+  }
+}

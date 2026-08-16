@@ -9,8 +9,9 @@ from app.ai.entity_proposals import (
     EntityExtractionProposal,
     build_entity_extraction_request,
     page_image_from_path,
+    proposal_validation_diagnostics,
 )
-from app.ai.errors import MalformedStructuredOutputError, ResponseParsingError
+from app.ai.errors import ResponseParsingError
 from app.ai.factory import create_ai_provider
 from app.ai.openai_provider import OpenAIProvider
 from app.config import Settings
@@ -111,20 +112,32 @@ def test_openai_provider_accepts_page_image_uri_without_loading_it() -> None:
     assert image["image_url"] == "https://example.invalid/page.png"
 
 
-@pytest.mark.parametrize("parsed_output", [None, {"candidates": [{}], "warnings": []}])
-def test_openai_provider_rejects_missing_or_malformed_structured_output(
-    parsed_output: object,
-) -> None:
-    client = FakeClient(response(parsed_output))
+def test_openai_provider_rejects_missing_structured_output() -> None:
+    client = FakeClient(response(None))
     provider = OpenAIProvider(api_key="test-only", model="configured-model", client=client)
     request = build_entity_extraction_request(
         request_id="extract-invalid",
         image=PageImageInput(sourceRef="page", mediaType="image/png", content=b"png"),
     )
 
-    expected = ResponseParsingError if parsed_output is None else MalformedStructuredOutputError
-    with pytest.raises(expected):
+    with pytest.raises(ResponseParsingError):
         asyncio.run(provider.extract(request, EntityExtractionProposal))
+
+
+def test_openai_provider_rejects_only_a_semantically_invalid_candidate() -> None:
+    client = FakeClient(response({"candidates": [{}], "warnings": []}))
+    provider = OpenAIProvider(api_key="test-only", model="configured-model", client=client)
+    request = build_entity_extraction_request(
+        request_id="extract-invalid-candidate",
+        image=PageImageInput(sourceRef="page", mediaType="image/png", content=b"png"),
+    )
+
+    result = asyncio.run(provider.extract(request, EntityExtractionProposal))
+
+    diagnostics = proposal_validation_diagnostics(result.parsed_output)
+    assert result.parsed_output.candidates == []
+    assert diagnostics.candidates_returned == 1
+    assert diagnostics.candidates_rejected == 1
 
 
 def test_real_benchmark_image_can_feed_generic_page_image_contract() -> None:

@@ -5,7 +5,11 @@ from PIL import Image
 import pytest
 
 from app.ai.contracts import PageImageInput
-from app.ai.entity_proposals import EntityCandidate, EntityExtractionProposal
+from app.ai.entity_proposals import (
+    EntityCandidate,
+    EntityExtractionProposal,
+    proposal_validation_diagnostics,
+)
 from app.ai.mock import MockAIProvider, MockFixture
 from app.ai.tiled_extraction import (
     PASS_ORDER,
@@ -77,6 +81,86 @@ def test_tile_bbox_is_restored_to_original_normalized_coordinates() -> None:
     assert transformed.provenance[0].source_ref == "IMG_6807.JPG#tile:r0c0"
 
 
+def test_candidate_validation_isolates_invalid_geometry_and_semantics() -> None:
+    proposal = EntityExtractionProposal.model_validate(
+        {
+            "candidates": [
+                {
+                    "candidateId": "valid",
+                    "kind": "equipment",
+                    "geometry": {
+                        "bbox": {"x": 0.1, "y": 0.2, "width": 0.3, "height": 0.4}
+                    },
+                    "provenance": [{"sourceRef": "tile"}],
+                },
+                {
+                    "candidateId": "bad-geometry",
+                    "kind": "equipment",
+                    "geometry": {
+                        "bbox": {"x": 0.86, "y": 0.44, "width": 0.17, "height": 0.1}
+                    },
+                    "provenance": [{"sourceRef": "tile"}],
+                },
+                {
+                    "candidateId": "bad-semantics",
+                    "kind": "not-a-kind",
+                    "provenance": [{"sourceRef": "tile"}],
+                },
+            ],
+            "warnings": [],
+        }
+    )
+
+    assert [item.candidate_id for item in proposal.candidates] == ["valid", "bad-geometry"]
+    assert proposal.candidates[0].geometry is not None
+    assert proposal.candidates[1].geometry is None
+    diagnostics = proposal_validation_diagnostics(proposal)
+    assert diagnostics.candidates_returned == 3
+    assert diagnostics.candidates_fully_valid == 1
+    assert diagnostics.candidates_retained_without_geometry == 1
+    assert diagnostics.candidates_rejected == 1
+    assert diagnostics.geometry_validation_warnings[0].candidate_id == "bad-geometry"
+    assert "normalized [0,1]" in diagnostics.geometry_validation_warnings[0].reason
+
+
+def test_substantial_out_of_range_bbox_is_not_clamped() -> None:
+    proposal = EntityExtractionProposal.model_validate(
+        {
+            "candidates": [
+                {
+                    "candidateId": "outside",
+                    "kind": "boundary",
+                    "geometry": {
+                        "bbox": {"x": 0.86, "y": 0.44, "width": 0.17, "height": 0.1}
+                    },
+                    "provenance": [{"sourceRef": "tile"}],
+                }
+            ]
+        }
+    )
+
+    assert proposal.candidates[0].geometry is None
+
+
+def test_transformed_geometry_is_revalidated_against_full_image() -> None:
+    tile = TileSpec(
+        tileId="outside",
+        row=0,
+        column=0,
+        regionInRoi={"x": 0, "y": 0, "width": 100, "height": 100},
+        regionInOriginal={"x": 950, "y": 0, "width": 100, "height": 100},
+    )
+
+    with pytest.raises(ValueError, match="less than or equal to 1"):
+        transform_candidate(
+            candidate("local", x=0.6),
+            tile=tile,
+            original_width=1000,
+            original_height=1000,
+            extraction_pass="equipment_boundary",
+        )
+
+
 def test_pass_prompts_are_exhaustive_scoped_and_reference_answer_free() -> None:
     image = PageImageInput(sourceRef="tile", mediaType="image/png", content=b"png")
     requests = {
@@ -138,6 +222,62 @@ def test_complete_mock_experiment_uses_fixed_twelve_call_plan(tmp_path: Path) ->
     assert snapshot.extraction_passes == list(PASS_ORDER)
     assert snapshot.maximum_output_tokens_per_call == 6000
     assert snapshot.canonical_graph_mutated is False
+
+
+def test_checkpoint_persists_safe_candidate_validation_diagnostics(tmp_path: Path) -> None:
+    image_path = tmp_path / "screen.jpg"
+    Image.new("RGB", (100, 100), "white").save(image_path, format="JPEG")
+    run_dir = tmp_path / "runs" / "diagnostics"
+    request_ids = [
+        f"diagnostics:{extraction_pass}:{tile.tile_id}"
+        for extraction_pass in PASS_ORDER
+        for tile in build_tiles(PixelRegion(x=0, y=0, width=100, height=100))
+    ]
+    fixtures = {
+        request_id: MockFixture(output={"candidates": [], "warnings": []})
+        for request_id in request_ids
+    }
+    fixtures[request_ids[0]] = MockFixture(
+        output={
+            "candidates": [
+                {
+                    "candidateId": "valid",
+                    "kind": "equipment",
+                    "provenance": [{"sourceRef": "tile"}],
+                },
+                {
+                    "candidateId": "invalid-geometry",
+                    "kind": "equipment",
+                    "geometry": {
+                        "bbox": {"x": 0.86, "y": 0.44, "width": 0.17, "height": 0.1}
+                    },
+                    "provenance": [{"sourceRef": "tile"}],
+                },
+            ]
+        }
+    )
+
+    snapshot = asyncio.run(
+        run_tiled_extraction(
+            provider=MockAIProvider(fixtures),
+            image_path=image_path,
+            experiment_id="diagnostics",
+            benchmark_document_id="benchmark:hydrolysis",
+            benchmark_page_id="benchmark:hydrolysis:IMG_6807.JPG",
+            roi=PixelRegion(x=0, y=0, width=100, height=100),
+            checkpoint_dir=run_dir,
+        )
+    )
+
+    first = snapshot.calls[0]
+    assert first.candidates_returned == 2
+    assert first.candidates_fully_valid == 1
+    assert first.candidates_retained_without_geometry == 1
+    assert first.candidates_rejected == 0
+    assert first.geometry_validation_warnings[0].candidate_id == "invalid-geometry"
+    checkpoint = (run_dir / "calls" / "01.json").read_text(encoding="utf-8")
+    assert '"candidatesRetainedWithoutGeometry": 1' in checkpoint
+    assert '"geometryValidationWarnings"' in checkpoint
 
 
 def test_interrupted_run_persists_five_calls_and_resume_starts_at_six(tmp_path: Path) -> None:
