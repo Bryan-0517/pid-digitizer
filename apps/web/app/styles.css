@@ -27,6 +27,15 @@ button { padding: 0.55rem 1rem; }
 .entity-inspector { border: 1px solid #777; padding: 1rem; max-height: 75vh; overflow: auto; }
 .connection-inspector { border: 1px solid #777; padding: 1rem; max-height: 75vh; overflow: auto; }
 .graph-chat { border: 1px solid #777; padding: 1rem; }
+.dexpi-validation { border: 1px solid #777; padding: 1rem; max-height: 75vh; overflow: auto; }
+.dexpi-counts { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: .25rem .75rem; }
+.dexpi-counts dt { font-weight: 700; }
+.dexpi-counts dd { margin: 0; }
+.dexpi-warning { color: #9a6700; }
+.dexpi-object-group details { margin-block: .5rem; }
+.dexpi-object-group summary { overflow-wrap: anywhere; }
+.dexpi-object-group table { border-collapse: collapse; width: 100%; font-size: .75rem; }
+.dexpi-object-group th, .dexpi-object-group td { border: 1px solid #777; padding: .25rem; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
 .graph-chat form { display: grid; margin-block: 1rem; }
 .graph-chat input { box-sizing: border-box; width: 100%; padding: 0.4rem; }
 .graph-chat ul { color: #9a6700; padding-left: 1.25rem; }

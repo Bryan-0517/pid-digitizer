@@ -268,3 +268,14 @@ Do not model these as first-class domain types yet:
 - full graphics primitives required by formal DEXPI.
 
 Keep these in `properties` or explicit DEXPI-gap reports until the product earns a richer schema.
+
+## 11. Version-neutral DEXPI preflight
+
+T015 validation is an adapter report over `EngineeringGraph`, not canonical state. Each present
+canonical object field is recursively accounted as `supported`, `unmapped`, or `blocked`; arbitrary
+`properties.*`, geometry, and advisory DEXPI metadata are never guessed into DEXPI semantics.
+Eligible object kinds receive `supported`, `partial`, or `blocked` dispositions based on field
+coverage and review/assertion safety. Unsupported kinds remain valid canonical data and receive
+`unmapped`. The graph status is `empty`, `supported`, `partial`, or `blocked`, with any blocked
+object taking precedence. `dexpi.suggestedClass` is advisory and `dexpi.mappingStatus` is never
+changed by preflight. No target DEXPI version or conformance claim exists at this boundary.

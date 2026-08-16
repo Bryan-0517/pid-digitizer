@@ -110,6 +110,7 @@ test("reopens a persisted document and graph from the URL", async () => {
   fireEvent.click(screen.getByRole("button", { name: "Select fixture entity" }));
   expect(screen.getByLabelText("Tag")).toHaveValue("P-SAVED");
   expect(screen.getByLabelText("Graph chat")).toBeInTheDocument();
+  expect(screen.getByLabelText("DEXPI Validation")).toBeInTheDocument();
 });
 
 test("opens explicit hydrolysis benchmark mode without upload or mock overlays", async () => {
@@ -133,6 +134,7 @@ test("opens explicit hydrolysis benchmark mode without upload or mock overlays",
   expect(screen.queryByLabelText("Engineering diagram")).not.toBeInTheDocument();
   expect(screen.queryByText(/Mock overlay/)).not.toBeInTheDocument();
   expect(screen.queryByLabelText("Graph chat")).not.toBeInTheDocument();
+  expect(screen.queryByLabelText("DEXPI Validation")).not.toBeInTheDocument();
 });
 
 test("shows a clear backend upload error", async () => {

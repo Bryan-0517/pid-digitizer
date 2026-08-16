@@ -10,6 +10,7 @@ from app.chat.router import router as chat_router
 from app.database import create_schema
 from app.digitization.router import router as digitization_router
 from app.documents.router import router as documents_router
+from app.dexpi.router import router as dexpi_router
 from app.graphs.router import router as graphs_router
 from app.graph_queries.router import router as graph_queries_router
 
@@ -40,6 +41,7 @@ app.include_router(digitization_router)
 app.include_router(graphs_router)
 app.include_router(graph_queries_router)
 app.include_router(chat_router)
+app.include_router(dexpi_router)
 
 
 @app.get("/health", response_model=HealthResponse)

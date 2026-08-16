@@ -8,6 +8,7 @@ import EntityInspector from "../components/entity-inspector";
 import ConnectionInspector from "../components/connection-inspector";
 import BenchmarkSummary, { BenchmarkPageFixture } from "../components/benchmark-summary";
 import GraphChat from "../components/graph-chat";
+import DexpiValidation from "../components/dexpi-validation";
 
 type DocumentDetail = { document: Document; page?: DocumentPage };
 type BenchmarkData = { page: BenchmarkPageFixture; graph: EngineeringGraph };
@@ -206,6 +207,12 @@ export default function Home() {
                   setHighlightedEntityIds([...entityIds]);
                   setHighlightedConnectionIds([...connectionIds]);
                 }}
+              />
+              <DexpiValidation
+                apiUrl={apiUrl}
+                documentId={graph.documentId}
+                onSelectEntity={selectEntity}
+                onSelectConnection={selectConnection}
               />
               <EntityInspector entity={selectedEntity} apiUrl={apiUrl} onSaved={entitySaved} />
               <ConnectionInspector

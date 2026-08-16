@@ -203,6 +203,15 @@ Current pyDEXPI publicly supports DEXPI 1.3, while the current DEXPI specificati
 
 pyDEXPI is AGPL-3.0. If this application is proprietary/closed-source, licensing must be resolved before shipping pyDEXPI as a product dependency. The internal schema must remain usable without pyDEXPI.
 
+T015 provides a dependency-free, version-neutral `DexpiAdapter` preflight boundary. Its
+`internal-v0.1` supported disposition means only that reviewed, non-inferred canonical data is
+eligible for a future narrow mapping step; it is not DEXPI conformance, pyDEXPI validation, or an
+export guarantee. `POST /documents/{id}/dexpi/validate` reconstructs `EngineeringGraph` and returns
+deterministic object- and field-level supported, unmapped, and blocked dispositions plus an
+ephemeral neutral preview. Unsupported content and arbitrary properties remain canonical and are
+reported rather than dropped. The endpoint creates no DEXPI objects, files, revisions, or graph
+updates. Actual version selection and conversion/export remain deferred to T016.
+
 ## 10. Persistence
 
 Recommended v0.1 tables:
