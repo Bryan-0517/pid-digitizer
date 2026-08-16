@@ -2,11 +2,12 @@
 
 import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import type { EngineeringEntity, JsonValue } from "../types/engineering-graph";
+import ReviewStatus from "./review-status";
 
 type EntityInspectorProps = {
   entity: EngineeringEntity | null;
   apiUrl: string;
-  onSaved: (entity: EngineeringEntity) => void;
+  onSaved: (entity: EngineeringEntity, before: EngineeringEntity) => void;
 };
 
 const kinds: EngineeringEntity["kind"][] = [
@@ -69,7 +70,7 @@ export default function EntityInspector({ entity, apiUrl, onSaved }: EntityInspe
         }),
       });
       if (!response.ok) throw new Error(await responseError(response));
-      onSaved((await response.json()) as EngineeringEntity);
+      onSaved((await response.json()) as EngineeringEntity, entity);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Entity save failed");
     } finally {
@@ -92,16 +93,17 @@ export default function EntityInspector({ entity, apiUrl, onSaved }: EntityInspe
         <label>Properties<textarea rows={8} value={properties} onChange={(event) => setProperties(event.target.value)} /></label>
         <label>Review status<select value={reviewStatus} onChange={(event) => setReviewStatus(event.target.value as EngineeringEntity["assertion"]["reviewStatus"])}>{reviewStatuses.map((value) => <option key={value}>{value}</option>)}</select></label>
         <div className="inspector-actions">
-          <button type="submit" disabled={saving}>{saving ? "Saving…" : "Save"}</button>
+          <button type="submit" disabled={saving} aria-busy={saving}>{saving ? "Saving…" : "Save"}</button>
           <button type="button" disabled={saving} onClick={() => reset()}>Cancel</button>
         </div>
         {error && <p role="alert" className="error">{error}</p>}
       </form>
+      {saving && <p role="status">Saving canonical entity…</p>}
+      <ReviewStatus confidence={entity.confidence} assertion={entity.assertion} />
       <dl className="read-only-fields">
         <dt>ID</dt><dd>{entity.id}</dd>
         <dt>Document ID</dt><dd>{entity.documentId}</dd>
         <dt>Page ID</dt><dd>{entity.pageId}</dd>
-        <dt>Confidence</dt><dd>{entity.confidence ?? "Not provided"}</dd>
         <dt>Created</dt><dd>{entity.createdAt}</dd>
       </dl>
       <details><summary>Read-only engineering metadata</summary><pre>{JSON.stringify({ provenance: entity.provenance, geometry: entity.geometry, dexpi: entity.dexpi }, null, 2)}</pre></details>

@@ -2,6 +2,7 @@
 
 import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import type { EngineeringConnection, EngineeringEntity, JsonValue } from "../types/engineering-graph";
+import ReviewStatus from "./review-status";
 
 type Props = {
   apiUrl: string;
@@ -11,8 +12,8 @@ type Props = {
   connection: EngineeringConnection | null;
   onSelect: (id: string) => void;
   onCreated: (connection: EngineeringConnection) => void;
-  onSaved: (connection: EngineeringConnection) => void;
-  onDeleted: (id: string) => void;
+  onSaved: (connection: EngineeringConnection, before: EngineeringConnection) => void;
+  onDeleteRequested: () => Promise<void>;
 };
 
 const kinds: EngineeringConnection["kind"][] = ["process", "utility", "signal", "ownership", "reference", "unknown"];
@@ -73,18 +74,16 @@ export default function ConnectionInspector(props: Props) {
       });
       if (!response.ok) throw new Error(await responseError(response));
       const saved = await response.json() as EngineeringConnection;
-      if (creating) { props.onCreated(saved); setCreating(false); } else props.onSaved(saved);
+      if (creating) { props.onCreated(saved); setCreating(false); } else props.onSaved(saved, props.connection!);
     } catch (reason) { setError(reason instanceof Error ? reason.message : "Connection save failed"); }
     finally { setSaving(false); }
   }
 
   async function remove() {
-    if (!props.connection || !window.confirm("Delete this connection?")) return;
+    if (!props.connection) return;
     setSaving(true); setError(null);
     try {
-      const response = await fetch(`${props.apiUrl}/connections/${props.connection.id}`, { method: "DELETE" });
-      if (!response.ok) throw new Error(await responseError(response));
-      props.onDeleted(props.connection.id);
+      await props.onDeleteRequested();
     } catch (reason) { setError(reason instanceof Error ? reason.message : "Connection delete failed"); }
     finally { setSaving(false); }
   }
@@ -92,7 +91,7 @@ export default function ConnectionInspector(props: Props) {
   const active = creating || props.connection;
   return <aside className="connection-inspector">
     <h2>Connections</h2>
-    <button type="button" onClick={() => { setCreating(true); reset(); }}>Create connection</button>
+    <button type="button" disabled={saving} onClick={() => { setCreating(true); reset(); }}>Create connection</button>
     <ul className="connection-list">{props.connections.map((item) => <li key={item.id}>
       <button type="button" onClick={() => props.onSelect(item.id)}>{item.kind}: {entityName(item.sourceEntityId, props.entities)} → {entityName(item.targetEntityId, props.entities)}</button>
       {!item.geometry?.polyline && <span> No diagram geometry</span>}
@@ -109,9 +108,10 @@ export default function ConnectionInspector(props: Props) {
       <label>Review status<select value={reviewStatus} onChange={e => setReviewStatus(e.target.value as EngineeringConnection["assertion"]["reviewStatus"])}>{statuses.map(value => <option key={value}>{value}</option>)}</select></label>
       <label><input type="checkbox" checked={allowSelfLoop} onChange={e => setAllowSelfLoop(e.target.checked)} /> Allow self-loop</label>
       {!creating && !props.connection?.geometry?.polyline && <p>No diagram geometry; this semantic connection is not rendered on Canvas.</p>}
-      <div className="inspector-actions"><button type="submit" disabled={saving}>{saving ? "Saving…" : "Save"}</button><button type="button" disabled={saving} onClick={reset}>Cancel</button>{!creating && <button type="button" disabled={saving} onClick={remove}>Delete</button>}</div>
+      <div className="inspector-actions"><button type="submit" disabled={saving} aria-busy={saving}>{saving ? "Saving…" : "Save"}</button><button type="button" disabled={saving} onClick={reset}>Cancel</button>{!creating && <button type="button" disabled={saving} onClick={remove}>Delete</button>}</div>
       {error && <p role="alert" className="error">{error}</p>}
-      {!creating && <><dl className="read-only-fields"><dt>ID</dt><dd>{props.connection?.id}</dd><dt>Document ID</dt><dd>{props.connection?.documentId}</dd><dt>Confidence</dt><dd>{props.connection?.confidence ?? "Not provided"}</dd><dt>Created</dt><dd>{props.connection?.createdAt}</dd></dl><details><summary>Read-only engineering metadata</summary><pre>{JSON.stringify({ provenance: props.connection?.provenance, geometry: props.connection?.geometry }, null, 2)}</pre></details></>}
+      {saving && <p role="status">Saving canonical connection…</p>}
+      {!creating && props.connection && <><ReviewStatus confidence={props.connection.confidence} assertion={props.connection.assertion} /><dl className="read-only-fields"><dt>ID</dt><dd>{props.connection.id}</dd><dt>Document ID</dt><dd>{props.connection.documentId}</dd><dt>Created</dt><dd>{props.connection.createdAt}</dd></dl><details><summary>Read-only engineering metadata</summary><pre>{JSON.stringify({ provenance: props.connection.provenance, geometry: props.connection.geometry }, null, 2)}</pre></details></>}
     </form>}
   </aside>;
 }

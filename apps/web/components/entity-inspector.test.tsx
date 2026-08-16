@@ -39,7 +39,7 @@ test("successful save returns the persisted entity", async () => {
   fireEvent.change(screen.getByLabelText("Review status"), { target: { value: "corrected" } });
   fireEvent.click(screen.getByRole("button", { name: "Save" }));
 
-  await waitFor(() => expect(onSaved).toHaveBeenCalledWith(saved));
+  await waitFor(() => expect(onSaved).toHaveBeenCalledWith(saved, entity));
 });
 
 test("API failure does not commit canonical state and cancel restores values", async () => {

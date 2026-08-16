@@ -44,7 +44,7 @@ test("save commits only after a successful API response", async () => {
   renderInspector({ onSaved });
   fireEvent.change(screen.getByLabelText("Medium"), { target: { value: "steam" } });
   fireEvent.click(screen.getByRole("button", { name: "Save" }));
-  await waitFor(() => expect(onSaved).toHaveBeenCalledWith(saved));
+  await waitFor(() => expect(onSaved).toHaveBeenCalledWith(saved, connection));
   expect(fetchMock).toHaveBeenCalledWith("http://api/connections/c1", expect.objectContaining({ method: "PATCH" }));
 });
 
@@ -57,25 +57,21 @@ test("API failure does not commit connection state", async () => {
   expect(onSaved).not.toHaveBeenCalled();
 });
 
-test("creates a geometry-less connection and deletes after confirmation", async () => {
+test("creates a geometry-less connection and requests selected deletion", async () => {
   const created = { ...connection, id: "new-c", geometry: undefined };
-  const fetchMock = vi.fn()
-    .mockResolvedValueOnce({ ok: true, json: async () => created })
-    .mockResolvedValueOnce({ ok: true, status: 204 });
+  const fetchMock = vi.fn().mockResolvedValueOnce({ ok: true, json: async () => created });
   vi.stubGlobal("fetch", fetchMock);
-  vi.spyOn(window, "confirm").mockReturnValue(true);
   const onCreated = vi.fn();
-  const onDeleted = vi.fn();
-  const view = renderInspector({ connection: null, onCreated, onDeleted });
+  const onDeleteRequested = vi.fn().mockResolvedValue(undefined);
+  const view = renderInspector({ connection: null, onCreated, onDeleteRequested });
   fireEvent.click(screen.getByRole("button", { name: "Create connection" }));
   fireEvent.click(screen.getByRole("button", { name: "Save" }));
   await waitFor(() => expect(onCreated).toHaveBeenCalledWith(created));
   expect(fetchMock).toHaveBeenNthCalledWith(1, "http://api/documents/doc-1/connections", expect.objectContaining({ method: "POST" }));
 
-  view.rerender(component({ onDeleted }));
+  view.rerender(component({ onDeleteRequested }));
   fireEvent.click(screen.getByRole("button", { name: "Delete" }));
-  await waitFor(() => expect(onDeleted).toHaveBeenCalledWith("c1"));
-  expect(fetchMock).toHaveBeenNthCalledWith(2, "http://api/connections/c1", { method: "DELETE" });
+  await waitFor(() => expect(onDeleteRequested).toHaveBeenCalledOnce());
 });
 
 function renderInspector(overrides: Partial<React.ComponentProps<typeof ConnectionInspector>> = {}) {
@@ -85,7 +81,7 @@ function renderInspector(overrides: Partial<React.ComponentProps<typeof Connecti
 function component(overrides: Partial<React.ComponentProps<typeof ConnectionInspector>> = {}) {
   return <ConnectionInspector apiUrl="http://api" documentId="doc-1" entities={entities}
     connections={[connection]} connection={connection} onSelect={vi.fn()} onCreated={vi.fn()}
-    onSaved={vi.fn()} onDeleted={vi.fn()} {...overrides} />;
+    onSaved={vi.fn()} onDeleteRequested={vi.fn().mockResolvedValue(undefined)} {...overrides} />;
 }
 
 function entity(id: string, labels: Partial<EngineeringEntity>): EngineeringEntity {

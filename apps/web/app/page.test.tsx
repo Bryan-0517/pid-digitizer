@@ -5,13 +5,20 @@ import Home from "./page";
 import { sourceTypeForFilename } from "./upload-validation";
 
 vi.mock("../components/diagram-viewer", () => ({
-  default: ({ documentName, graph, onSelectEntity }: {
+  default: ({ documentName, graph, onSelectEntity, onSelectConnection, selectedEntityId,
+    selectedConnectionId, highlightedEntityIds = [] }: {
     documentName: string;
-    graph: { entities: Array<{ id: string }> };
+    graph: { entities: Array<{ id: string }>; connections: Array<{ id: string }> };
     onSelectEntity: (id: string) => void;
+    onSelectConnection: (id: string) => void;
+    selectedEntityId: string | null;
+    selectedConnectionId: string | null;
+    highlightedEntityIds?: string[];
   }) => (
     <div role="img" aria-label={`Interactive page 1 of ${documentName}`}>
       {graph.entities[0] && <button onClick={() => onSelectEntity(graph.entities[0].id)}>Select fixture entity</button>}
+      {graph.connections[0] && <button onClick={() => onSelectConnection(graph.connections[0].id)}>Select fixture connection</button>}
+      <output data-testid="viewer-state">{`${selectedEntityId ?? "none"}|${selectedConnectionId ?? "none"}|${highlightedEntityIds.join(",")}`}</output>
     </div>
   ),
 }));
@@ -21,6 +28,12 @@ const persistedEntity = {
   tag: "P-SAVED", displayName: "Persisted pump", properties: {},
   assertion: { mode: "human_added", reviewStatus: "unreviewed" }, provenance: [],
   geometry: { bbox: { x: 0.1, y: 0.1, width: 0.2, height: 0.2 } },
+  createdAt: "2026-01-01T00:00:00Z", updatedAt: "2026-01-01T00:00:00Z",
+};
+const persistedConnection = {
+  id: "connection-1", documentId: "doc-1", sourceEntityId: "entity-1", targetEntityId: "entity-1",
+  allowSelfLoop: true, kind: "process", direction: "source_to_target", properties: {},
+  assertion: { mode: "human_added", reviewStatus: "confirmed" }, provenance: [],
   createdAt: "2026-01-01T00:00:00Z", updatedAt: "2026-01-01T00:00:00Z",
 };
 
@@ -87,6 +100,7 @@ test("uploads and displays a normalized document page", async () => {
   })).toBeInTheDocument());
   expect(fetchMock).toHaveBeenCalledTimes(3);
   expect(window.location.search).toBe("?documentId=doc-1");
+  expect(screen.getByText(/empty canonical graph/i)).toBeInTheDocument();
 });
 
 test("reopens a persisted document and graph from the URL", async () => {
@@ -148,4 +162,69 @@ test("shows a clear backend upload error", async () => {
   fireEvent.submit(input.closest("form")!);
 
   await waitFor(() => expect(screen.getByRole("alert")).toHaveTextContent("single-page PDFs only"));
+});
+
+test("successful entity PATCH creates one inverse-PATCH undo entry", async () => {
+  window.history.replaceState(null, "", "/?documentId=doc-1");
+  const saved = { ...persistedEntity, tag: "P-NEW" };
+  const restored = { ...persistedEntity, updatedAt: "2026-01-02T00:00:00Z" };
+  const fetchMock = vi.fn()
+    .mockResolvedValueOnce({ ok: true, json: async () => ({ document: { id: "doc-1", name: "saved.png", sourceType: "image", status: "ready" }, page: { id: "page-1", documentId: "doc-1", pageNumber: 1, imageUri: "/page.png", widthPx: 20, heightPx: 10 } }) })
+    .mockResolvedValueOnce({ ok: true, json: async () => ({ schemaVersion: "0.1", documentId: "doc-1", entities: [persistedEntity], connections: [], metadata: {} }) })
+    .mockResolvedValueOnce({ ok: true, json: async () => saved })
+    .mockResolvedValueOnce({ ok: true, json: async () => restored });
+  vi.stubGlobal("fetch", fetchMock);
+  render(<Home />);
+  await screen.findByRole("img", { name: "Interactive page 1 of saved.png" });
+  fireEvent.click(screen.getByRole("button", { name: "Select fixture entity" }));
+  fireEvent.change(screen.getByLabelText("Tag"), { target: { value: "P-NEW" } });
+  fireEvent.click(screen.getByRole("button", { name: "Save" }));
+  const undo = await screen.findByRole("button", { name: "Undo last edit to P-SAVED" });
+  fireEvent.click(undo);
+  await waitFor(() => expect(screen.getByLabelText("Tag")).toHaveValue("P-SAVED"));
+  expect(fetchMock).toHaveBeenNthCalledWith(4, "http://localhost:8000/entities/entity-1",
+    expect.objectContaining({ method: "PATCH", body: expect.stringContaining('"tag":"P-SAVED"') }));
+  expect(screen.getByRole("button", { name: "Undo last edit" })).toBeDisabled();
+});
+
+test("keyboard Delete removes only a selected connection and ignores editable controls", async () => {
+  window.history.replaceState(null, "", "/?documentId=doc-1");
+  const fetchMock = vi.fn()
+    .mockResolvedValueOnce({ ok: true, json: async () => ({ document: { id: "doc-1", name: "saved.png", sourceType: "image", status: "ready" }, page: { id: "page-1", documentId: "doc-1", pageNumber: 1, imageUri: "/page.png", widthPx: 20, heightPx: 10 } }) })
+    .mockResolvedValueOnce({ ok: true, json: async () => ({ schemaVersion: "0.1", documentId: "doc-1", entities: [persistedEntity], connections: [persistedConnection], metadata: {} }) })
+    .mockResolvedValueOnce({ ok: true, status: 204 });
+  vi.stubGlobal("fetch", fetchMock);
+  vi.spyOn(window, "confirm").mockReturnValue(true);
+  render(<Home />);
+  await screen.findByRole("img", { name: "Interactive page 1 of saved.png" });
+  fireEvent.keyDown(window, { key: "Delete" });
+  expect(fetchMock).toHaveBeenCalledTimes(2);
+  fireEvent.click(screen.getByRole("button", { name: "Select fixture connection" }));
+  fireEvent.keyDown(screen.getByLabelText("Medium"), { key: "Delete" });
+  expect(fetchMock).toHaveBeenCalledTimes(2);
+  fireEvent.keyDown(window, { key: "Delete" });
+  await waitFor(() => expect(fetchMock).toHaveBeenLastCalledWith(
+    "http://localhost:8000/connections/connection-1", { method: "DELETE" }));
+  expect(screen.queryByRole("button", { name: "Select fixture connection" })).not.toBeInTheDocument();
+});
+
+test("failed undo preserves current canonical UI state and remains available", async () => {
+  window.history.replaceState(null, "", "/?documentId=doc-1");
+  const saved = { ...persistedEntity, tag: "P-NEW" };
+  const fetchMock = vi.fn()
+    .mockResolvedValueOnce({ ok: true, json: async () => ({ document: { id: "doc-1", name: "saved.png", sourceType: "image", status: "ready" }, page: { id: "page-1", documentId: "doc-1", pageNumber: 1, imageUri: "/page.png", widthPx: 20, heightPx: 10 } }) })
+    .mockResolvedValueOnce({ ok: true, json: async () => ({ schemaVersion: "0.1", documentId: "doc-1", entities: [persistedEntity], connections: [], metadata: {} }) })
+    .mockResolvedValueOnce({ ok: true, json: async () => saved })
+    .mockResolvedValueOnce({ ok: false, status: 409, json: async () => ({ detail: "Undo conflict" }) });
+  vi.stubGlobal("fetch", fetchMock);
+  render(<Home />);
+  await screen.findByRole("img", { name: "Interactive page 1 of saved.png" });
+  fireEvent.click(screen.getByRole("button", { name: "Select fixture entity" }));
+  fireEvent.change(screen.getByLabelText("Tag"), { target: { value: "P-NEW" } });
+  fireEvent.click(screen.getByRole("button", { name: "Save" }));
+  const undo = await screen.findByRole("button", { name: "Undo last edit to P-SAVED" });
+  fireEvent.click(undo);
+  expect(await screen.findByRole("alert")).toHaveTextContent("Undo conflict");
+  expect(screen.getByLabelText("Tag")).toHaveValue("P-NEW");
+  expect(screen.getByRole("button", { name: "Undo last edit to P-SAVED" })).toBeEnabled();
 });

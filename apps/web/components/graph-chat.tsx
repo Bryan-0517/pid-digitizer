@@ -20,6 +20,7 @@ export default function GraphChat({ apiUrl, documentId, onHighlight }: GraphChat
     if (!message.trim()) return;
     setSubmitting(true);
     setError(null);
+    setResult(null);
     try {
       const response = await fetch(`${apiUrl}/documents/${documentId}/chat`, {
         method: "POST",
@@ -50,8 +51,9 @@ export default function GraphChat({ apiUrl, documentId, onHighlight }: GraphChat
           placeholder="What is connected to P-101?"
           required
         />
-        <button type="submit" disabled={submitting}>{submitting ? "Querying…" : "Ask graph"}</button>
+        <button type="submit" disabled={submitting || !message.trim()} aria-busy={submitting}>{submitting ? "Querying…" : "Ask graph"}</button>
       </form>
+      {submitting && <p role="status">Querying the canonical graph…</p>}
       {error && <p className="error" role="alert">{error}</p>}
       {result && <div aria-live="polite">
         <p className="chat-answer">{result.answer}</p>
@@ -66,6 +68,8 @@ export default function GraphChat({ apiUrl, documentId, onHighlight }: GraphChat
           <dt>Supporting connections</dt>
           <dd>{result.supportingConnectionIds.join(", ") || "None"}</dd>
         </dl>
+        {result.supportingEntityIds.length === 0 && result.supportingConnectionIds.length === 0
+          && <p className="empty-state">No supporting canonical IDs were returned.</p>}
       </div>}
     </section>
   );

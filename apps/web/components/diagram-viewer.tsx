@@ -38,6 +38,7 @@ export default function DiagramViewer({
   const [containerSize, setContainerSize] = useState<Size>({ width: 0, height: 0 });
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [imageError, setImageError] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
   const [view, setView] = useState<ViewTransform>(INITIAL_VIEW);
   const [fitMode, setFitMode] = useState(true);
   const [showEntities, setShowEntities] = useState(true);
@@ -57,15 +58,19 @@ export default function DiagramViewer({
 
   useEffect(() => {
     let active = true;
+    setImageLoading(true);
+    setImageError(false);
+    setImage(null);
     const nextImage = new window.Image();
     nextImage.onload = () => {
       if (active) {
         setImage(nextImage);
         setImageError(false);
+        setImageLoading(false);
       }
     };
     nextImage.onerror = () => {
-      if (active) setImageError(true);
+      if (active) { setImageError(true); setImageLoading(false); }
     };
     nextImage.src = imageUrl;
     return () => {
@@ -190,6 +195,7 @@ export default function DiagramViewer({
           </Stage>
         )}
         {imageError && <p className="viewer-error" role="alert">Page image could not be loaded.</p>}
+        {imageLoading && <p className="viewer-status" role="status">Loading page image…</p>}
       </div>
       <output aria-label="Selected entity">{selectedEntityId ?? "None"}</output>
       <output aria-label="Selected connection">{selectedConnectionId ?? "None"}</output>

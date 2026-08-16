@@ -27,6 +27,7 @@ export default function DexpiValidation({
     setRunning(true);
     setError(null);
     setConversion(null);
+    setAvailability(null);
     try {
       const response = await fetch(`${apiUrl}/documents/${documentId}/dexpi/validate`, { method: "POST" });
       if (!response.ok) throw new Error(await errorMessage(response));
@@ -71,9 +72,10 @@ export default function DexpiValidation({
   return <section className="dexpi-validation" aria-label="DEXPI Validation">
     <h3>DEXPI Validation</h3>
     <p>Version-neutral preflight only. This is not DEXPI conformance certification.</p>
-    <button type="button" disabled={running} onClick={validate}>
+    <button type="button" disabled={running || exporting} aria-busy={running} onClick={validate}>
       {running ? "Validating…" : "Run validation"}
     </button>
+    {running && <p role="status">Running dependency-free DEXPI preflight…</p>}
     {error && <p className="error" role="alert">{error}</p>}
     {report && <div aria-live="polite">
       <dl className="dexpi-counts">
@@ -97,10 +99,11 @@ export default function DexpiValidation({
         <p>This JSON is not a standard DEXPI exchange file or conformance certification.</p>
         {availability.reason && <p className="dexpi-warning">{availability.reason}</p>}
         {report.status === "blocked" && <BlockingSummary report={report} />}
-        {availability.available && <button type="button" onClick={exportCompatibilityJson}
+        {availability.available && <button type="button" onClick={exportCompatibilityJson} aria-busy={exporting}
           disabled={exporting || report.status === "blocked" || report.status === "empty"}>
           {exporting ? "Preparing download…" : "Download compatibility JSON"}
         </button>}
+        {exporting && <p role="status">Preparing transient compatibility JSON download…</p>}
         {conversion && <ConversionSummary report={conversion} />}
       </section>}
     </div>}

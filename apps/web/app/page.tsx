@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import type { Document, DocumentPage, EngineeringConnection, EngineeringEntity, EngineeringGraph } from "../types/engineering-graph";
 import { sourceTypeForFilename, supportedInputMessage } from "./upload-validation";
@@ -9,6 +9,8 @@ import ConnectionInspector from "../components/connection-inspector";
 import BenchmarkSummary, { BenchmarkPageFixture } from "../components/benchmark-summary";
 import GraphChat from "../components/graph-chat";
 import DexpiValidation from "../components/dexpi-validation";
+import { connectionUndoEntry, entityUndoEntry, type UndoEntry } from "../components/undo-controller";
+import { useWorkspaceKeyboard } from "../components/use-workspace-keyboard";
 
 type DocumentDetail = { document: Document; page?: DocumentPage };
 type BenchmarkData = { page: BenchmarkPageFixture; graph: EngineeringGraph };
@@ -31,6 +33,10 @@ export default function Home() {
   const [highlightedConnectionIds, setHighlightedConnectionIds] = useState<string[]>([]);
   const [loadingDocument, setLoadingDocument] = useState(false);
   const [benchmark, setBenchmark] = useState<BenchmarkData | null>(null);
+  const [undoEntry, setUndoEntry] = useState<UndoEntry | null>(null);
+  const [undoing, setUndoing] = useState(false);
+  const [undoError, setUndoError] = useState<string | null>(null);
+  const [deletingConnection, setDeletingConnection] = useState(false);
 
   useEffect(() => {
     const parameters = new URLSearchParams(window.location.search);
@@ -44,6 +50,7 @@ export default function Home() {
 
   async function loadBenchmark() {
     setLoadingDocument(true); setError(null);
+    setUndoEntry(null); setUndoError(null);
     try {
       const response = await fetch("/api/benchmark/hydrolysis?screen=IMG_6807.JPG");
       if (!response.ok) throw new Error(await errorMessage(response));
@@ -56,6 +63,8 @@ export default function Home() {
   async function loadDocument(documentId: string) {
     setLoadingDocument(true);
     setError(null);
+    setUndoEntry(null);
+    setUndoError(null);
     try {
       const [documentResponse, graphResponse] = await Promise.all([
         fetch(`${apiUrl}/documents/${documentId}`),
@@ -69,6 +78,8 @@ export default function Home() {
       setSelectedConnectionId(null);
       setHighlightedEntityIds([]);
       setHighlightedConnectionIds([]);
+      setUndoEntry(null);
+      setUndoError(null);
     } catch (reason) {
       setDetail(null);
       setGraph(null);
@@ -113,6 +124,8 @@ export default function Home() {
       setSelectedConnectionId(null);
       setHighlightedEntityIds([]);
       setHighlightedConnectionIds([]);
+      setUndoEntry(null);
+      setUndoError(null);
       window.history.replaceState(null, "", `?documentId=${encodeURIComponent(created.id)}`);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Upload failed");
@@ -128,15 +141,19 @@ export default function Home() {
     setSelectedConnectionId(null);
     setHighlightedEntityIds([]);
     setHighlightedConnectionIds([]);
+    setUndoEntry(null);
+    setUndoError(null);
     setError(null);
     window.history.replaceState(null, "", window.location.pathname);
   }
 
-  function entitySaved(saved: EngineeringEntity) {
+  function entitySaved(saved: EngineeringEntity, before: EngineeringEntity) {
     setGraph((current) => current ? {
       ...current,
       entities: current.entities.map((entity) => entity.id === saved.id ? saved : entity),
     } : current);
+    setUndoEntry(entityUndoEntry(apiUrl, before, saved));
+    setUndoError(null);
   }
 
   function connectionCreated(created: EngineeringConnection) {
@@ -145,18 +162,67 @@ export default function Home() {
     setSelectedConnectionId(created.id);
   }
 
-  function connectionSaved(saved: EngineeringConnection) {
+  function connectionSaved(saved: EngineeringConnection, before: EngineeringConnection) {
     setGraph((current) => current ? { ...current, connections: current.connections.map((item) => item.id === saved.id ? saved : item) } : current);
+    setUndoEntry(connectionUndoEntry(apiUrl, before, saved));
+    setUndoError(null);
   }
 
-  function connectionDeleted(id: string) {
-    setGraph((current) => current ? { ...current, connections: current.connections.filter((item) => item.id !== id) } : current);
-    setSelectedConnectionId(null);
+  const deleteSelectedConnection = useCallback(async () => {
+    if (!selectedConnectionId || deletingConnection) return;
+    if (!window.confirm("Delete the selected canonical connection?")) return;
+    setDeletingConnection(true);
+    setError(null);
+    try {
+      const response = await fetch(`${apiUrl}/connections/${selectedConnectionId}`, { method: "DELETE" });
+      if (!response.ok) throw new Error(await errorMessage(response));
+      setGraph((current) => current ? { ...current,
+        connections: current.connections.filter((item) => item.id !== selectedConnectionId) } : current);
+      setSelectedConnectionId(null);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Connection delete failed");
+    } finally { setDeletingConnection(false); }
+  }, [deletingConnection, selectedConnectionId]);
+
+  async function undoLastEdit() {
+    const entry = undoEntry;
+    if (!entry || entry.documentId !== graph?.documentId) return;
+    setUndoing(true); setUndoError(null);
+    try {
+      const response = await fetch(entry.endpoint, { method: "PATCH",
+        headers: { "Content-Type": "application/json" }, body: JSON.stringify(entry.inversePatch) });
+      if (!response.ok) throw new Error(await errorMessage(response));
+      if (entry.objectType === "entity") {
+        const restored = await response.json() as EngineeringEntity;
+        setGraph((current) => current ? { ...current,
+          entities: current.entities.map((item) => item.id === restored.id ? restored : item) } : current);
+      } else {
+        const restored = await response.json() as EngineeringConnection;
+        setGraph((current) => current ? { ...current,
+          connections: current.connections.map((item) => item.id === restored.id ? restored : item) } : current);
+      }
+      setUndoEntry(null);
+    } catch (reason) {
+      setUndoError(reason instanceof Error ? reason.message : "Undo failed");
+    } finally { setUndoing(false); }
   }
 
   function selectEntity(id: string | null) { setSelectedEntityId(id); if (id) setSelectedConnectionId(null); }
   function selectConnection(id: string | null) { setSelectedConnectionId(id); if (id) setSelectedEntityId(null); }
   function clearSelection() { setSelectedEntityId(null); setSelectedConnectionId(null); }
+
+  const clearHighlights = useCallback(() => {
+    setHighlightedEntityIds([]); setHighlightedConnectionIds([]);
+  }, []);
+  const clearInspectorSelection = useCallback(() => {
+    setSelectedEntityId(null); setSelectedConnectionId(null);
+  }, []);
+
+  useWorkspaceKeyboard({ documentId: detail?.document.id ?? null,
+    hasSelection: Boolean(selectedEntityId || selectedConnectionId),
+    hasHighlights: highlightedEntityIds.length > 0 || highlightedConnectionIds.length > 0,
+    onEscapeSelection: clearInspectorSelection, onEscapeHighlights: clearHighlights,
+    onDeleteConnection: () => { void deleteSelectedConnection(); } });
 
   const selectedEntity = graph?.entities.find((entity) => entity.id === selectedEntityId) ?? null;
   const selectedConnection = graph?.connections.find((connection) => connection.id === selectedConnectionId) ?? null;
@@ -171,20 +237,31 @@ export default function Home() {
           id="diagram"
           name="file"
           type="file"
+          disabled={uploading}
           accept="image/png,image/jpeg,application/pdf"
           onChange={(event) => setSelectedFile(event.target.files?.[0] ?? null)}
           required
         />
-        <button type="submit" disabled={uploading}>{uploading ? "Uploading…" : "Upload"}</button>
+        <button type="submit" disabled={uploading} aria-busy={uploading}>{uploading ? "Uploading…" : "Upload"}</button>
       </form>}
-      {loadingDocument && <p aria-live="polite">Loading document…</p>}
-      <p className="error" role="alert">{error}</p>
+      {uploading && <p role="status">Uploading and normalizing document…</p>}
+      {loadingDocument && <p role="status" aria-live="polite">Loading document and canonical graph…</p>}
+      {error && <p className="error" role="alert">{error}</p>}
       {error && new URLSearchParams(typeof window === "undefined" ? "" : window.location.search).has("documentId") && (
         <button type="button" onClick={returnToUpload}>Return to upload</button>
       )}
       {detail?.page && graph && (
         <section aria-label="Uploaded document">
           <h2>{detail.document.name}</h2>
+          {graph.entities.length === 0 && graph.connections.length === 0 && <p className="empty-state" role="status">
+            This document has an empty canonical graph. No entities or connections have been added.
+          </p>}
+          <div className="workspace-actions">
+            <button type="button" onClick={undoLastEdit} disabled={!undoEntry || undoing}
+              aria-busy={undoing}>{undoing ? "Undoing…" : undoEntry?.description ?? "Undo last edit"}</button>
+            {undoError && <p className="error" role="alert">{undoError}</p>}
+            {deletingConnection && <p role="status">Deleting selected canonical connection…</p>}
+          </div>
           <div className="document-workspace">
             <DiagramViewer
               page={detail.page}
@@ -219,7 +296,7 @@ export default function Home() {
                 apiUrl={apiUrl} documentId={graph.documentId} entities={graph.entities}
                 connections={graph.connections} connection={selectedConnection}
                 onSelect={selectConnection} onCreated={connectionCreated}
-                onSaved={connectionSaved} onDeleted={connectionDeleted}
+                onSaved={connectionSaved} onDeleteRequested={deleteSelectedConnection}
               />
             </div>
           </div>
