@@ -85,11 +85,24 @@ export default function GraphOverlay({
                   onSelectEntity(entity.id);
                 }}
               >
+                {highlighted && (
+                  <Rect
+                    {...imageBox}
+                    name="entity-highlight-halo"
+                    fill="rgba(0, 0, 0, 0)"
+                    stroke="#f5d0fe"
+                    strokeWidth={6 / viewScale}
+                    shadowColor="#d946ef"
+                    shadowBlur={14 / viewScale}
+                    shadowOpacity={0.95}
+                    listening={false}
+                  />
+                )}
                 <Rect
                   {...imageBox}
                   fill={selected ? "rgba(250, 204, 21, 0.18)" : highlighted ? "rgba(192, 132, 252, 0.18)" : "rgba(14, 165, 233, 0.08)"}
                   stroke={selected ? "#facc15" : highlighted ? "#c084fc" : "#0ea5e9"}
-                  strokeWidth={selected || highlighted ? strokeWidth * 2 : strokeWidth}
+                  strokeWidth={selected ? strokeWidth * 2 : highlighted ? strokeWidth * 3 : strokeWidth}
                 />
                 <Text
                   x={imageBox.x}

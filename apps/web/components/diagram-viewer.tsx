@@ -5,7 +5,7 @@ import React from "react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Image as KonvaImage, Layer, Stage } from "react-konva";
 import type { DocumentPage, EngineeringGraph } from "../types/engineering-graph";
-import GraphOverlay from "./graph-overlay";
+import GraphOverlay, { entityLabel } from "./graph-overlay";
 import { fitTransform, Point, ViewTransform, zoomAtPoint } from "./view-transform";
 
 type DiagramViewerProps = {
@@ -43,6 +43,10 @@ export default function DiagramViewer({
   const [fitMode, setFitMode] = useState(true);
   const [showEntities, setShowEntities] = useState(true);
   const [showConnections, setShowConnections] = useState(true);
+  const entitiesById = new Map(graph.entities.map((entity) => [entity.id, entity]));
+  const highlightedConnectionsWithoutGeometry = graph.connections.filter((connection) =>
+    highlightedConnectionIds.includes(connection.id) && !connection.geometry?.polyline,
+  );
 
   useLayoutEffect(() => {
     const container = containerRef.current;
@@ -201,6 +205,22 @@ export default function DiagramViewer({
       <output aria-label="Selected connection">{selectedConnectionId ?? "None"}</output>
       <output aria-label="Highlighted entities">{highlightedEntityIds.join(", ") || "None"}</output>
       <output aria-label="Highlighted connections">{highlightedConnectionIds.join(", ") || "None"}</output>
+      {highlightedConnectionsWithoutGeometry.length > 0 && (
+        <section className="highlighted-topology" aria-label="Highlighted topology without geometry">
+          <h3>Highlighted topology</h3>
+          {highlightedConnectionsWithoutGeometry.map((connection) => {
+            const source = entitiesById.get(connection.sourceEntityId);
+            const target = entitiesById.get(connection.targetEntityId);
+            return (
+              <div key={connection.id} className="highlighted-topology-item">
+                <strong>{source ? entityLabel(source) : connection.sourceEntityId} ↔ {target ? entityLabel(target) : connection.targetEntityId}</strong>
+                <span>Canonical connection: <code>{connection.id}</code></span>
+                <span>Connection geometry not recorded.</span>
+              </div>
+            );
+          })}
+        </section>
+      )}
       <p className="viewer-help">Drag to pan. Scroll or pinch to zoom.</p>
     </div>
   );

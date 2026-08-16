@@ -7,6 +7,11 @@
   "scripts": {
     "dev": "docker compose up --build",
     "dev:down": "docker compose down",
+    "demo:start": "node scripts/demo.mjs start",
+    "demo:setup": "node scripts/demo.mjs setup",
+    "demo:check": "node scripts/demo.mjs check",
+    "demo:reset": "node scripts/demo.mjs reset",
+    "demo:cleanup": "node scripts/demo.mjs cleanup",
     "test:e2e": "playwright test",
     "lint": "npm run lint --workspace apps/web && python -m ruff check services/api",
     "test": "npm run test --workspace apps/web && python -m pytest services/api/tests"

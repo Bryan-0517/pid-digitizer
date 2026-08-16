@@ -23,6 +23,10 @@ button { padding: 0.55rem 1rem; }
 }
 .canvas-container:active { cursor: grabbing; }
 .viewer-help { margin: 0; color: #777; font-size: 0.9rem; }
+.highlighted-topology { padding: .75rem; border: 2px solid #d946ef; background: rgba(88, 28, 135, .12); }
+.highlighted-topology h3 { margin: 0 0 .5rem; font-size: 1rem; }
+.highlighted-topology-item { display: grid; gap: .2rem; }
+.highlighted-topology-item code { overflow-wrap: anywhere; }
 .viewer-error { position: absolute; inset: 1rem; color: #f88; }
 .viewer-status { position: absolute; inset: 1rem; color: #ddd; }
 .document-workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem); gap: 1rem; align-items: start; }

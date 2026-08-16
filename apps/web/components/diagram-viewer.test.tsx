@@ -48,7 +48,14 @@ vi.mock("react-konva", () => ({
       }}
     >{children}</button>
   ),
-  Rect: ({ stroke }: { stroke: string }) => <span data-testid="entity-rect" data-stroke={stroke} />,
+  Rect: ({ name, stroke, strokeWidth, shadowColor }: {
+    name?: string; stroke: string; strokeWidth?: number; shadowColor?: string;
+  }) => <span
+    data-testid={name === "entity-highlight-halo" ? "entity-highlight-halo" : "entity-rect"}
+    data-stroke={stroke}
+    data-stroke-width={strokeWidth}
+    data-shadow-color={shadowColor}
+  />,
   Text: ({ text }: { text: string }) => <span data-testid="entity-label">{text}</span>,
   Line: ({ id, onClick, stroke }: { id: string; stroke: string; onClick?: (event: { cancelBubble: boolean }) => void }) => <button type="button" data-testid="connection-line" data-connection-id={id} data-stroke={stroke} onClick={(event) => { event.stopPropagation(); onClick?.({ cancelBubble: false }); }} />,
 }));
@@ -186,6 +193,13 @@ test("renders only a connection with explicit polyline geometry", () => {
   );
 });
 
+test("does not fabricate a path for a geometry-less connection", () => {
+  renderViewer();
+
+  expect(screen.getAllByTestId("connection-line")).toHaveLength(1);
+  expect(screen.queryByTestId("connection-line-without-geometry")).not.toBeInTheDocument();
+});
+
 test("selects a rendered connection independently", () => {
   renderViewer();
   fireEvent.click(screen.getByTestId("connection-line"));
@@ -193,21 +207,14 @@ test("selects a rendered connection independently", () => {
   expect(screen.getByLabelText("Selected entity")).toHaveTextContent("None");
 });
 
-test("renders multiple chat highlights independently from inspector selection", () => {
-  const highlightedGraph: EngineeringGraph = {
-    ...graph,
-    connections: graph.connections.map((connection) => ({
-      ...connection,
-      geometry: connection.geometry ?? { polyline: [{ x: .4, y: .2 }, { x: .7, y: .2 }] },
-    })),
-  };
+test("renders stronger entity highlights and non-geometric topology independently from selection", () => {
   render(
     <DiagramViewer
       documentName="diagram.png"
       imageUrl="http://localhost:8000/files/page.png"
       page={{ id: "page-1", documentId: "doc-1", pageNumber: 1,
         imageUri: "/files/page.png", widthPx: 1600, heightPx: 800 }}
-      graph={highlightedGraph}
+      graph={graph}
       selectedEntityId="mock-equipment-1"
       selectedConnectionId={null}
       highlightedEntityIds={["mock-equipment-1", "mock-valve-1", "mock-instrument-1"]}
@@ -218,13 +225,36 @@ test("renders multiple chat highlights independently from inspector selection", 
     />,
   );
 
-  const entityStrokes = screen.getAllByTestId("entity-rect").map((item) => item.getAttribute("data-stroke"));
+  const entityStrokes = screen.getAllByTestId("entity-rect")
+    .map((item) => item.getAttribute("data-stroke"));
   expect(entityStrokes).toEqual(["#facc15", "#c084fc", "#c084fc", "#0ea5e9"]);
-  expect(screen.getAllByTestId("connection-line")).toHaveLength(2);
-  expect(screen.getAllByTestId("connection-line").every(
-    (item) => item.getAttribute("data-stroke") === "#c084fc",
-  )).toBe(true);
+  const halos = screen.getAllByTestId("entity-highlight-halo");
+  expect(halos).toHaveLength(3);
+  expect(halos.every((item) => item.getAttribute("data-stroke") === "#f5d0fe")).toBe(true);
+  expect(halos.every((item) => item.getAttribute("data-shadow-color") === "#d946ef")).toBe(true);
+  expect(screen.getAllByTestId("connection-line")).toHaveLength(1);
+  expect(screen.getByTestId("connection-line")).toHaveAttribute("data-stroke", "#c084fc");
+  const topology = screen.getByLabelText("Highlighted topology without geometry");
+  expect(topology).toHaveTextContent("V-MOCK-1 ↔ mock-boundary-1");
+  expect(topology).toHaveTextContent("mock-connection-without-geometry");
+  expect(topology).toHaveTextContent("Connection geometry not recorded.");
   expect(screen.getByLabelText("Selected entity")).toHaveTextContent("mock-equipment-1");
+});
+
+test("a highlighted drawable connection retains its canvas line without a topology warning", () => {
+  render(
+    <DiagramViewer
+      documentName="diagram.png" imageUrl="http://localhost:8000/files/page.png"
+      page={{ id: "page-1", documentId: "doc-1", pageNumber: 1,
+        imageUri: "/files/page.png", widthPx: 1600, heightPx: 800 }}
+      graph={graph} selectedEntityId={null} selectedConnectionId={null}
+      highlightedConnectionIds={["mock-connection-with-geometry"]}
+      onSelectEntity={vi.fn()} onSelectConnection={vi.fn()} onClearSelection={vi.fn()}
+    />,
+  );
+
+  expect(screen.getByTestId("connection-line")).toHaveAttribute("data-stroke", "#c084fc");
+  expect(screen.queryByLabelText("Highlighted topology without geometry")).not.toBeInTheDocument();
 });
 
 function renderViewer() {

@@ -39,3 +39,10 @@ or create canonical engineering content. A helper mounted only in the E2E API co
 two explicitly test-labelled entities and one connection for the actual uploaded document/page.
 That minimal fixture tests application mechanics and is neither production canonical truth nor
 benchmark semantic truth. AI configuration, the demo graph, pyDEXPI, and DEXPI export are disabled.
+
+## Deterministic v0.1 demo
+
+The final local-only IMG_6807 demo uses a fixed saved entity-proposal snapshot, two inferred and
+unreviewed proposal-derived canonical entities, and one separately documented human-reviewed
+connection. It makes no live AI call and does not promote benchmark truth. See [docs/DEMO.md](docs/DEMO.md)
+for setup, reset, presenter steps, expected Graph Chat IDs, and safety limitations.

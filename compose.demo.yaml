@@ -1,0 +1,58 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: pid_digitizer_demo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d pid_digitizer_demo"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - demo_postgres_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./services/api
+      args:
+        INSTALL_PYDEXPI: "false"
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/pid_digitizer_demo
+      PYTHONPATH: /app
+      STORAGE_DIR: /app/demo-data
+      DEMO_MOCK_GRAPH: "false"
+      AI_PROVIDER: ""
+      AI_MODEL: ""
+      AI_API_KEY: ""
+      PYDEXPI_EXPORT_ENABLED: "false"
+      CORS_ORIGINS: http://127.0.0.1:14000
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:19000:8000"
+    volumes:
+      - demo_document_storage:/app/demo-data
+      - ./services/api/demo:/app/demo-helper:ro
+      - ./demo/t019-manifest.json:/demo/t019-manifest.json:ro
+      - ./benchmarks/hydrolysis/images/IMG_6807.JPG:/demo/IMG_6807.JPG:ro
+      - ./benchmarks/hydrolysis/evaluations/fixtures/IMG_6807.openai-gpt5.tiled-20260816-02-validation-v1.proposal.json:/demo/proposal.json:ro
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://127.0.0.1:19000
+    environment:
+      NEXT_PUBLIC_API_URL: http://127.0.0.1:19000
+    depends_on:
+      - api
+    ports:
+      - "127.0.0.1:14000:3000"
+
+volumes:
+  demo_postgres_data:
+  demo_document_storage:

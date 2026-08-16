@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "0.1",
+  "demoId": "t019-img6807-local-demo",
+  "purpose": "Prepared local v0.1 mechanics demo; not verified plant engineering truth.",
+  "localOnly": true,
+  "sourceImage": {
+    "path": "benchmarks/hydrolysis/images/IMG_6807.JPG",
+    "filename": "IMG_6807.JPG",
+    "sha256": "be6af768044e7356004662efb62f41ea1d1385622ceacbbb10758e81af975746",
+    "benchmarkSplit": "dev"
+  },
+  "savedProposal": {
+    "path": "benchmarks/hydrolysis/evaluations/fixtures/IMG_6807.openai-gpt5.tiled-20260816-02-validation-v1.proposal.json",
+    "sha256": "b9903b26db9664b2aa3e910179a1fa3e7f10473f9278d9045a0016d225f4eac9",
+    "snapshotLabel": "MODEL OUTPUT SNAPSHOT — NOT BENCHMARK TRUTH",
+    "experimentId": "img6807-tiled-20260816-02-validation-v1",
+    "provider": "openai",
+    "model": "gpt-5-2025-08-07",
+    "sourceFilename": "IMG_6807.JPG",
+    "entityCandidateCount": 131,
+    "topologyProposalCount": 0,
+    "canonicalGraphMutated": false
+  },
+  "preparedDocument": {
+    "documentId": "t019-demo-img6807",
+    "pageId": "t019-demo-img6807-page-1",
+    "name": "IMG_6807.JPG"
+  },
+  "entities": [
+    {
+      "proposalCandidateId": "valves:r0c1:valve-1",
+      "canonicalId": "t019:entity:tv-0806b",
+      "copiedFields": ["kind", "subtype", "tag", "displayName", "geometry", "confidence", "provenance"],
+      "omittedFields": ["properties: proposal evidence-list shape is not a canonical properties object", "geometry.polygon: absent", "geometry.anchorPoints: absent"],
+      "kind": "valve",
+      "subtype": null,
+      "tag": "TV_0806B",
+      "displayName": null,
+      "geometry": {
+        "bbox": { "x": 0.5685976890756302, "y": 0.3225688608776844, "width": 0.0160171568627451, "height": 0.02930555555555556 }
+      },
+      "confidence": null,
+      "assertion": { "mode": "inferred", "reviewStatus": "unreviewed" },
+      "proposalProvenance": {
+        "sourceRef": "IMG_6807.JPG#tile:r0c1",
+        "evidenceText": "Red valve symbol with label TV_0806B under the left preheater tank section.",
+        "note": "pass=valves; tile-local geometry restored to original image"
+      }
+    },
+    {
+      "proposalCandidateId": "equipment_boundary:r0c1:eq1",
+      "canonicalId": "t019:entity:a310001b",
+      "copiedFields": ["kind", "subtype", "tag", "displayName", "geometry", "confidence", "provenance"],
+      "omittedFields": ["properties: proposal evidence-list shape is not a canonical properties object", "geometry.polygon: absent", "geometry.anchorPoints: absent"],
+      "kind": "equipment",
+      "subtype": "tank",
+      "tag": "A310001B",
+      "displayName": "2#浓钛液预热槽",
+      "geometry": {
+        "bbox": { "x": 0.5319870448179271, "y": 0.3880753968253968, "width": 0.07459418767507002, "height": 0.056197712418300655 }
+      },
+      "confidence": null,
+      "assertion": { "mode": "inferred", "reviewStatus": "unreviewed" },
+      "proposalProvenance": {
+        "sourceRef": "IMG_6807.JPG#tile:r0c1",
+        "evidenceText": "A310001B 2#浓钛液预热槽 搅拌",
+        "note": "left vessel with impeller; pass=equipment_boundary; tile-local geometry restored to original image"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "modelTopologyCandidateId": null,
+      "canonicalId": "t019:connection:tv-0806b--a310001b",
+      "sourceEntityId": "t019:entity:tv-0806b",
+      "targetEntityId": "t019:entity:a310001b",
+      "endpointOrdering": "Structural identifiers only; direction=unknown makes no engineering-flow claim.",
+      "humanReviewStatement": "On IMG_6807.JPG, the continuous red feed line passing through valve TV_0806B visibly terminates at vessel A310001B. Connectivity between these two displayed objects is confirmed directly from the source image.",
+      "kind": "process",
+      "direction": "unknown",
+      "geometry": null,
+      "confidence": null,
+      "assertion": { "mode": "human_added", "reviewStatus": "confirmed" },
+      "humanProvenance": {
+        "sourceRef": "IMG_6807.JPG",
+        "note": "Connectivity confirmed from visible source image; direction not established; relationship is not model output; relationship was not derived from benchmark truth."
+      }
+    }
+  ],
+  "graphChat": {
+    "question": "What is connected to TV_0806B?",
+    "expectedAnswer": "TV_0806B has 1 directly connected canonical entities.",
+    "expectedSupportingEntityIds": ["t019:entity:a310001b", "t019:entity:tv-0806b"],
+    "expectedSupportingConnectionIds": ["t019:connection:tv-0806b--a310001b"]
+  },
+  "warnings": [
+    "Prepared local demo fixture only; proposal-derived canonical entities are inferred and unreviewed, not verified plant truth.",
+    "The saved model snapshot contains entity candidates and zero topology proposals.",
+    "The single connection is a separate human source-image review, not model output, benchmark truth, or evaluation matching.",
+    "No automated proposal-acceptance product behavior exists.",
+    "Proposal geometry is displayed for interaction and was not verified against benchmark geometry."
+  ]
+}
