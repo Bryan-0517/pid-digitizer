@@ -12,3 +12,5 @@ data/
 .DS_Store
 apps/web/tsconfig.tsbuildinfo
 services/api/.pytest-cache-*/
+test-results/
+playwright-report/

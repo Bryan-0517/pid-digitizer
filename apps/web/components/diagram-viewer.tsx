@@ -199,6 +199,8 @@ export default function DiagramViewer({
       </div>
       <output aria-label="Selected entity">{selectedEntityId ?? "None"}</output>
       <output aria-label="Selected connection">{selectedConnectionId ?? "None"}</output>
+      <output aria-label="Highlighted entities">{highlightedEntityIds.join(", ") || "None"}</output>
+      <output aria-label="Highlighted connections">{highlightedConnectionIds.join(", ") || "None"}</output>
       <p className="viewer-help">Drag to pan. Scroll or pinch to zoom.</p>
     </div>
   );

@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: pid_digitizer_e2e
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d pid_digitizer_e2e"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - e2e_postgres_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./services/api
+      args:
+        INSTALL_PYDEXPI: "false"
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/pid_digitizer_e2e
+      STORAGE_DIR: /app/e2e-data
+      DEMO_MOCK_GRAPH: "false"
+      AI_PROVIDER: ""
+      AI_MODEL: ""
+      AI_API_KEY: ""
+      PYDEXPI_EXPORT_ENABLED: "false"
+      CORS_ORIGINS: http://127.0.0.1:13000
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:18000:8000"
+    volumes:
+      - e2e_document_storage:/app/e2e-data
+      - ./services/api/tests/e2e_seed.py:/app/e2e_seed.py:ro
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://127.0.0.1:18000
+    environment:
+      NEXT_PUBLIC_API_URL: http://127.0.0.1:18000
+    depends_on:
+      - api
+    ports:
+      - "127.0.0.1:13000:3000"
+
+volumes:
+  e2e_postgres_data:
+  e2e_document_storage:

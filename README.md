@@ -25,3 +25,17 @@ The raw DCS screenshots should be copied into:
 `benchmarks/hydrolysis/images/`
 
 The hydrolysis package is a workflow/topology benchmark, not certified P&ID/DEXPI ground truth.
+
+## T018 browser end-to-end test
+
+Run `npx playwright install chromium` once, then `npm run test:e2e`. The Playwright setup starts a
+Docker Compose project named `pid-digitizer-t018` with a disposable PostgreSQL volume and document
+storage volume, binds the API/web only to localhost ports 18000/13000, and removes those volumes
+after the run.
+
+The browser uploads the real DEV input `benchmarks/hydrolysis/images/IMG_6807.JPG`. Upload creates
+only the normal persisted Document and DocumentPage; it does **not** accept digitization proposals
+or create canonical engineering content. A helper mounted only in the E2E API container then seeds
+two explicitly test-labelled entities and one connection for the actual uploaded document/page.
+That minimal fixture tests application mechanics and is neither production canonical truth nor
+benchmark semantic truth. AI configuration, the demo graph, pyDEXPI, and DEXPI export are disabled.

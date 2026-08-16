@@ -12,6 +12,7 @@ class Settings:
     ai_model: str | None = None
     ai_api_key: str | None = field(default=None, repr=False)
     pydexpi_export_enabled: bool = False
+    cors_origins: tuple[str, ...] = ("http://localhost:3000",)
 
 
 def _database_url() -> str:
@@ -33,4 +34,8 @@ settings = Settings(
     ai_api_key=os.getenv("AI_API_KEY") or None,
     pydexpi_export_enabled=os.getenv("PYDEXPI_EXPORT_ENABLED", "false").lower()
     in {"1", "true", "yes"},
+    cors_origins=tuple(
+        origin.strip() for origin in os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")
+        if origin.strip()
+    ),
 )
