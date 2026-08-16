@@ -22,6 +22,7 @@ from app.ai.errors import (
     ProviderTimeoutError,
     ResponseParsingError,
 )
+from app.ai.openai_response_compat import inspect_response_json, parse_typed_response
 
 OutputT = TypeVar("OutputT", bound=BaseModel)
 _ALLOWED_OPTIONS = {"max_output_tokens", "temperature", "reasoning"}
@@ -73,7 +74,7 @@ class OpenAIProvider:
             raw_response = await self.client.responses.with_raw_response.parse(
                 **request_arguments
             )
-            payload = await raw_response.json()
+            payload = inspect_response_json(raw_response)
             safe_payload = payload if isinstance(payload, dict) else {}
             failure = _preparse_failure_metadata(
                 raw_response=raw_response,
@@ -87,7 +88,7 @@ class OpenAIProvider:
                     failure.termination_reason or failure.response_status,
                     failure_metadata=failure,
                 )
-            response = await raw_response.parse()
+            response = await parse_typed_response(raw_response)
         except AuthenticationError as exc:
             error = ProviderConfigurationError("OpenAI authentication failed")
             error.failure_metadata = _transport_failure_metadata(

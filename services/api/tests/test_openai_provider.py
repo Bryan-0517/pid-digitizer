@@ -22,6 +22,10 @@ from app.ai.errors import (
 )
 from app.ai.factory import create_ai_provider
 from app.ai.openai_provider import OpenAIProvider
+from app.ai.openai_response_compat import (
+    UnsupportedOpenAIResponseWrapperError,
+    inspect_response_json,
+)
 from app.config import Settings
 
 
@@ -30,12 +34,11 @@ class FakeRawResponse:
         self.response = response
         self.payload = payload
         self.parse_error = parse_error
-        self.http_response = SimpleNamespace(status_code=200)
+        self.parse_calls = 0
+        self.http_response = SimpleNamespace(status_code=200, json=lambda: self.payload)
 
-    async def json(self):
-        return self.payload
-
-    async def parse(self):
+    def parse(self):
+        self.parse_calls += 1
         if self.parse_error is not None:
             raise self.parse_error
         return self.response
@@ -54,6 +57,7 @@ class FakeResponses:
         self.payload = payload or _safe_payload(response)
         self.parse_error = parse_error
         self.request_error = request_error
+        self.raw_response: FakeRawResponse | None = None
         self.calls: list[dict[str, object]] = []
 
     @property
@@ -64,7 +68,8 @@ class FakeResponses:
         self.calls.append(kwargs)
         if self.request_error is not None:
             raise self.request_error
-        return FakeRawResponse(self.response, self.payload, self.parse_error)
+        self.raw_response = FakeRawResponse(self.response, self.payload, self.parse_error)
+        return self.raw_response
 
 
 class FakeClient:
@@ -148,6 +153,16 @@ def test_openai_provider_sends_image_and_returns_validated_proposal() -> None:
     assert result.metadata.model == "configured-model"
     assert result.metadata.usage.total_tokens == 120
     assert result.metadata.raw_response_ref == "resp_fixture"
+    assert not hasattr(client.responses.raw_response, "json")
+    assert client.responses.raw_response.parse_calls == 1
+
+
+def test_raw_response_compatibility_requires_public_http_response_json() -> None:
+    wrapper = SimpleNamespace(http_response=SimpleNamespace(json=lambda: {"status": "completed"}))
+
+    assert inspect_response_json(wrapper) == {"status": "completed"}
+    with pytest.raises(UnsupportedOpenAIResponseWrapperError):
+        inspect_response_json(SimpleNamespace())
 
 
 def test_openai_provider_accepts_page_image_uri_without_loading_it() -> None:
@@ -208,6 +223,7 @@ def test_openai_provider_classifies_incomplete_output(reason: str, category: str
     assert metadata.termination_reason == reason
     assert metadata.usage.total_tokens == 120
     assert metadata.structured_parsing_began is False
+    assert client.responses.raw_response.parse_calls == 0
 
 
 def _validation_error(model: type[AIContract], payload: str) -> ValidationError:

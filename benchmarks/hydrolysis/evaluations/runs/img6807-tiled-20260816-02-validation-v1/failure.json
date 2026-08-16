@@ -4,12 +4,38 @@
   "callNumber": 5,
   "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r0c0",
   "extractionPass": "instruments",
-  "tileId": "r0c0",
-  "failureKind": "malformed_structured_output",
-  "safeProviderStatus": "response_received_but_overall_structured_output_parsing_failed",
-  "incompleteMetadata": null,
-  "providerResponseId": null,
-  "validationError": null,
+  "tile": {
+    "tileId": "r0c0",
+    "row": 0,
+    "column": 0,
+    "regionInRoi": {
+      "x": 0,
+      "y": 0,
+      "width": 2614,
+      "height": 1477
+    },
+    "regionInOriginal": {
+      "x": 96,
+      "y": 636,
+      "width": 2614,
+      "height": 1477
+    }
+  },
+  "providerFailure": {
+    "provider": "openai",
+    "model": "gpt-5",
+    "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r0c0",
+    "responseId": null,
+    "httpStatus": null,
+    "responseStatus": null,
+    "incompleteDetails": null,
+    "terminationReason": null,
+    "usage": null,
+    "latencyMs": 24078.277399996296,
+    "failureCategory": "provider_api_failure",
+    "structuredParsingBegan": false,
+    "candidateValidationBegan": false
+  },
   "automaticRetryAttempted": false,
   "finalSnapshotGenerated": false,
   "evaluationGenerated": false
