@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "0.1",
+  "experimentId": "img6807-tiled-20260816-02-validation-v1",
+  "callNumber": 5,
+  "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r0c0",
+  "extractionPass": "instruments",
+  "tileId": "r0c0",
+  "failureKind": "malformed_structured_output",
+  "safeProviderStatus": "response_received_but_overall_structured_output_parsing_failed",
+  "incompleteMetadata": null,
+  "providerResponseId": null,
+  "validationError": null,
+  "automaticRetryAttempted": false,
+  "finalSnapshotGenerated": false,
+  "evaluationGenerated": false
+}

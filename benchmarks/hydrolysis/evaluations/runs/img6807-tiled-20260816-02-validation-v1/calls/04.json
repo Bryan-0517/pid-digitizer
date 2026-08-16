@@ -1,0 +1,521 @@
+{
+  "schemaVersion": "0.1",
+  "callNumber": 4,
+  "requestId": "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r1c1",
+  "result": {
+    "extractionPass": "equipment_boundary",
+    "tile": {
+      "tileId": "r1c1",
+      "row": 1,
+      "column": 1,
+      "regionInRoi": {
+        "x": 2250,
+        "y": 1271,
+        "width": 2614,
+        "height": 1477
+      },
+      "regionInOriginal": {
+        "x": 2346,
+        "y": 1907,
+        "width": 2614,
+        "height": 1477
+      }
+    },
+    "candidateCount": 18,
+    "candidatesReturned": 18,
+    "candidatesFullyValid": 18,
+    "candidatesRetainedWithoutGeometry": 0,
+    "candidatesRejected": 0,
+    "geometryValidationWarnings": [],
+    "providerMetadata": {
+      "provider": "openai",
+      "model": "gpt-5-2025-08-07",
+      "requestId": "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r1c1",
+      "latencyMs": 74415.58659999282,
+      "usage": {
+        "inputTokens": 1692,
+        "outputTokens": 3995,
+        "totalTokens": 5687
+      },
+      "warnings": [],
+      "rawResponseRef": "resp_014455c43fe59fed006a81454284a087d0815a9d9248aa5a7b",
+      "debugMetadata": {
+        "responseStatus": "completed"
+      }
+    },
+    "warnings": []
+  },
+  "proposal": {
+    "candidates": [
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002D-tank",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": null,
+        "displayName": "Tank A310002D (4#\u6c34\u89e3\u69fd)",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.4747829131652661,
+            "y": 0.6761414565826331,
+            "width": 0.07779761904761906,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Grey vessel icon with label \"A310002D 4#\u6c34\u89e3\u69fd\" near bottom-left column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002E-tank",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": null,
+        "displayName": "Tank A310002E (5#\u6c34\u89e3\u69fd)",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.598343837535014,
+            "y": 0.6761414565826331,
+            "width": 0.07779761904761906,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Grey vessel icon with label \"A310002E 5#\u6c34\u89e3\u69fd\" in left-middle column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002F-tank",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": null,
+        "displayName": "Tank A310002F (6#\u6c34\u89e3\u69fd)",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7127521008403361,
+            "y": 0.6761414565826331,
+            "width": 0.07779761904761906,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Grey vessel icon with label \"A310002F 6#\u6c34\u89e3\u69fd\" in right-middle column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002G-tank",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": null,
+        "displayName": "Tank A310002G (7#\u6c34\u89e3\u69fd)",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7905497198879552,
+            "y": 0.6761414565826331,
+            "width": 0.07322128851540616,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Grey vessel icon with label \"A310002G 7#\u6c34\u89e3\u69fd\" near bottom-right column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002D-agitator",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator on A310002D",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.49308823529411766,
+            "y": 0.6382166199813258,
+            "width": 0.04118697478991597,
+            "height": 0.04826797385620916
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Propeller/impeller symbol with green motor indicator 'M' above tank A310002D.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002E-agitator",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator on A310002E",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6166491596638656,
+            "y": 0.6382166199813258,
+            "width": 0.04118697478991597,
+            "height": 0.04826797385620916
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Propeller/impeller symbol with red motor indicator 'M' above tank A310002E.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002F-agitator",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator on A310002F",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7310574229691877,
+            "y": 0.6382166199813258,
+            "width": 0.04118697478991597,
+            "height": 0.04826797385620916
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Propeller/impeller symbol with red motor indicator 'M' above tank A310002F.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002G-agitator",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator on A310002G",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.8042787114845938,
+            "y": 0.6382166199813258,
+            "width": 0.04118697478991597,
+            "height": 0.04826797385620916
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Propeller/impeller symbol with red motor indicator 'M' above tank A310002G.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-top-header",
+        "kind": "boundary",
+        "subtype": "header",
+        "tag": null,
+        "displayName": "Top yellow process header",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.4335959383753501,
+            "y": 0.47962184873949576,
+            "width": 0.41186974789915964,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Continuous yellow horizontal pipeline across the top area with nearby labels such as \"KV_0814C/0816C/0814D/0816D\".",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-bottom-header",
+        "kind": "boundary",
+        "subtype": "header",
+        "tag": null,
+        "displayName": "Bottom orange process header",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.4335959383753501,
+            "y": 0.7657819794584501,
+            "width": 0.41186974789915964,
+            "height": 0.013790849673202614
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Orange horizontal line running near the bottom of the tile beneath the tanks.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-inlet-D",
+        "kind": "boundary",
+        "subtype": "inlet",
+        "tag": null,
+        "displayName": "Inlet to A310002D",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.4976645658263305,
+            "y": 0.5072035480859011,
+            "width": 0.004576330532212885,
+            "height": 0.18962418300653594
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical yellow line descending from the top header toward the 4#\u6c34\u89e3\u69fd column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-inlet-E",
+        "kind": "boundary",
+        "subtype": "inlet",
+        "tag": null,
+        "displayName": "Inlet to A310002E",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6258018207282913,
+            "y": 0.5072035480859011,
+            "width": 0.004576330532212885,
+            "height": 0.18962418300653594
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical yellow line descending from the top header toward the 5#\u6c34\u89e3\u69fd column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-inlet-F",
+        "kind": "boundary",
+        "subtype": "inlet",
+        "tag": null,
+        "displayName": "Inlet to A310002F",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7402100840336134,
+            "y": 0.5072035480859011,
+            "width": 0.004576330532212885,
+            "height": 0.18962418300653594
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical yellow line descending from the top header toward the 6#\u6c34\u89e3\u69fd column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-inlet-G",
+        "kind": "boundary",
+        "subtype": "inlet",
+        "tag": null,
+        "displayName": "Inlet to A310002G",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.8225840336134455,
+            "y": 0.5072035480859011,
+            "width": 0.004576330532212885,
+            "height": 0.18962418300653594
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical yellow line descending from the top header toward the 7#\u6c34\u89e3\u69fd column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-outlet-D",
+        "kind": "boundary",
+        "subtype": "outlet",
+        "tag": null,
+        "displayName": "Outlet from A310002D",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5068172268907564,
+            "y": 0.7140662931839402,
+            "width": 0.00915266106442577,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical line beneath tank A310002D leading down toward the bottom header.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-outlet-E",
+        "kind": "boundary",
+        "subtype": "outlet",
+        "tag": null,
+        "displayName": "Outlet from A310002E",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6349544817927171,
+            "y": 0.7140662931839402,
+            "width": 0.00915266106442577,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical line beneath tank A310002E leading down toward the bottom header.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-outlet-F",
+        "kind": "boundary",
+        "subtype": "outlet",
+        "tag": null,
+        "displayName": "Outlet from A310002F",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7493627450980391,
+            "y": 0.7140662931839402,
+            "width": 0.00915266106442577,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical line beneath tank A310002F leading down toward the bottom header.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-outlet-G",
+        "kind": "boundary",
+        "subtype": "outlet",
+        "tag": null,
+        "displayName": "Outlet from A310002G",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.8317366946778711,
+            "y": 0.7140662931839402,
+            "width": 0.00915266106442577,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical line beneath tank A310002G leading down toward the bottom header.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      }
+    ],
+    "warnings": []
+  }
+}

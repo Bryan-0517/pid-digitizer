@@ -1,0 +1,480 @@
+{
+  "schemaVersion": "0.1",
+  "callNumber": 2,
+  "requestId": "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r0c1",
+  "result": {
+    "extractionPass": "equipment_boundary",
+    "tile": {
+      "tileId": "r0c1",
+      "row": 0,
+      "column": 1,
+      "regionInRoi": {
+        "x": 2250,
+        "y": 0,
+        "width": 2614,
+        "height": 1477
+      },
+      "regionInOriginal": {
+        "x": 2346,
+        "y": 636,
+        "width": 2614,
+        "height": 1477
+      }
+    },
+    "candidateCount": 13,
+    "candidatesReturned": 13,
+    "candidatesFullyValid": 12,
+    "candidatesRetainedWithoutGeometry": 1,
+    "candidatesRejected": 0,
+    "geometryValidationWarnings": [
+      {
+        "candidateIndex": 9,
+        "candidateId": "eq10",
+        "component": "geometry",
+        "reason": "bbox: Value error, bounding box must remain within normalized [0,1] bounds",
+        "action": "geometry_removed"
+      }
+    ],
+    "providerMetadata": {
+      "provider": "openai",
+      "model": "gpt-5-2025-08-07",
+      "requestId": "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r0c1",
+      "latencyMs": 62788.87220000615,
+      "usage": {
+        "inputTokens": 1692,
+        "outputTokens": 3093,
+        "totalTokens": 4785
+      },
+      "warnings": [],
+      "rawResponseRef": "resp_0c1951dd5496b006006a8144bb1e00819996079f7c5ab40064",
+      "debugMetadata": {
+        "responseStatus": "completed"
+      }
+    },
+    "warnings": [
+      "candidate_validation:{\"action\": \"geometry_removed\", \"candidateId\": \"eq10\", \"candidateIndex\": 9, \"component\": \"geometry\", \"reason\": \"bbox: Value error, bounding box must remain within normalized [0,1] bounds\"}"
+    ]
+  },
+  "proposal": {
+    "candidates": [
+      {
+        "candidateId": "equipment_boundary:r0c1:eq1",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": "A310001B",
+        "displayName": "2#\u6d53\u949b\u6db2\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "agitated",
+            "value": true,
+            "evidenceText": "\u2026\u9884\u70ed\u69fd\u6405\u62cc / M"
+          },
+          {
+            "name": "note",
+            "value": "rectangular vessel with impeller icon and level bar",
+            "evidenceText": "A310001B 2#\u6d53\u949b\u6db2\u9884\u70ed\u69fd"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.5319870448179271,
+            "y": 0.3880753968253968,
+            "width": 0.07459418767507002,
+            "height": 0.056197712418300655
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "A310001B 2#\u6d53\u949b\u6db2\u9884\u70ed\u69fd \u6405\u62cc",
+            "note": "left vessel with impeller; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq2",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator - 2#\u6d53\u949b\u6db2\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "drive",
+            "value": "motor (M)",
+            "evidenceText": "\u7eff\u5708 M"
+          },
+          {
+            "name": "note",
+            "value": "impeller inside tank",
+            "evidenceText": "\u6405\u62cc"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.5383939075630252,
+            "y": 0.3939365079365079,
+            "width": 0.06132282913165266,
+            "height": 0.04413071895424837
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "\u6405\u62cc / M",
+            "note": "agitator symbol in left tank; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq3",
+        "kind": "equipment",
+        "subtype": "valve",
+        "tag": "TV_0806B",
+        "displayName": "Control valve near 2#\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "note",
+            "value": "triangle valve symbol with label",
+            "evidenceText": "TV_0806B"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.5649366246498599,
+            "y": 0.35015056022408964,
+            "width": 0.027457983193277313,
+            "height": 0.02068627450980392
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "TV_0806B",
+            "note": "red triangle valve under left panel; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq4",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": "A310001C",
+        "displayName": "3#\u6d53\u949b\u6db2\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "agitated",
+            "value": true,
+            "evidenceText": "\u2026\u9884\u70ed\u69fd\u6405\u62cc / M"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.6294628851540617,
+            "y": 0.38773062558356675,
+            "width": 0.07550945378151261,
+            "height": 0.05723202614379085
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "A310001C 3#\u6d53\u949b\u6db2\u9884\u70ed\u69fd \u6405\u62cc",
+            "note": "middle vessel with impeller; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq5",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator - 3#\u6d53\u949b\u6db2\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "drive",
+            "value": "motor (M)",
+            "evidenceText": "\u7ea2\u5708 M"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.6354121148459384,
+            "y": 0.39290219421101774,
+            "width": 0.06269572829131653,
+            "height": 0.04516503267973856
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "\u6405\u62cc / M",
+            "note": "agitator symbol in middle tank; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq6",
+        "kind": "equipment",
+        "subtype": "valve",
+        "tag": "TV_0806C",
+        "displayName": "Control valve near 3#\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "note",
+            "value": "triangle valve symbol with label",
+            "evidenceText": "TV_0806C"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.6692769607843136,
+            "y": 0.3504953314659197,
+            "width": 0.0279156162464986,
+            "height": 0.020341503267973855
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "TV_0806C",
+            "note": "triangle valve below middle panel; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq7",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": "A310001D",
+        "displayName": "4#\u6d53\u949b\u6db2\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "agitated",
+            "value": true,
+            "evidenceText": "\u2026\u9884\u70ed\u69fd\u6405\u62cc / M"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.7475322128851541,
+            "y": 0.3880753968253968,
+            "width": 0.08923844537815126,
+            "height": 0.06033496732026143
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "A310001D 4#\u6d53\u949b\u6db2\u9884\u70ed\u69fd \u6405\u62cc",
+            "note": "right vessel with impeller and level bar; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq8",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator - 4#\u6d53\u949b\u6db2\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "drive",
+            "value": "motor (M)",
+            "evidenceText": "\u7eff\u5708 M"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.7566848739495798,
+            "y": 0.394281279178338,
+            "width": 0.06498389355742297,
+            "height": 0.04619934640522876
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "\u6405\u62cc / M",
+            "note": "agitator symbol in right tank; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq9",
+        "kind": "equipment",
+        "subtype": "valve",
+        "tag": "TV_0806D",
+        "displayName": "Control valve near 4#\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "note",
+            "value": "green valve symbol with label",
+            "evidenceText": "TV_0806D"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.7928378851540617,
+            "y": 0.32946428571428577,
+            "width": 0.020135854341736693,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "TV_0806D",
+            "note": "green valve on line right of right tank; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq10",
+        "kind": "equipment",
+        "subtype": "drum",
+        "tag": "V310008",
+        "displayName": "\u6c7d\u5305",
+        "properties": [
+          {
+            "name": "note",
+            "value": "horizontal oval vessel",
+            "evidenceText": "\u6c7d\u5305 V310008"
+          }
+        ],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "\u6c7d\u5305 V310008",
+            "note": "steam drum to the right of panels; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:bd1",
+        "kind": "boundary",
+        "subtype": "process-area",
+        "tag": null,
+        "displayName": "Left process boundary",
+        "properties": [
+          {
+            "name": "note",
+            "value": "yellow rectangle framing left unit",
+            "evidenceText": "yellow outline"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.45739285714285716,
+            "y": 0.2601652661064426,
+            "width": 0.16703606442577032,
+            "height": 0.19341666666666668
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "yellow rectangular frame around left unit",
+            "note": "process boundary; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:bd2",
+        "kind": "boundary",
+        "subtype": "process-area",
+        "tag": null,
+        "displayName": "Middle process boundary",
+        "properties": [
+          {
+            "name": "note",
+            "value": "yellow rectangle framing middle unit",
+            "evidenceText": "yellow outline"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.5910217086834734,
+            "y": 0.257062324929972,
+            "width": 0.1560528711484594,
+            "height": 0.1978986928104575
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "yellow rectangular frame around middle unit",
+            "note": "process boundary; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:bd3",
+        "kind": "boundary",
+        "subtype": "process-area",
+        "tag": null,
+        "displayName": "Right process boundary",
+        "properties": [
+          {
+            "name": "note",
+            "value": "yellow rectangle framing right unit",
+            "evidenceText": "yellow outline"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.7228200280112044,
+            "y": 0.25844140989729225,
+            "width": 0.14552731092436977,
+            "height": 0.19927777777777775
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "yellow rectangular frame around right unit",
+            "note": "process boundary; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      }
+    ],
+    "warnings": []
+  }
+}

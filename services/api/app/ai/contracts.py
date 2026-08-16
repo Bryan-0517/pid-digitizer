@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, Literal, TypeVar
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -69,6 +69,32 @@ class ProviderMetadata(AIContract):
     warnings: list[str] = Field(default_factory=list)
     raw_response_ref: str | None = None
     debug_metadata: dict[str, JsonValue] = Field(default_factory=dict)
+
+
+ProviderFailureCategory = Literal[
+    "incomplete_output",
+    "max_output_tokens_exhausted",
+    "malformed_structured_json",
+    "structured_output_schema_validation",
+    "provider_api_failure",
+    "timeout",
+]
+
+
+class ProviderFailureMetadata(AIContract):
+    provider: str
+    model: str | None = None
+    request_id: str
+    response_id: str | None = None
+    http_status: int | None = None
+    response_status: str | None = None
+    incomplete_details: dict[str, JsonValue] | None = None
+    termination_reason: str | None = None
+    usage: TokenUsage | None = None
+    latency_ms: float | None = Field(default=None, ge=0)
+    failure_category: ProviderFailureCategory
+    structured_parsing_began: bool
+    candidate_validation_began: bool
 
 
 OutputT = TypeVar("OutputT", bound=BaseModel)

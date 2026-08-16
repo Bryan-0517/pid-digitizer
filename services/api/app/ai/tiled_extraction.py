@@ -6,12 +6,19 @@ import json
 import os
 from pathlib import Path
 import re
+from time import perf_counter
 from typing import Literal
 
 from PIL import Image
 from pydantic import Field
 
-from app.ai.contracts import AIContract, PageImageInput, ProviderMetadata, StructuredExtractionRequest
+from app.ai.contracts import (
+    AIContract,
+    PageImageInput,
+    ProviderFailureMetadata,
+    ProviderMetadata,
+    StructuredExtractionRequest,
+)
 from app.ai.entity_proposals import (
     CandidateValidationWarning,
     EntityCandidate,
@@ -19,6 +26,7 @@ from app.ai.entity_proposals import (
     proposal_validation_diagnostics,
 )
 from app.ai.provider import AIProvider, execute_extraction
+from app.ai.errors import AIErrorCode, AIProviderError
 from app.domain.models import BoundingBox, EntityGeometry, Point
 
 ExtractionPass = Literal["equipment_boundary", "instruments", "valves"]
@@ -87,6 +95,19 @@ class TileCallCheckpoint(AIContract):
     request_id: str
     result: TileCallResult
     proposal: EntityExtractionProposal
+
+
+class TiledCallFailure(AIContract):
+    schema_version: Literal["0.1"] = "0.1"
+    experiment_id: str
+    call_number: int = Field(ge=1, le=12)
+    request_id: str
+    extraction_pass: ExtractionPass
+    tile: TileSpec
+    provider_failure: ProviderFailureMetadata
+    automatic_retry_attempted: bool = False
+    final_snapshot_generated: bool = False
+    evaluation_generated: bool = False
 
 
 class TiledExtractionSnapshot(AIContract):
@@ -263,9 +284,36 @@ async def run_tiled_extraction(
             extraction_pass=extraction_pass,
             maximum_output_tokens=maximum_output_tokens,
         )
-        response = await execute_extraction(
-            provider, request, EntityExtractionProposal, timeout_seconds=240
-        )
+        call_started = perf_counter()
+        try:
+            response = await execute_extraction(
+                provider, request, EntityExtractionProposal, timeout_seconds=240
+            )
+        except AIProviderError as exc:
+            failure_metadata = exc.failure_metadata or ProviderFailureMetadata(
+                provider=getattr(provider, "provider_name", type(provider).__name__),
+                model=getattr(provider, "model", None),
+                request_id=request_id,
+                latency_ms=(perf_counter() - call_started) * 1000,
+                failure_category=(
+                    "timeout" if exc.code == AIErrorCode.TIMEOUT else "provider_api_failure"
+                ),
+                structured_parsing_began=False,
+                candidate_validation_began=False,
+            )
+            if checkpoint_dir is not None:
+                _write_json_atomic(
+                    checkpoint_dir / "failure.json",
+                    TiledCallFailure(
+                        experiment_id=experiment_id,
+                        call_number=call_number,
+                        request_id=request_id,
+                        extraction_pass=extraction_pass,
+                        tile=tile,
+                        provider_failure=failure_metadata,
+                    ),
+                )
+            raise
         diagnostics = proposal_validation_diagnostics(response.parsed_output)
         transformed = [
             transform_candidate(

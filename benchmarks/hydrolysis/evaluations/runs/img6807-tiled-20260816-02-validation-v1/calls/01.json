@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "0.1",
+  "callNumber": 1,
+  "requestId": "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r0c0",
+  "result": {
+    "extractionPass": "equipment_boundary",
+    "tile": {
+      "tileId": "r0c0",
+      "row": 0,
+      "column": 0,
+      "regionInRoi": {
+        "x": 0,
+        "y": 0,
+        "width": 2614,
+        "height": 1477
+      },
+      "regionInOriginal": {
+        "x": 96,
+        "y": 636,
+        "width": 2614,
+        "height": 1477
+      }
+    },
+    "candidateCount": 8,
+    "candidatesReturned": 8,
+    "candidatesFullyValid": 8,
+    "candidatesRetainedWithoutGeometry": 0,
+    "candidatesRejected": 0,
+    "geometryValidationWarnings": [],
+    "providerMetadata": {
+      "provider": "openai",
+      "model": "gpt-5-2025-08-07",
+      "requestId": "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r0c0",
+      "latencyMs": 80865.33739999868,
+      "usage": {
+        "inputTokens": 1692,
+        "outputTokens": 3629,
+        "totalTokens": 5321
+      },
+      "warnings": [],
+      "rawResponseRef": "resp_03f7080141955c3e006a81446bcfd8819aab779058f489bfb8",
+      "debugMetadata": {
+        "responseStatus": "completed"
+      }
+    },
+    "warnings": []
+  },
+  "proposal": {
+    "candidates": [
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-1",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": "V310001A",
+        "displayName": "1#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.03694257703081232,
+            "y": 0.2967110177404295,
+            "width": 0.07413655462184875,
+            "height": 0.11687745098039216
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "V310001A 1#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd \u6807\u6ce8\u4e0e\u957f\u65b9\u5f62\u50a8\u69fd\u56fe\u5f62\u5de6\u4fa7\u4e2d\u90e8\u53ef\u89c1",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-2",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": "V310001B",
+        "displayName": "2#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.040603641456582636,
+            "y": 0.43565382819794585,
+            "width": 0.07093312324929972,
+            "height": 0.053784313725490196
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "V310001B 2#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd \u6587\u672c\u4e0e\u4e0b\u65b9\u5de6\u4fa7\u50a8\u69fd\u56fe\u5f62\u76f8\u90bb",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-3",
+        "kind": "equipment",
+        "subtype": "pump",
+        "tag": "P310001D",
+        "displayName": "4#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.14814740896358541,
+            "y": 0.34153127917833803,
+            "width": 0.020135854341736693,
+            "height": 0.026892156862745098
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "P310001D \u6807\u7b7e\u5728\u7ea2\u8272\u6cf5\u7b26\u53f7\u4e0b\u65b9\uff0c\u6587\u5b57\u201c4#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-4",
+        "kind": "equipment",
+        "subtype": "pump",
+        "tag": "P310001C",
+        "displayName": "3#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.1815546218487395,
+            "y": 0.34153127917833803,
+            "width": 0.020135854341736693,
+            "height": 0.026892156862745098
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "P310001C \u6807\u7b7e\u5728\u4e2d\u95f4\u7ea2\u8272\u6cf5\u7b26\u53f7\u4e0b\u65b9\uff0c\u6587\u5b57\u201c3#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-5",
+        "kind": "equipment",
+        "subtype": "pump",
+        "tag": "P310001B",
+        "displayName": "2#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.21541946778711482,
+            "y": 0.34153127917833803,
+            "width": 0.020135854341736693,
+            "height": 0.026892156862745098
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "P310001B \u6807\u7b7e\u5728\u9ec4\u8272\u6cf5\u7b26\u53f7\u4e0b\u65b9\uff0c\u6587\u5b57\u201c2#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-6",
+        "kind": "equipment",
+        "subtype": "vessel",
+        "tag": "A310001A",
+        "displayName": "1#\u6d53\u949b\u6db2\u9884\u70ed\u69fd\uff08\u5e26\u6405\u62cc\uff09",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.3064884453781513,
+            "y": 0.4222077497665733,
+            "width": 0.06040756302521008,
+            "height": 0.053784313725490196
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "A310001A \u6807\u6ce8\u5728\u7070\u8272\u5e26\u6868\u53f6\u56fe\u5f62\u7684\u77e9\u5f62\u4e0a\uff0c\u201c#\u6d53\u949b\u6db2\u9884\u70ed\u69fd\u201d\u65c1",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-7",
+        "kind": "boundary",
+        "subtype": "header",
+        "tag": null,
+        "displayName": "\u4e3b\u5de5\u827a\u9ec4\u7ba1\u9053\u603b\u7ba1/\u652f\u8def\u533a\u57df",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.12206232492997199,
+            "y": 0.2725770308123249,
+            "width": 0.2837324929971989,
+            "height": 0.1413562091503268
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "\u8d2f\u7a7f\u753b\u9762\u4e2d\u90e8\u7684\u9ec4\u8272\u7ba1\u7ebf\u7f51\u7edc\uff08\u603b\u7ba1\u4e0e\u591a\u6761\u652f\u8def\uff09",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-8",
+        "kind": "boundary",
+        "subtype": "inlet",
+        "tag": null,
+        "displayName": "A310001A \u5de6\u4fa7\u8fdb\u6599\u53e3\uff08\u8fde\u63a5\u9ec4\u7ba1\u81f3\u9884\u70ed\u69fd\uff09",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.30145448179271706,
+            "y": 0.42082866479925307,
+            "width": 0.011440826330532214,
+            "height": 0.02068627450980392
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "\u9ec4\u8272\u7ba1\u7ebf\u5728A310001A\u7070\u8272\u69fd\u4f53\u5de6\u4fa7\u8fdb\u5165\u7684\u63a5\u53e3\u4f4d\u7f6e",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      }
+    ],
+    "warnings": []
+  }
+}

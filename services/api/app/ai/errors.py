@@ -1,5 +1,7 @@
 from enum import StrEnum
 
+from app.ai.contracts import ProviderFailureMetadata
+
 
 class AIErrorCode(StrEnum):
     NOT_CONFIGURED = "provider_not_configured"
@@ -12,8 +14,14 @@ class AIErrorCode(StrEnum):
 
 
 class AIProviderError(Exception):
-    def __init__(self, code: AIErrorCode, message: str):
+    def __init__(
+        self,
+        code: AIErrorCode,
+        message: str,
+        failure_metadata: ProviderFailureMetadata | None = None,
+    ):
         self.code = code
+        self.failure_metadata = failure_metadata
         super().__init__(message)
 
 
@@ -28,26 +36,34 @@ class ProviderConfigurationError(AIProviderError):
 
 
 class ProviderRequestError(AIProviderError):
-    def __init__(self) -> None:
-        super().__init__(AIErrorCode.REQUEST_FAILED, "AI provider request failed")
+    def __init__(self, failure_metadata: ProviderFailureMetadata | None = None) -> None:
+        super().__init__(AIErrorCode.REQUEST_FAILED, "AI provider request failed", failure_metadata)
 
 
 class ProviderTimeoutError(AIProviderError):
-    def __init__(self) -> None:
-        super().__init__(AIErrorCode.TIMEOUT, "AI provider request timed out")
+    def __init__(self, failure_metadata: ProviderFailureMetadata | None = None) -> None:
+        super().__init__(AIErrorCode.TIMEOUT, "AI provider request timed out", failure_metadata)
 
 
 class MalformedStructuredOutputError(AIProviderError):
-    def __init__(self) -> None:
-        super().__init__(AIErrorCode.MALFORMED_OUTPUT, "AI provider returned malformed structured output")
+    def __init__(self, failure_metadata: ProviderFailureMetadata | None = None) -> None:
+        super().__init__(
+            AIErrorCode.MALFORMED_OUTPUT,
+            "AI provider returned malformed structured output",
+            failure_metadata,
+        )
 
 
 class ResponseParsingError(AIProviderError):
-    def __init__(self, reason: str | None = None) -> None:
+    def __init__(
+        self,
+        reason: str | None = None,
+        failure_metadata: ProviderFailureMetadata | None = None,
+    ) -> None:
         message = "AI provider response could not be parsed"
         if reason:
             message += f" ({reason})"
-        super().__init__(AIErrorCode.PARSING_FAILED, message)
+        super().__init__(AIErrorCode.PARSING_FAILED, message, failure_metadata)
 
 
 class UnsupportedMediaInputError(AIProviderError):

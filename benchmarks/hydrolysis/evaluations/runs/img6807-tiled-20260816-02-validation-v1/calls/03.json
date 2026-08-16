@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "0.1",
+  "callNumber": 3,
+  "requestId": "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r1c0",
+  "result": {
+    "extractionPass": "equipment_boundary",
+    "tile": {
+      "tileId": "r1c0",
+      "row": 1,
+      "column": 0,
+      "regionInRoi": {
+        "x": 0,
+        "y": 1271,
+        "width": 2614,
+        "height": 1477
+      },
+      "regionInOriginal": {
+        "x": 96,
+        "y": 1907,
+        "width": 2614,
+        "height": 1477
+      }
+    },
+    "candidateCount": 14,
+    "candidatesReturned": 14,
+    "candidatesFullyValid": 14,
+    "candidatesRetainedWithoutGeometry": 0,
+    "candidatesRejected": 0,
+    "geometryValidationWarnings": [],
+    "providerMetadata": {
+      "provider": "openai",
+      "model": "gpt-5-2025-08-07",
+      "requestId": "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r1c0",
+      "latencyMs": 71819.01530001778,
+      "usage": {
+        "inputTokens": 1692,
+        "outputTokens": 3324,
+        "totalTokens": 5016
+      },
+      "warnings": [],
+      "rawResponseRef": "resp_05e14ebd9c3ec7b6006a8144fac248819886d9fac7801fda95",
+      "debugMetadata": {
+        "responseStatus": "completed"
+      }
+    },
+    "warnings": []
+  },
+  "proposal": {
+    "candidates": [
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-1",
+        "kind": "equipment",
+        "subtype": "storage_tank",
+        "tag": "V310001B",
+        "displayName": "2#\u6c34\u89e3\u6d53\u94a0\u6db2\u50a8\u69fd",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u7070\u8272\u77e9\u5f62\u6807\u6ce8\u201c2#\u6c34\u89e3\u6d53\u94a0\u6db2\u50a8\u69fd\u201d\u5e76\u5e26\u8bbe\u5907\u53f7\u201cV310001B\u201d\u4f4d\u4e8e\u5de6\u4e0a\u4fa7",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-2",
+        "kind": "equipment",
+        "subtype": "fan_blower",
+        "tag": "C310001",
+        "displayName": "1#\u6c34\u89e3\u6392\u98ce\u673a",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u7ea2\u8272\u98ce\u673a\u56fe\u6807\u4e0b\u65b9\u6587\u5b57\u201cC310001\u201d\uff0c\u4e0a\u65b9\u6807\u9898\u201c1#\u6c34\u89e3\u6392\u98ce\u673a\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-3",
+        "kind": "equipment",
+        "subtype": "vessel_tank",
+        "tag": "A310002A",
+        "displayName": "1#\u6c34\u89e3\u69fd",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u7070\u8272\u69fd\u4f53\u5e26\u6405\u62cc\u6868\u56fe\u6807\uff0c\u6807\u6ce8\u201cA310002A  1#\u6c34\u89e3\u69fd\u201d\u4f4d\u4e8e\u4e0b\u65b9\u5de6\u4fa7",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-4",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "\u6405\u62cc\u5668\uff081#\u6c34\u89e3\u69fd\uff09",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "A310002A \u69fd\u4f53\u5185\u90e8\u7684\u5341\u5b57\u6868\u53f6\u56fe\u6807\u53ca\u4e0a\u65b9\u5706\u5f62\u7535\u673a\u201cM\u201d\u6807\u8bb0",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-5",
+        "kind": "equipment",
+        "subtype": "vfd_drive",
+        "tag": "R310001A",
+        "displayName": "\u53d8\u9891\u9a71\u52a8\uff081#\u6405\u62cc\uff09",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "A310002A \u69fd\u4f53\u4e0b\u65b9\u77e9\u5f62\u6846\u6587\u5b57\u201cR310001A \u2026 18.15 Hz\u201d\u7b49\u53c2\u6570",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-6",
+        "kind": "equipment",
+        "subtype": "vessel_tank",
+        "tag": "A310002B",
+        "displayName": "2#\u6c34\u89e3\u69fd",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u4e2d\u90e8\u4e0b\u65b9\u7070\u8272\u69fd\u4f53\u6807\u6ce8\u201cA310002B  2#\u6c34\u89e3\u69fd\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-7",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "\u6405\u62cc\u5668\uff082#\u6c34\u89e3\u69fd\uff09",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "A310002B \u69fd\u4f53\u5185\u6868\u53f6\u56fe\u6807\u4e0e\u4e0a\u65b9\u7eff\u8272\u5706\u70b9\u201cM\u201d\u6807\u8bb0",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-8",
+        "kind": "equipment",
+        "subtype": "vfd_drive",
+        "tag": "R310001B",
+        "displayName": "\u53d8\u9891\u9a71\u52a8\uff082#\u6405\u62cc\uff09",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "A310002B \u4e0b\u65b9\u77e9\u5f62\u6846\u6587\u5b57\u201cR310001B \u2026 18.15 Hz 14.60A\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-9",
+        "kind": "equipment",
+        "subtype": "vessel_tank",
+        "tag": "A310002C",
+        "displayName": "3#\u6c34\u89e3\u69fd",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u53f3\u4fa7\u4e0b\u65b9\u7070\u8272\u69fd\u4f53\u6807\u6ce8\u201cA310002C  3#\u6c34\u89e3\u69fd\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-10",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "\u6405\u62cc\u5668\uff083#\u6c34\u89e3\u69fd\uff09",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "A310002C \u69fd\u4f53\u5185\u6868\u53f6\u56fe\u6807\u4e0e\u4e0a\u65b9\u7eff\u8272\u5706\u70b9\u201cM\u201d\u6807\u8bb0",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-11",
+        "kind": "equipment",
+        "subtype": "vfd_drive",
+        "tag": "R310001C",
+        "displayName": "\u53d8\u9891\u9a71\u52a8\uff083#\u6405\u62cc\uff09",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "A310002C \u4e0b\u65b9\u77e9\u5f62\u6846\u6587\u5b57\u201cR310001C \u2026 18.16 Hz 14.40A\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-12",
+        "kind": "equipment",
+        "subtype": "vessel_tank",
+        "tag": null,
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u753b\u9762\u6700\u53f3\u4fa7\u8fb9\u7f18\u53ef\u89c1\u7684\u7b2c\u56db\u4e2a\u7070\u8272\u69fd\u4f53\uff08\u6587\u5b57\u90e8\u5206\u88ab\u88c1\u5207\uff09",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:bd-1",
+        "kind": "boundary",
+        "subtype": "utility_inlet",
+        "tag": null,
+        "displayName": "\u8131\u76d0\u6c34\u5165\u53e3",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u5de6\u4fa7\u4e2d\u90e8\u7eff\u8272\u7ba1\u7ebf\u65c1\u4e2d\u6587\u201c\u8131\u76d0\u6c34\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:bd-2",
+        "kind": "boundary",
+        "subtype": "utility_inlet",
+        "tag": null,
+        "displayName": "\u70ed\u6c34\u5165\u53e3",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u5de6\u4fa7\u4e2d\u90e8\u7eff\u8272\u7ba1\u7ebf\u65c1\u4e2d\u6587\u201c\u70ed\u6c34\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      }
+    ],
+    "warnings": []
+  }
+}

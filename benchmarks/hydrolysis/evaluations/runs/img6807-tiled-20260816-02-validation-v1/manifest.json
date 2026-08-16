@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "0.1",
+  "experimentId": "img6807-tiled-20260816-02-validation-v1",
+  "benchmarkDocumentId": "benchmark:hydrolysis",
+  "benchmarkPageId": "benchmark:hydrolysis:IMG_6807.JPG",
+  "sourceFilename": "IMG_6807.JPG",
+  "sourceSha256": "be6af768044e7356004662efb62f41ea1d1385622ceacbbb10758e81af975746",
+  "providerName": "openai",
+  "providerModel": "gpt-5",
+  "originalWidthPx": 5712,
+  "originalHeightPx": 4284,
+  "tilingPolicy": {
+    "rows": 2,
+    "columns": 2,
+    "overlapFraction": 0.15,
+    "roi": {
+      "x": 96,
+      "y": 636,
+      "width": 4864,
+      "height": 2748
+    },
+    "tiles": [
+      {
+        "tileId": "r0c0",
+        "row": 0,
+        "column": 0,
+        "regionInRoi": {
+          "x": 0,
+          "y": 0,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 96,
+          "y": 636,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      {
+        "tileId": "r0c1",
+        "row": 0,
+        "column": 1,
+        "regionInRoi": {
+          "x": 2250,
+          "y": 0,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 2346,
+          "y": 636,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      {
+        "tileId": "r1c0",
+        "row": 1,
+        "column": 0,
+        "regionInRoi": {
+          "x": 0,
+          "y": 1271,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 96,
+          "y": 1907,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      {
+        "tileId": "r1c1",
+        "row": 1,
+        "column": 1,
+        "regionInRoi": {
+          "x": 2250,
+          "y": 1271,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 2346,
+          "y": 1907,
+          "width": 2614,
+          "height": 1477
+        }
+      }
+    ]
+  },
+  "extractionPasses": [
+    "equipment_boundary",
+    "instruments",
+    "valves"
+  ],
+  "maximumOutputTokensPerCall": 6000,
+  "imageDetail": "high",
+  "reasoningEffort": "low",
+  "extractionConfigurationSha256": "aa60732979f7f23eb0cafe9e77763f3baefb3ed72d78fd8432d6fbb679a52a3b",
+  "callRequestIds": [
+    "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r0c0",
+    "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r0c1",
+    "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r1c0",
+    "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r1c1",
+    "img6807-tiled-20260816-02-validation-v1:instruments:r0c0",
+    "img6807-tiled-20260816-02-validation-v1:instruments:r0c1",
+    "img6807-tiled-20260816-02-validation-v1:instruments:r1c0",
+    "img6807-tiled-20260816-02-validation-v1:instruments:r1c1",
+    "img6807-tiled-20260816-02-validation-v1:valves:r0c0",
+    "img6807-tiled-20260816-02-validation-v1:valves:r0c1",
+    "img6807-tiled-20260816-02-validation-v1:valves:r1c0",
+    "img6807-tiled-20260816-02-validation-v1:valves:r1c1"
+  ]
+}

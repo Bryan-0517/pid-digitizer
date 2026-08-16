@@ -1,16 +1,18 @@
 import asyncio
+import json
 from pathlib import Path
 
 from PIL import Image
 import pytest
 
-from app.ai.contracts import PageImageInput
+from app.ai.contracts import PageImageInput, ProviderFailureMetadata
 from app.ai.entity_proposals import (
     EntityCandidate,
     EntityExtractionProposal,
     proposal_validation_diagnostics,
 )
 from app.ai.mock import MockAIProvider, MockFixture
+from app.ai.errors import ProviderRequestError
 from app.ai.tiled_extraction import (
     PASS_ORDER,
     PixelRegion,
@@ -397,6 +399,60 @@ def test_checkpoint_files_never_contain_request_images_or_api_secrets(
     assert secret not in persisted
     assert "image/png;base64" not in persisted
     assert "apiKey" not in persisted
+
+
+def test_failure_checkpoint_persists_only_safe_provider_diagnostics(tmp_path: Path) -> None:
+    class FailingProvider:
+        provider_name = "openai"
+        model = "configured-model"
+
+        async def extract(self, request, output_type):
+            raise ProviderRequestError(
+                ProviderFailureMetadata(
+                    provider="openai",
+                    model=self.model,
+                    requestId=request.request_id,
+                    responseId="resp_safe",
+                    httpStatus=200,
+                    responseStatus="incomplete",
+                    incompleteDetails={"reason": "max_output_tokens"},
+                    terminationReason="max_output_tokens",
+                    usage={"inputTokens": 100, "outputTokens": 6000, "totalTokens": 6100},
+                    latencyMs=123.5,
+                    failureCategory="max_output_tokens_exhausted",
+                    structuredParsingBegan=False,
+                    candidateValidationBegan=False,
+                )
+            )
+
+    secret = "sk-never-persist"
+    image_path = tmp_path / "screen.jpg"
+    Image.new("RGB", (100, 100), "white").save(image_path, format="JPEG")
+    run_dir = tmp_path / "runs" / "safe-failure"
+
+    with pytest.raises(ProviderRequestError):
+        asyncio.run(
+            run_tiled_extraction(
+                provider=FailingProvider(),
+                image_path=image_path,
+                experiment_id="safe-failure",
+                benchmark_document_id="benchmark:hydrolysis",
+                benchmark_page_id="benchmark:hydrolysis:IMG_6807.JPG",
+                roi=PixelRegion(x=0, y=0, width=100, height=100),
+                checkpoint_dir=run_dir,
+            )
+        )
+
+    failure = (run_dir / "failure.json").read_text(encoding="utf-8")
+    payload = json.loads(failure)
+    assert payload["callNumber"] == 1
+    assert payload["extractionPass"] == "equipment_boundary"
+    assert payload["tile"]["tileId"] == "r0c0"
+    assert payload["providerFailure"]["responseId"] == "resp_safe"
+    assert payload["providerFailure"]["failureCategory"] == "max_output_tokens_exhausted"
+    assert payload["providerFailure"]["usage"]["outputTokens"] == 6000
+    assert secret not in failure
+    assert "data:image" not in failure
 
 
 def test_taxonomy_separates_strict_scope_visual_extras_and_ui() -> None:

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import json
 from time import perf_counter
 from typing import Any, TypeVar
 
@@ -9,6 +10,7 @@ from pydantic import BaseModel, ValidationError
 
 from app.ai.contracts import (
     ProviderMetadata,
+    ProviderFailureMetadata,
     StructuredExtractionRequest,
     StructuredExtractionResponse,
     TokenUsage,
@@ -50,30 +52,99 @@ class OpenAIProvider:
             for key, value in request.provider_options.items()
             if key in _ALLOWED_OPTIONS
         }
+        request_arguments = {
+            "model": self.model,
+            "instructions": request.system_instruction,
+            "input": [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "input_text", "text": request.task_prompt},
+                        image_content,
+                    ],
+                }
+            ],
+            "text_format": output_type,
+            **options,
+        }
+        raw_response = None
+        safe_payload: dict[str, Any] = {}
         try:
-            response = await self.client.responses.parse(
-                model=self.model,
-                instructions=request.system_instruction,
-                input=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {"type": "input_text", "text": request.task_prompt},
-                            image_content,
-                        ],
-                    }
-                ],
-                text_format=output_type,
-                **options,
+            raw_response = await self.client.responses.with_raw_response.parse(
+                **request_arguments
             )
+            payload = await raw_response.json()
+            safe_payload = payload if isinstance(payload, dict) else {}
+            failure = _preparse_failure_metadata(
+                raw_response=raw_response,
+                payload=safe_payload,
+                request_id=request.request_id,
+                configured_model=self.model,
+                latency_ms=(perf_counter() - started) * 1000,
+            )
+            if failure is not None:
+                raise ResponseParsingError(
+                    failure.termination_reason or failure.response_status,
+                    failure_metadata=failure,
+                )
+            response = await raw_response.parse()
         except AuthenticationError as exc:
-            raise ProviderConfigurationError("OpenAI authentication failed") from exc
+            error = ProviderConfigurationError("OpenAI authentication failed")
+            error.failure_metadata = _transport_failure_metadata(
+                request_id=request.request_id,
+                model=self.model,
+                started=started,
+                category="provider_api_failure",
+                error=exc,
+            )
+            raise error from exc
         except APITimeoutError as exc:
-            raise ProviderTimeoutError() from exc
+            raise ProviderTimeoutError(
+                _transport_failure_metadata(
+                    request_id=request.request_id,
+                    model=self.model,
+                    started=started,
+                    category="timeout",
+                    error=exc,
+                )
+            ) from exc
         except APIError as exc:
-            raise ProviderRequestError() from exc
-        except (ValidationError, ValueError) as exc:
-            raise MalformedStructuredOutputError() from exc
+            raise ProviderRequestError(
+                _transport_failure_metadata(
+                    request_id=request.request_id,
+                    model=self.model,
+                    started=started,
+                    category="provider_api_failure",
+                    error=exc,
+                )
+            ) from exc
+        except ValidationError as exc:
+            category, candidate_validation_began = _validation_failure_class(safe_payload)
+            raise MalformedStructuredOutputError(
+                _safe_failure_metadata(
+                    raw_response=raw_response,
+                    payload=safe_payload,
+                    request_id=request.request_id,
+                    configured_model=self.model,
+                    latency_ms=(perf_counter() - started) * 1000,
+                    category=category,
+                    structured_parsing_began=True,
+                    candidate_validation_began=candidate_validation_began,
+                )
+            ) from exc
+        except ValueError as exc:
+            raise MalformedStructuredOutputError(
+                _safe_failure_metadata(
+                    raw_response=raw_response,
+                    payload=safe_payload,
+                    request_id=request.request_id,
+                    configured_model=self.model,
+                    latency_ms=(perf_counter() - started) * 1000,
+                    category="malformed_structured_json",
+                    structured_parsing_began=True,
+                    candidate_validation_began=False,
+                )
+            ) from exc
         parsed = getattr(response, "output_parsed", None)
         if parsed is None:
             status = getattr(response, "status", None) or "unknown"
@@ -82,7 +153,19 @@ class OpenAIProvider:
             reason = f"status={status}"
             if incomplete_reason:
                 reason += f", incompleteReason={incomplete_reason}"
-            raise ResponseParsingError(reason)
+            raise ResponseParsingError(
+                reason,
+                failure_metadata=_safe_failure_metadata(
+                    raw_response=raw_response,
+                    payload=safe_payload,
+                    request_id=request.request_id,
+                    configured_model=self.model,
+                    latency_ms=(perf_counter() - started) * 1000,
+                    category="structured_output_schema_validation",
+                    structured_parsing_began=True,
+                    candidate_validation_began=False,
+                ),
+            )
         try:
             validated = output_type.model_validate(parsed)
         except (ValidationError, TypeError, ValueError) as exc:
@@ -118,3 +201,113 @@ class OpenAIProvider:
 def _data_url(media_type: str, content: bytes) -> str:
     encoded = base64.b64encode(content).decode("ascii")
     return f"data:{media_type};base64,{encoded}"
+
+
+def _preparse_failure_metadata(
+    *,
+    raw_response: Any,
+    payload: dict[str, Any],
+    request_id: str,
+    configured_model: str,
+    latency_ms: float,
+) -> ProviderFailureMetadata | None:
+    status = payload.get("status")
+    if status == "completed" or status is None:
+        return None
+    incomplete = payload.get("incomplete_details")
+    reason = incomplete.get("reason") if isinstance(incomplete, dict) else None
+    category = (
+        "max_output_tokens_exhausted"
+        if reason == "max_output_tokens"
+        else "incomplete_output"
+        if status == "incomplete"
+        else "provider_api_failure"
+    )
+    return _safe_failure_metadata(
+        raw_response=raw_response,
+        payload=payload,
+        request_id=request_id,
+        configured_model=configured_model,
+        latency_ms=latency_ms,
+        category=category,
+        structured_parsing_began=False,
+        candidate_validation_began=False,
+    )
+
+
+def _safe_failure_metadata(
+    *,
+    raw_response: Any,
+    payload: dict[str, Any],
+    request_id: str,
+    configured_model: str,
+    latency_ms: float,
+    category: str,
+    structured_parsing_began: bool,
+    candidate_validation_began: bool,
+) -> ProviderFailureMetadata:
+    incomplete = payload.get("incomplete_details")
+    reason = incomplete.get("reason") if isinstance(incomplete, dict) else None
+    usage = payload.get("usage")
+    return ProviderFailureMetadata(
+        provider="openai",
+        model=payload.get("model") if isinstance(payload.get("model"), str) else configured_model,
+        request_id=request_id,
+        response_id=payload.get("id") if isinstance(payload.get("id"), str) else None,
+        http_status=getattr(getattr(raw_response, "http_response", None), "status_code", None),
+        response_status=payload.get("status") if isinstance(payload.get("status"), str) else None,
+        incomplete_details={"reason": reason} if isinstance(reason, str) else None,
+        termination_reason=reason if isinstance(reason, str) else None,
+        usage=TokenUsage(
+            input_tokens=usage.get("input_tokens"),
+            output_tokens=usage.get("output_tokens"),
+            total_tokens=usage.get("total_tokens"),
+        )
+        if isinstance(usage, dict)
+        else None,
+        latency_ms=latency_ms,
+        failure_category=category,
+        structured_parsing_began=structured_parsing_began,
+        candidate_validation_began=candidate_validation_began,
+    )
+
+
+def _validation_failure_class(payload: dict[str, Any]) -> tuple[str, bool]:
+    text = _first_output_text(payload)
+    if text is None:
+        return "structured_output_schema_validation", False
+    try:
+        decoded = json.loads(text)
+    except (json.JSONDecodeError, TypeError):
+        return "malformed_structured_json", False
+    candidate_validation_began = isinstance(decoded, dict) and isinstance(
+        decoded.get("candidates"), list
+    )
+    return "structured_output_schema_validation", candidate_validation_began
+
+
+def _first_output_text(payload: dict[str, Any]) -> str | None:
+    for output in payload.get("output", []):
+        if not isinstance(output, dict) or output.get("type") != "message":
+            continue
+        for content in output.get("content", []):
+            if isinstance(content, dict) and content.get("type") == "output_text":
+                text = content.get("text")
+                return text if isinstance(text, str) else None
+    return None
+
+
+def _transport_failure_metadata(
+    *, request_id: str, model: str, started: float, category: str, error: Exception
+) -> ProviderFailureMetadata:
+    return ProviderFailureMetadata(
+        provider="openai",
+        model=model,
+        request_id=request_id,
+        response_id=getattr(error, "request_id", None),
+        http_status=getattr(error, "status_code", None),
+        latency_ms=(perf_counter() - started) * 1000,
+        failure_category=category,
+        structured_parsing_began=False,
+        candidate_validation_began=False,
+    )
