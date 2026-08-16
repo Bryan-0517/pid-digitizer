@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "0.1",
+  "callNumber": 5,
+  "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r0c0",
+  "result": {
+    "extractionPass": "instruments",
+    "tile": {
+      "tileId": "r0c0",
+      "row": 0,
+      "column": 0,
+      "regionInRoi": {
+        "x": 0,
+        "y": 0,
+        "width": 2614,
+        "height": 1477
+      },
+      "regionInOriginal": {
+        "x": 96,
+        "y": 636,
+        "width": 2614,
+        "height": 1477
+      }
+    },
+    "candidateCount": 6,
+    "candidatesReturned": 6,
+    "candidatesFullyValid": 6,
+    "candidatesRetainedWithoutGeometry": 0,
+    "candidatesRejected": 0,
+    "geometryValidationWarnings": [],
+    "providerMetadata": {
+      "provider": "openai",
+      "model": "gpt-5-2025-08-07",
+      "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r0c0",
+      "latencyMs": 21346.997199987527,
+      "usage": {
+        "inputTokens": 1703,
+        "outputTokens": 1578,
+        "totalTokens": 3281
+      },
+      "warnings": [],
+      "rawResponseRef": "resp_02415b5038009301006a814d56bc08819b8818ae194e5c5c4a",
+      "debugMetadata": {
+        "responseStatus": "completed"
+      }
+    },
+    "warnings": []
+  },
+  "proposal": {
+    "candidates": [
+      {
+        "candidateId": "instruments:r0c0:inst-1",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FT 0858",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "FT 0858  0.00 m3/h  335153.00 m3 (gray box at left top process area)",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c0:inst-2",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "LIT 0852A",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "LIT 0852A  3.83 m (on first tank)",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c0:inst-3",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "LIT 0852B",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "LIT 0852B  3.85 m (on second tank)",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c0:inst-4",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FIT 0802",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "FIT 0802  0.00 m3/h  47.80 m3 (inside pink \"\u8fdb\u6599\u6279\u91cf\u63a7\u5236\" panel)",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c0:inst-5",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "LT_3101A",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "LT_3101A  1850.2 mm (on right mixing vessel)",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c0:inst-6",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE 0806A",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "TE 0806A  61.40 \u00b0C (on right mixing vessel panel)",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      }
+    ],
+    "warnings": []
+  }
+}

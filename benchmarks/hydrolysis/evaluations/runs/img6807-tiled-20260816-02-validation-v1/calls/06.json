@@ -1,0 +1,287 @@
+{
+  "schemaVersion": "0.1",
+  "callNumber": 6,
+  "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r0c1",
+  "result": {
+    "extractionPass": "instruments",
+    "tile": {
+      "tileId": "r0c1",
+      "row": 0,
+      "column": 1,
+      "regionInRoi": {
+        "x": 2250,
+        "y": 0,
+        "width": 2614,
+        "height": 1477
+      },
+      "regionInOriginal": {
+        "x": 2346,
+        "y": 636,
+        "width": 2614,
+        "height": 1477
+      }
+    },
+    "candidateCount": 9,
+    "candidatesReturned": 9,
+    "candidatesFullyValid": 9,
+    "candidatesRetainedWithoutGeometry": 0,
+    "candidatesRejected": 0,
+    "geometryValidationWarnings": [],
+    "providerMetadata": {
+      "provider": "openai",
+      "model": "gpt-5-2025-08-07",
+      "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r0c1",
+      "latencyMs": 25279.23999997438,
+      "usage": {
+        "inputTokens": 1703,
+        "outputTokens": 2385,
+        "totalTokens": 4088
+      },
+      "warnings": [],
+      "rawResponseRef": "resp_0ad85eb1756e2ea2006a814d6b57bc819aa3c9a8bb3b9731a4",
+      "debugMetadata": {
+        "responseStatus": "completed"
+      }
+    },
+    "warnings": []
+  },
+  "proposal": {
+    "candidates": [
+      {
+        "candidateId": "instruments:r0c1:inst-1",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FIT_0803",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5891911764705883,
+            "y": 0.30567507002801125,
+            "width": 0.04713620448179271,
+            "height": 0.0179281045751634
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "FIT_0803",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-2",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FIT_0804",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6701922268907563,
+            "y": 0.30567507002801125,
+            "width": 0.04713620448179271,
+            "height": 0.0179281045751634
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "FIT_0804",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-3",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FIT_0805",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7543967086834733,
+            "y": 0.30567507002801125,
+            "width": 0.04713620448179271,
+            "height": 0.0179281045751634
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "FIT_0805",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-4",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "LT_3101B",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5859877450980393,
+            "y": 0.4042796451914099,
+            "width": 0.05033963585434174,
+            "height": 0.02241013071895425
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "LT_3101B",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-5",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0806B",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5891911764705883,
+            "y": 0.4222077497665733,
+            "width": 0.0439327731092437,
+            "height": 0.020341503267973855
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "TE_0806B",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-6",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "LT_3101C",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6633277310924369,
+            "y": 0.39083356676003733,
+            "width": 0.05033963585434174,
+            "height": 0.02241013071895425
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "LT_3101C",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-7",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0806C",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6733956582633053,
+            "y": 0.4132436974789916,
+            "width": 0.0439327731092437,
+            "height": 0.020341503267973855
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "TE_0806C",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-8",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "LT_3101D",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7576001400560225,
+            "y": 0.399797619047619,
+            "width": 0.05400070028011204,
+            "height": 0.024823529411764706
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "LT_3101D",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-9",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0806D",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7608035714285715,
+            "y": 0.4201391223155929,
+            "width": 0.04713620448179271,
+            "height": 0.024823529411764706
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "TE_0806D",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      }
+    ],
+    "warnings": []
+  }
+}

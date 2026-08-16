@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "0.1",
+  "callNumber": 10,
+  "requestId": "img6807-tiled-20260816-02-validation-v1:valves:r0c1",
+  "result": {
+    "extractionPass": "valves",
+    "tile": {
+      "tileId": "r0c1",
+      "row": 0,
+      "column": 1,
+      "regionInRoi": {
+        "x": 2250,
+        "y": 0,
+        "width": 2614,
+        "height": 1477
+      },
+      "regionInOriginal": {
+        "x": 2346,
+        "y": 636,
+        "width": 2614,
+        "height": 1477
+      }
+    },
+    "candidateCount": 3,
+    "candidatesReturned": 3,
+    "candidatesFullyValid": 3,
+    "candidatesRetainedWithoutGeometry": 0,
+    "candidatesRejected": 0,
+    "geometryValidationWarnings": [],
+    "providerMetadata": {
+      "provider": "openai",
+      "model": "gpt-5-2025-08-07",
+      "requestId": "img6807-tiled-20260816-02-validation-v1:valves:r0c1",
+      "latencyMs": 24938.927700015483,
+      "usage": {
+        "inputTokens": 1678,
+        "outputTokens": 1251,
+        "totalTokens": 2929
+      },
+      "warnings": [],
+      "rawResponseRef": "resp_068d34c95974b94b006a814df0a3dc81999b60fdf15565e4f8",
+      "debugMetadata": {
+        "responseStatus": "completed"
+      }
+    },
+    "warnings": []
+  },
+  "proposal": {
+    "candidates": [
+      {
+        "candidateId": "valves:r0c1:valve-1",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "TV_0806B",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5685976890756302,
+            "y": 0.3225688608776844,
+            "width": 0.0160171568627451,
+            "height": 0.02930555555555556
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "Red valve symbol with label TV_0806B under the left preheater tank section.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c1:valve-2",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "TV_0806C",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6674464285714286,
+            "y": 0.32325840336134454,
+            "width": 0.01555952380952381,
+            "height": 0.02930555555555556
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "Red valve symbol with label TV_0806C under the middle preheater tank section.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c1:valve-3",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "TV_0806D",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7896344537815125,
+            "y": 0.3077436974789916,
+            "width": 0.01555952380952381,
+            "height": 0.03275326797385621
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "Green valve symbol with label TV_0806D to the left of the label, near the right-side vessel.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      }
+    ],
+    "warnings": []
+  }
+}

@@ -1,0 +1,469 @@
+{
+  "schemaVersion": "0.1",
+  "callNumber": 12,
+  "requestId": "img6807-tiled-20260816-02-validation-v1:valves:r1c1",
+  "result": {
+    "extractionPass": "valves",
+    "tile": {
+      "tileId": "r1c1",
+      "row": 1,
+      "column": 1,
+      "regionInRoi": {
+        "x": 2250,
+        "y": 1271,
+        "width": 2614,
+        "height": 1477
+      },
+      "regionInOriginal": {
+        "x": 2346,
+        "y": 1907,
+        "width": 2614,
+        "height": 1477
+      }
+    },
+    "candidateCount": 16,
+    "candidatesReturned": 16,
+    "candidatesFullyValid": 16,
+    "candidatesRetainedWithoutGeometry": 0,
+    "candidatesRejected": 0,
+    "geometryValidationWarnings": [],
+    "providerMetadata": {
+      "provider": "openai",
+      "model": "gpt-5-2025-08-07",
+      "requestId": "img6807-tiled-20260816-02-validation-v1:valves:r1c1",
+      "latencyMs": 50576.58319998882,
+      "usage": {
+        "inputTokens": 1678,
+        "outputTokens": 3668,
+        "totalTokens": 5346
+      },
+      "warnings": [],
+      "rawResponseRef": "resp_03d7171cb449a4fc006a814e4936248199b9928c2c33db5775",
+      "debugMetadata": {
+        "responseStatus": "completed"
+      }
+    },
+    "warnings": []
+  },
+  "proposal": {
+    "candidates": [
+      {
+        "candidateId": "valves:r1c1:v1",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0814C",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6258018207282913,
+            "y": 0.48651727357609703,
+            "width": 0.03661064425770308,
+            "height": 0.02068627450980392
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0814C",
+            "note": "Inline red valve symbol with tag at top pipeline; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v2",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0816C",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.676141456582633,
+            "y": 0.48651727357609703,
+            "width": 0.03661064425770308,
+            "height": 0.02068627450980392
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0816C",
+            "note": "Inline red valve symbol with tag at top pipeline; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v3",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0814D",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7493627450980391,
+            "y": 0.4830695611577964,
+            "width": 0.03661064425770308,
+            "height": 0.02068627450980392
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0814D",
+            "note": "Inline red valve symbol with tag at top pipeline; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v4",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0816D",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7905497198879552,
+            "y": 0.4830695611577964,
+            "width": 0.03661064425770308,
+            "height": 0.02068627450980392
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0816D",
+            "note": "Inline red valve symbol with tag at top pipeline; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v5",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "FV_0828",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5159698879551822,
+            "y": 0.5520238095238095,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FV_0828",
+            "note": "Control valve label with adjacent red valve symbol; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v6",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "FV_0829",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6166491596638656,
+            "y": 0.5520238095238095,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FV_0829",
+            "note": "Control valve label with adjacent red valve symbol; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v7",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "FV_0830",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6990231092436975,
+            "y": 0.5520238095238095,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FV_0830",
+            "note": "Control valve label with adjacent red valve symbol; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v8",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "FV_0831",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7813970588235294,
+            "y": 0.5520238095238095,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FV_0831",
+            "note": "Control valve label with adjacent red valve symbol; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v9",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "PV_0804",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5068172268907564,
+            "y": 0.6244257703081233,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PV_0804",
+            "note": "Valve tag with red valve symbol to the right inside red loop; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v10",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "PV_0805",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6120728291316526,
+            "y": 0.6244257703081233,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PV_0805",
+            "note": "Valve tag with red valve symbol to the right inside red loop; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v11",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "PV_0806",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7035994397759103,
+            "y": 0.6244257703081233,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PV_0806",
+            "note": "Valve tag with red valve symbol to the right inside red loop; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v12",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "PV_0807",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7859733893557422,
+            "y": 0.6244257703081233,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PV_0807",
+            "note": "Valve tag with red valve symbol to the right inside red loop; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v13",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0815D",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6120728291316526,
+            "y": 0.6520074696545284,
+            "width": 0.03661064425770308,
+            "height": 0.01723856209150327
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0815D",
+            "note": "Text label adjacent to red inline valve symbol between tanks 4 and 5; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v14",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0815E",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6669887955182073,
+            "y": 0.6520074696545284,
+            "width": 0.03661064425770308,
+            "height": 0.01723856209150327
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0815E",
+            "note": "Text label adjacent to red inline valve symbol between tanks 5 and 6; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v15",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0815F",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7264810924369748,
+            "y": 0.6520074696545284,
+            "width": 0.03661064425770308,
+            "height": 0.01723856209150327
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0815F",
+            "note": "Text label adjacent to red inline valve symbol between tanks 6 and 7; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v16",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0815G",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7859733893557422,
+            "y": 0.6520074696545284,
+            "width": 0.03661064425770308,
+            "height": 0.01723856209150327
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0815G",
+            "note": "Text label adjacent to red inline valve symbol right of tank 7; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      }
+    ],
+    "warnings": []
+  }
+}

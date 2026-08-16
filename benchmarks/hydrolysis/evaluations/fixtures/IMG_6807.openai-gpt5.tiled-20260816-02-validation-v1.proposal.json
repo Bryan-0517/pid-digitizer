@@ -1,0 +1,3838 @@
+{
+  "snapshotLabel": "MODEL OUTPUT SNAPSHOT \u2014 NOT BENCHMARK TRUTH",
+  "experimentId": "img6807-tiled-20260816-02-validation-v1",
+  "benchmarkDocumentId": "benchmark:hydrolysis",
+  "benchmarkPageId": "benchmark:hydrolysis:IMG_6807.JPG",
+  "sourceFilename": "IMG_6807.JPG",
+  "originalWidthPx": 5712,
+  "originalHeightPx": 4284,
+  "tilingPolicy": {
+    "rows": 2,
+    "columns": 2,
+    "overlapFraction": 0.15,
+    "roi": {
+      "x": 96,
+      "y": 636,
+      "width": 4864,
+      "height": 2748
+    },
+    "tiles": [
+      {
+        "tileId": "r0c0",
+        "row": 0,
+        "column": 0,
+        "regionInRoi": {
+          "x": 0,
+          "y": 0,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 96,
+          "y": 636,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      {
+        "tileId": "r0c1",
+        "row": 0,
+        "column": 1,
+        "regionInRoi": {
+          "x": 2250,
+          "y": 0,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 2346,
+          "y": 636,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      {
+        "tileId": "r1c0",
+        "row": 1,
+        "column": 0,
+        "regionInRoi": {
+          "x": 0,
+          "y": 1271,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 96,
+          "y": 1907,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      {
+        "tileId": "r1c1",
+        "row": 1,
+        "column": 1,
+        "regionInRoi": {
+          "x": 2250,
+          "y": 1271,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 2346,
+          "y": 1907,
+          "width": 2614,
+          "height": 1477
+        }
+      }
+    ]
+  },
+  "extractionPasses": [
+    "equipment_boundary",
+    "instruments",
+    "valves"
+  ],
+  "maximumOutputTokensPerCall": 6000,
+  "mergedProposal": {
+    "candidates": [
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-1",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": "V310001A",
+        "displayName": "1#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.03694257703081232,
+            "y": 0.2967110177404295,
+            "width": 0.07413655462184875,
+            "height": 0.11687745098039216
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "V310001A 1#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd \u6807\u6ce8\u4e0e\u957f\u65b9\u5f62\u50a8\u69fd\u56fe\u5f62\u5de6\u4fa7\u4e2d\u90e8\u53ef\u89c1",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-2",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": "V310001B",
+        "displayName": "2#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.040603641456582636,
+            "y": 0.43565382819794585,
+            "width": 0.07093312324929972,
+            "height": 0.053784313725490196
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "V310001B 2#\u6c34\u89e3\u6d53\u949b\u6db2\u50a8\u69fd \u6587\u672c\u4e0e\u4e0b\u65b9\u5de6\u4fa7\u50a8\u69fd\u56fe\u5f62\u76f8\u90bb",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-3",
+        "kind": "equipment",
+        "subtype": "pump",
+        "tag": "P310001D",
+        "displayName": "4#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.14814740896358541,
+            "y": 0.34153127917833803,
+            "width": 0.020135854341736693,
+            "height": 0.026892156862745098
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "P310001D \u6807\u7b7e\u5728\u7ea2\u8272\u6cf5\u7b26\u53f7\u4e0b\u65b9\uff0c\u6587\u5b57\u201c4#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-4",
+        "kind": "equipment",
+        "subtype": "pump",
+        "tag": "P310001C",
+        "displayName": "3#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.1815546218487395,
+            "y": 0.34153127917833803,
+            "width": 0.020135854341736693,
+            "height": 0.026892156862745098
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "P310001C \u6807\u7b7e\u5728\u4e2d\u95f4\u7ea2\u8272\u6cf5\u7b26\u53f7\u4e0b\u65b9\uff0c\u6587\u5b57\u201c3#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-5",
+        "kind": "equipment",
+        "subtype": "pump",
+        "tag": "P310001B",
+        "displayName": "2#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.21541946778711482,
+            "y": 0.34153127917833803,
+            "width": 0.020135854341736693,
+            "height": 0.026892156862745098
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "P310001B \u6807\u7b7e\u5728\u9ec4\u8272\u6cf5\u7b26\u53f7\u4e0b\u65b9\uff0c\u6587\u5b57\u201c2#\u6c34\u89e3\u6d53\u949b\u6db2\u6cf5\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-6",
+        "kind": "equipment",
+        "subtype": "vessel",
+        "tag": "A310001A",
+        "displayName": "1#\u6d53\u949b\u6db2\u9884\u70ed\u69fd\uff08\u5e26\u6405\u62cc\uff09",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.3064884453781513,
+            "y": 0.4222077497665733,
+            "width": 0.06040756302521008,
+            "height": 0.053784313725490196
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "A310001A \u6807\u6ce8\u5728\u7070\u8272\u5e26\u6868\u53f6\u56fe\u5f62\u7684\u77e9\u5f62\u4e0a\uff0c\u201c#\u6d53\u949b\u6db2\u9884\u70ed\u69fd\u201d\u65c1",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-7",
+        "kind": "boundary",
+        "subtype": "header",
+        "tag": null,
+        "displayName": "\u4e3b\u5de5\u827a\u9ec4\u7ba1\u9053\u603b\u7ba1/\u652f\u8def\u533a\u57df",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.12206232492997199,
+            "y": 0.2725770308123249,
+            "width": 0.2837324929971989,
+            "height": 0.1413562091503268
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "\u8d2f\u7a7f\u753b\u9762\u4e2d\u90e8\u7684\u9ec4\u8272\u7ba1\u7ebf\u7f51\u7edc\uff08\u603b\u7ba1\u4e0e\u591a\u6761\u652f\u8def\uff09",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c0:cand-8",
+        "kind": "boundary",
+        "subtype": "inlet",
+        "tag": null,
+        "displayName": "A310001A \u5de6\u4fa7\u8fdb\u6599\u53e3\uff08\u8fde\u63a5\u9ec4\u7ba1\u81f3\u9884\u70ed\u69fd\uff09",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.30145448179271706,
+            "y": 0.42082866479925307,
+            "width": 0.011440826330532214,
+            "height": 0.02068627450980392
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "\u9ec4\u8272\u7ba1\u7ebf\u5728A310001A\u7070\u8272\u69fd\u4f53\u5de6\u4fa7\u8fdb\u5165\u7684\u63a5\u53e3\u4f4d\u7f6e",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:bd1",
+        "kind": "boundary",
+        "subtype": "process-area",
+        "tag": null,
+        "displayName": "Left process boundary",
+        "properties": [
+          {
+            "name": "note",
+            "value": "yellow rectangle framing left unit",
+            "evidenceText": "yellow outline"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.45739285714285716,
+            "y": 0.2601652661064426,
+            "width": 0.16703606442577032,
+            "height": 0.19341666666666668
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "yellow rectangular frame around left unit",
+            "note": "process boundary; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:bd2",
+        "kind": "boundary",
+        "subtype": "process-area",
+        "tag": null,
+        "displayName": "Middle process boundary",
+        "properties": [
+          {
+            "name": "note",
+            "value": "yellow rectangle framing middle unit",
+            "evidenceText": "yellow outline"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.5910217086834734,
+            "y": 0.257062324929972,
+            "width": 0.1560528711484594,
+            "height": 0.1978986928104575
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "yellow rectangular frame around middle unit",
+            "note": "process boundary; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:bd3",
+        "kind": "boundary",
+        "subtype": "process-area",
+        "tag": null,
+        "displayName": "Right process boundary",
+        "properties": [
+          {
+            "name": "note",
+            "value": "yellow rectangle framing right unit",
+            "evidenceText": "yellow outline"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.7228200280112044,
+            "y": 0.25844140989729225,
+            "width": 0.14552731092436977,
+            "height": 0.19927777777777775
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "yellow rectangular frame around right unit",
+            "note": "process boundary; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq1",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": "A310001B",
+        "displayName": "2#\u6d53\u949b\u6db2\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "agitated",
+            "value": true,
+            "evidenceText": "\u2026\u9884\u70ed\u69fd\u6405\u62cc / M"
+          },
+          {
+            "name": "note",
+            "value": "rectangular vessel with impeller icon and level bar",
+            "evidenceText": "A310001B 2#\u6d53\u949b\u6db2\u9884\u70ed\u69fd"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.5319870448179271,
+            "y": 0.3880753968253968,
+            "width": 0.07459418767507002,
+            "height": 0.056197712418300655
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "A310001B 2#\u6d53\u949b\u6db2\u9884\u70ed\u69fd \u6405\u62cc",
+            "note": "left vessel with impeller; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq10",
+        "kind": "equipment",
+        "subtype": "drum",
+        "tag": "V310008",
+        "displayName": "\u6c7d\u5305",
+        "properties": [
+          {
+            "name": "note",
+            "value": "horizontal oval vessel",
+            "evidenceText": "\u6c7d\u5305 V310008"
+          }
+        ],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "\u6c7d\u5305 V310008",
+            "note": "steam drum to the right of panels; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq2",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator - 2#\u6d53\u949b\u6db2\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "drive",
+            "value": "motor (M)",
+            "evidenceText": "\u7eff\u5708 M"
+          },
+          {
+            "name": "note",
+            "value": "impeller inside tank",
+            "evidenceText": "\u6405\u62cc"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.5383939075630252,
+            "y": 0.3939365079365079,
+            "width": 0.06132282913165266,
+            "height": 0.04413071895424837
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "\u6405\u62cc / M",
+            "note": "agitator symbol in left tank; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq3",
+        "kind": "equipment",
+        "subtype": "valve",
+        "tag": "TV_0806B",
+        "displayName": "Control valve near 2#\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "note",
+            "value": "triangle valve symbol with label",
+            "evidenceText": "TV_0806B"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.5649366246498599,
+            "y": 0.35015056022408964,
+            "width": 0.027457983193277313,
+            "height": 0.02068627450980392
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "TV_0806B",
+            "note": "red triangle valve under left panel; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq4",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": "A310001C",
+        "displayName": "3#\u6d53\u949b\u6db2\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "agitated",
+            "value": true,
+            "evidenceText": "\u2026\u9884\u70ed\u69fd\u6405\u62cc / M"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.6294628851540617,
+            "y": 0.38773062558356675,
+            "width": 0.07550945378151261,
+            "height": 0.05723202614379085
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "A310001C 3#\u6d53\u949b\u6db2\u9884\u70ed\u69fd \u6405\u62cc",
+            "note": "middle vessel with impeller; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq5",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator - 3#\u6d53\u949b\u6db2\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "drive",
+            "value": "motor (M)",
+            "evidenceText": "\u7ea2\u5708 M"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.6354121148459384,
+            "y": 0.39290219421101774,
+            "width": 0.06269572829131653,
+            "height": 0.04516503267973856
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "\u6405\u62cc / M",
+            "note": "agitator symbol in middle tank; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq6",
+        "kind": "equipment",
+        "subtype": "valve",
+        "tag": "TV_0806C",
+        "displayName": "Control valve near 3#\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "note",
+            "value": "triangle valve symbol with label",
+            "evidenceText": "TV_0806C"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.6692769607843136,
+            "y": 0.3504953314659197,
+            "width": 0.0279156162464986,
+            "height": 0.020341503267973855
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "TV_0806C",
+            "note": "triangle valve below middle panel; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq7",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": "A310001D",
+        "displayName": "4#\u6d53\u949b\u6db2\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "agitated",
+            "value": true,
+            "evidenceText": "\u2026\u9884\u70ed\u69fd\u6405\u62cc / M"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.7475322128851541,
+            "y": 0.3880753968253968,
+            "width": 0.08923844537815126,
+            "height": 0.06033496732026143
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "A310001D 4#\u6d53\u949b\u6db2\u9884\u70ed\u69fd \u6405\u62cc",
+            "note": "right vessel with impeller and level bar; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq8",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator - 4#\u6d53\u949b\u6db2\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "drive",
+            "value": "motor (M)",
+            "evidenceText": "\u7eff\u5708 M"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.7566848739495798,
+            "y": 0.394281279178338,
+            "width": 0.06498389355742297,
+            "height": 0.04619934640522876
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "\u6405\u62cc / M",
+            "note": "agitator symbol in right tank; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r0c1:eq9",
+        "kind": "equipment",
+        "subtype": "valve",
+        "tag": "TV_0806D",
+        "displayName": "Control valve near 4#\u9884\u70ed\u69fd",
+        "properties": [
+          {
+            "name": "note",
+            "value": "green valve symbol with label",
+            "evidenceText": "TV_0806D"
+          }
+        ],
+        "geometry": {
+          "bbox": {
+            "x": 0.7928378851540617,
+            "y": 0.32946428571428577,
+            "width": 0.020135854341736693,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "TV_0806D",
+            "note": "green valve on line right of right tank; pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:bd-1",
+        "kind": "boundary",
+        "subtype": "utility_inlet",
+        "tag": null,
+        "displayName": "\u8131\u76d0\u6c34\u5165\u53e3",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u5de6\u4fa7\u4e2d\u90e8\u7eff\u8272\u7ba1\u7ebf\u65c1\u4e2d\u6587\u201c\u8131\u76d0\u6c34\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:bd-2",
+        "kind": "boundary",
+        "subtype": "utility_inlet",
+        "tag": null,
+        "displayName": "\u70ed\u6c34\u5165\u53e3",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u5de6\u4fa7\u4e2d\u90e8\u7eff\u8272\u7ba1\u7ebf\u65c1\u4e2d\u6587\u201c\u70ed\u6c34\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-1",
+        "kind": "equipment",
+        "subtype": "storage_tank",
+        "tag": "V310001B",
+        "displayName": "2#\u6c34\u89e3\u6d53\u94a0\u6db2\u50a8\u69fd",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u7070\u8272\u77e9\u5f62\u6807\u6ce8\u201c2#\u6c34\u89e3\u6d53\u94a0\u6db2\u50a8\u69fd\u201d\u5e76\u5e26\u8bbe\u5907\u53f7\u201cV310001B\u201d\u4f4d\u4e8e\u5de6\u4e0a\u4fa7",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-10",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "\u6405\u62cc\u5668\uff083#\u6c34\u89e3\u69fd\uff09",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "A310002C \u69fd\u4f53\u5185\u6868\u53f6\u56fe\u6807\u4e0e\u4e0a\u65b9\u7eff\u8272\u5706\u70b9\u201cM\u201d\u6807\u8bb0",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-11",
+        "kind": "equipment",
+        "subtype": "vfd_drive",
+        "tag": "R310001C",
+        "displayName": "\u53d8\u9891\u9a71\u52a8\uff083#\u6405\u62cc\uff09",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "A310002C \u4e0b\u65b9\u77e9\u5f62\u6846\u6587\u5b57\u201cR310001C \u2026 18.16 Hz 14.40A\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-12",
+        "kind": "equipment",
+        "subtype": "vessel_tank",
+        "tag": null,
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u753b\u9762\u6700\u53f3\u4fa7\u8fb9\u7f18\u53ef\u89c1\u7684\u7b2c\u56db\u4e2a\u7070\u8272\u69fd\u4f53\uff08\u6587\u5b57\u90e8\u5206\u88ab\u88c1\u5207\uff09",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-2",
+        "kind": "equipment",
+        "subtype": "fan_blower",
+        "tag": "C310001",
+        "displayName": "1#\u6c34\u89e3\u6392\u98ce\u673a",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u7ea2\u8272\u98ce\u673a\u56fe\u6807\u4e0b\u65b9\u6587\u5b57\u201cC310001\u201d\uff0c\u4e0a\u65b9\u6807\u9898\u201c1#\u6c34\u89e3\u6392\u98ce\u673a\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-3",
+        "kind": "equipment",
+        "subtype": "vessel_tank",
+        "tag": "A310002A",
+        "displayName": "1#\u6c34\u89e3\u69fd",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u7070\u8272\u69fd\u4f53\u5e26\u6405\u62cc\u6868\u56fe\u6807\uff0c\u6807\u6ce8\u201cA310002A  1#\u6c34\u89e3\u69fd\u201d\u4f4d\u4e8e\u4e0b\u65b9\u5de6\u4fa7",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-4",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "\u6405\u62cc\u5668\uff081#\u6c34\u89e3\u69fd\uff09",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "A310002A \u69fd\u4f53\u5185\u90e8\u7684\u5341\u5b57\u6868\u53f6\u56fe\u6807\u53ca\u4e0a\u65b9\u5706\u5f62\u7535\u673a\u201cM\u201d\u6807\u8bb0",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-5",
+        "kind": "equipment",
+        "subtype": "vfd_drive",
+        "tag": "R310001A",
+        "displayName": "\u53d8\u9891\u9a71\u52a8\uff081#\u6405\u62cc\uff09",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "A310002A \u69fd\u4f53\u4e0b\u65b9\u77e9\u5f62\u6846\u6587\u5b57\u201cR310001A \u2026 18.15 Hz\u201d\u7b49\u53c2\u6570",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-6",
+        "kind": "equipment",
+        "subtype": "vessel_tank",
+        "tag": "A310002B",
+        "displayName": "2#\u6c34\u89e3\u69fd",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u4e2d\u90e8\u4e0b\u65b9\u7070\u8272\u69fd\u4f53\u6807\u6ce8\u201cA310002B  2#\u6c34\u89e3\u69fd\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-7",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "\u6405\u62cc\u5668\uff082#\u6c34\u89e3\u69fd\uff09",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "A310002B \u69fd\u4f53\u5185\u6868\u53f6\u56fe\u6807\u4e0e\u4e0a\u65b9\u7eff\u8272\u5706\u70b9\u201cM\u201d\u6807\u8bb0",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-8",
+        "kind": "equipment",
+        "subtype": "vfd_drive",
+        "tag": "R310001B",
+        "displayName": "\u53d8\u9891\u9a71\u52a8\uff082#\u6405\u62cc\uff09",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "A310002B \u4e0b\u65b9\u77e9\u5f62\u6846\u6587\u5b57\u201cR310001B \u2026 18.15 Hz 14.60A\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c0:eq-9",
+        "kind": "equipment",
+        "subtype": "vessel_tank",
+        "tag": "A310002C",
+        "displayName": "3#\u6c34\u89e3\u69fd",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "\u53f3\u4fa7\u4e0b\u65b9\u7070\u8272\u69fd\u4f53\u6807\u6ce8\u201cA310002C  3#\u6c34\u89e3\u69fd\u201d",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-bottom-header",
+        "kind": "boundary",
+        "subtype": "header",
+        "tag": null,
+        "displayName": "Bottom orange process header",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.4335959383753501,
+            "y": 0.7657819794584501,
+            "width": 0.41186974789915964,
+            "height": 0.013790849673202614
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Orange horizontal line running near the bottom of the tile beneath the tanks.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-inlet-D",
+        "kind": "boundary",
+        "subtype": "inlet",
+        "tag": null,
+        "displayName": "Inlet to A310002D",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.4976645658263305,
+            "y": 0.5072035480859011,
+            "width": 0.004576330532212885,
+            "height": 0.18962418300653594
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical yellow line descending from the top header toward the 4#\u6c34\u89e3\u69fd column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-inlet-E",
+        "kind": "boundary",
+        "subtype": "inlet",
+        "tag": null,
+        "displayName": "Inlet to A310002E",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6258018207282913,
+            "y": 0.5072035480859011,
+            "width": 0.004576330532212885,
+            "height": 0.18962418300653594
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical yellow line descending from the top header toward the 5#\u6c34\u89e3\u69fd column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-inlet-F",
+        "kind": "boundary",
+        "subtype": "inlet",
+        "tag": null,
+        "displayName": "Inlet to A310002F",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7402100840336134,
+            "y": 0.5072035480859011,
+            "width": 0.004576330532212885,
+            "height": 0.18962418300653594
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical yellow line descending from the top header toward the 6#\u6c34\u89e3\u69fd column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-inlet-G",
+        "kind": "boundary",
+        "subtype": "inlet",
+        "tag": null,
+        "displayName": "Inlet to A310002G",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.8225840336134455,
+            "y": 0.5072035480859011,
+            "width": 0.004576330532212885,
+            "height": 0.18962418300653594
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical yellow line descending from the top header toward the 7#\u6c34\u89e3\u69fd column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-outlet-D",
+        "kind": "boundary",
+        "subtype": "outlet",
+        "tag": null,
+        "displayName": "Outlet from A310002D",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5068172268907564,
+            "y": 0.7140662931839402,
+            "width": 0.00915266106442577,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical line beneath tank A310002D leading down toward the bottom header.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-outlet-E",
+        "kind": "boundary",
+        "subtype": "outlet",
+        "tag": null,
+        "displayName": "Outlet from A310002E",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6349544817927171,
+            "y": 0.7140662931839402,
+            "width": 0.00915266106442577,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical line beneath tank A310002E leading down toward the bottom header.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-outlet-F",
+        "kind": "boundary",
+        "subtype": "outlet",
+        "tag": null,
+        "displayName": "Outlet from A310002F",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7493627450980391,
+            "y": 0.7140662931839402,
+            "width": 0.00915266106442577,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical line beneath tank A310002F leading down toward the bottom header.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-outlet-G",
+        "kind": "boundary",
+        "subtype": "outlet",
+        "tag": null,
+        "displayName": "Outlet from A310002G",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.8317366946778711,
+            "y": 0.7140662931839402,
+            "width": 0.00915266106442577,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Vertical line beneath tank A310002G leading down toward the bottom header.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:bdry-top-header",
+        "kind": "boundary",
+        "subtype": "header",
+        "tag": null,
+        "displayName": "Top yellow process header",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.4335959383753501,
+            "y": 0.47962184873949576,
+            "width": 0.41186974789915964,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Continuous yellow horizontal pipeline across the top area with nearby labels such as \"KV_0814C/0816C/0814D/0816D\".",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002D-agitator",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator on A310002D",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.49308823529411766,
+            "y": 0.6382166199813258,
+            "width": 0.04118697478991597,
+            "height": 0.04826797385620916
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Propeller/impeller symbol with green motor indicator 'M' above tank A310002D.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002D-tank",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": null,
+        "displayName": "Tank A310002D (4#\u6c34\u89e3\u69fd)",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.4747829131652661,
+            "y": 0.6761414565826331,
+            "width": 0.07779761904761906,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Grey vessel icon with label \"A310002D 4#\u6c34\u89e3\u69fd\" near bottom-left column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002E-agitator",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator on A310002E",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6166491596638656,
+            "y": 0.6382166199813258,
+            "width": 0.04118697478991597,
+            "height": 0.04826797385620916
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Propeller/impeller symbol with red motor indicator 'M' above tank A310002E.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002E-tank",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": null,
+        "displayName": "Tank A310002E (5#\u6c34\u89e3\u69fd)",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.598343837535014,
+            "y": 0.6761414565826331,
+            "width": 0.07779761904761906,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Grey vessel icon with label \"A310002E 5#\u6c34\u89e3\u69fd\" in left-middle column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002F-agitator",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator on A310002F",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7310574229691877,
+            "y": 0.6382166199813258,
+            "width": 0.04118697478991597,
+            "height": 0.04826797385620916
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Propeller/impeller symbol with red motor indicator 'M' above tank A310002F.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002F-tank",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": null,
+        "displayName": "Tank A310002F (6#\u6c34\u89e3\u69fd)",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7127521008403361,
+            "y": 0.6761414565826331,
+            "width": 0.07779761904761906,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Grey vessel icon with label \"A310002F 6#\u6c34\u89e3\u69fd\" in right-middle column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002G-agitator",
+        "kind": "equipment",
+        "subtype": "agitator",
+        "tag": null,
+        "displayName": "Agitator on A310002G",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.8042787114845938,
+            "y": 0.6382166199813258,
+            "width": 0.04118697478991597,
+            "height": 0.04826797385620916
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Propeller/impeller symbol with red motor indicator 'M' above tank A310002G.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "equipment_boundary:r1c1:eq-A310002G-tank",
+        "kind": "equipment",
+        "subtype": "tank",
+        "tag": null,
+        "displayName": "Tank A310002G (7#\u6c34\u89e3\u69fd)",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7905497198879552,
+            "y": 0.6761414565826331,
+            "width": 0.07322128851540616,
+            "height": 0.06895424836601308
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "Grey vessel icon with label \"A310002G 7#\u6c34\u89e3\u69fd\" near bottom-right column.",
+            "note": "pass=equipment_boundary; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c0:inst-1",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FT 0858",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "FT 0858  0.00 m3/h  335153.00 m3 (gray box at left top process area)",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c0:inst-2",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "LIT 0852A",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "LIT 0852A  3.83 m (on first tank)",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c0:inst-3",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "LIT 0852B",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "LIT 0852B  3.85 m (on second tank)",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c0:inst-4",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FIT 0802",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "FIT 0802  0.00 m3/h  47.80 m3 (inside pink \"\u8fdb\u6599\u6279\u91cf\u63a7\u5236\" panel)",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c0:inst-5",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "LT_3101A",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "LT_3101A  1850.2 mm (on right mixing vessel)",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c0:inst-6",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE 0806A",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "TE 0806A  61.40 \u00b0C (on right mixing vessel panel)",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-1",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FIT_0803",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5891911764705883,
+            "y": 0.30567507002801125,
+            "width": 0.04713620448179271,
+            "height": 0.0179281045751634
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "FIT_0803",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-2",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FIT_0804",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6701922268907563,
+            "y": 0.30567507002801125,
+            "width": 0.04713620448179271,
+            "height": 0.0179281045751634
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "FIT_0804",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-3",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FIT_0805",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7543967086834733,
+            "y": 0.30567507002801125,
+            "width": 0.04713620448179271,
+            "height": 0.0179281045751634
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "FIT_0805",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-4",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "LT_3101B",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5859877450980393,
+            "y": 0.4042796451914099,
+            "width": 0.05033963585434174,
+            "height": 0.02241013071895425
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "LT_3101B",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-5",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0806B",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5891911764705883,
+            "y": 0.4222077497665733,
+            "width": 0.0439327731092437,
+            "height": 0.020341503267973855
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "TE_0806B",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-6",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "LT_3101C",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6633277310924369,
+            "y": 0.39083356676003733,
+            "width": 0.05033963585434174,
+            "height": 0.02241013071895425
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "LT_3101C",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-7",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0806C",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6733956582633053,
+            "y": 0.4132436974789916,
+            "width": 0.0439327731092437,
+            "height": 0.020341503267973855
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "TE_0806C",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-8",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "LT_3101D",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7576001400560225,
+            "y": 0.399797619047619,
+            "width": 0.05400070028011204,
+            "height": 0.024823529411764706
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "LT_3101D",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r0c1:inst-9",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0806D",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7608035714285715,
+            "y": 0.4201391223155929,
+            "width": 0.04713620448179271,
+            "height": 0.024823529411764706
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "TE_0806D",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-1",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI_0826",
+        "displayName": "FI 0826",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.1495203081232493,
+            "y": 0.5451283846872081,
+            "width": 0.045763305322128855,
+            "height": 0.031029411764705885
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "FI 0826",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-10",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT_0803",
+        "displayName": "PIT 0803",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.33714985994397756,
+            "y": 0.7209617180205417,
+            "width": 0.05949229691876751,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "PIT_0803",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-11",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0807D",
+        "displayName": "TE 0807D",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.42867647058823527,
+            "y": 0.7002754435107377,
+            "width": 0.045763305322128855,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "TE_0807D",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-12",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT_0804",
+        "displayName": "PIT 0804",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.42867647058823527,
+            "y": 0.7209617180205417,
+            "width": 0.045763305322128855,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "PIT_0804",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-2",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI_0827",
+        "displayName": "FI 0827",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.23647058823529413,
+            "y": 0.5451283846872081,
+            "width": 0.045763305322128855,
+            "height": 0.031029411764705885
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "FI 0827",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-3",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI_0828",
+        "displayName": "FI 0828",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.32342086834733896,
+            "y": 0.5451283846872081,
+            "width": 0.045763305322128855,
+            "height": 0.031029411764705885
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "FI 0828",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-4",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI_0829",
+        "displayName": "FI 0829",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.41037114845938377,
+            "y": 0.5451283846872081,
+            "width": 0.045763305322128855,
+            "height": 0.031029411764705885
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "FI 0829",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-5",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0807A",
+        "displayName": "TE 0807A",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.11290966386554621,
+            "y": 0.7002754435107377,
+            "width": 0.05949229691876751,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "TE_0807A",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-6",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT_0801",
+        "displayName": "PIT 0801",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.11290966386554621,
+            "y": 0.7209617180205417,
+            "width": 0.05949229691876751,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "PIT_0801",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-7",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0807B",
+        "displayName": "TE 0807B",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.22731792717086835,
+            "y": 0.7002754435107377,
+            "width": 0.05949229691876751,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "TE_0807B",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-8",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT_0802",
+        "displayName": "PIT 0802",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.22731792717086835,
+            "y": 0.7209617180205417,
+            "width": 0.05949229691876751,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "PIT_0802",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-9",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0807C",
+        "displayName": "TE 0807C",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.33714985994397756,
+            "y": 0.7002754435107377,
+            "width": 0.05949229691876751,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "TE_0807C",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-1",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI 0829",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FI 0829",
+            "note": "Flow indicator label inside leftmost grey batch control panel; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-10",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT 0807",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PIT 0807",
+            "note": "Pressure indicator transmitter label near tank A310002G; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-11",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE 0807H",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "TE 0807H",
+            "note": "Temperature element label on far right side of tile; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-12",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT 0808",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PIT 0808",
+            "note": "Pressure indicator transmitter label on far right side of tile; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-2",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI 0830",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FI 0830",
+            "note": "Flow indicator label inside second grey batch control panel from left; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-3",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI 0831",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FI 0831",
+            "note": "Flow indicator label inside third grey batch control panel from left; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-4",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI 0832",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FI 0832",
+            "note": "Flow indicator label inside rightmost grey batch control panel; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-5",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE 0807E",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "TE 0807E",
+            "note": "Temperature element label above tank A310002E; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-6",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT 0805",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PIT 0805",
+            "note": "Pressure indicator transmitter label near tank A310002E; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-7",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE 0807F",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "TE 0807F",
+            "note": "Temperature element label above tank A310002F; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-8",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT 0806",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PIT 0806",
+            "note": "Pressure indicator transmitter label near tank A310002F; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-9",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE 0807G",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "TE 0807G",
+            "note": "Temperature element label above tank A310002G; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c0:valve-1",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "TV_0806A",
+        "displayName": "TV_0806A",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.35087885154061627,
+            "y": 0.3277404295051354,
+            "width": 0.054915966386554625,
+            "height": 0.03447712418300654
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Label 'TV_0806A' beside a red control-valve symbol under the pink batching control box.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c0:valve-2",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0816A",
+        "displayName": "KV_0816A",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.20443627450980392,
+            "y": 0.4725443510737628,
+            "width": 0.03661064425770308,
+            "height": 0.013790849673202614
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Text 'KV_0816A' along the green pipeline near the bottom edge.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c0:valve-3",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0816B",
+        "displayName": "KV_0816B",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.24104691876750697,
+            "y": 0.4725443510737628,
+            "width": 0.03661064425770308,
+            "height": 0.013790849673202614
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Text 'KV_0816B' adjacent to KV_0816A on the same bottom pipeline.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c0:valve-4",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0814A",
+        "displayName": "KV_0814A",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.2913865546218487,
+            "y": 0.4725443510737628,
+            "width": 0.03661064425770308,
+            "height": 0.013790849673202614
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Text 'KV_0814A' on the bottom pipeline, right of the 0816 pair.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c0:valve-5",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0814B",
+        "displayName": "KV_0814B",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.33257352941176466,
+            "y": 0.4725443510737628,
+            "width": 0.03661064425770308,
+            "height": 0.013790849673202614
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Text 'KV_0814B' further right on the same lower pipeline.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c0:valve-6",
+        "kind": "valve",
+        "subtype": null,
+        "tag": null,
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.28681022408963586,
+            "y": 0.3966946778711485,
+            "width": 0.01830532212885154,
+            "height": 0.01723856209150327
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Small red valve symbol located just right of the 'C310001' area on the yellow line.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c1:valve-1",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "TV_0806B",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5685976890756302,
+            "y": 0.3225688608776844,
+            "width": 0.0160171568627451,
+            "height": 0.02930555555555556
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "Red valve symbol with label TV_0806B under the left preheater tank section.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c1:valve-2",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "TV_0806C",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6674464285714286,
+            "y": 0.32325840336134454,
+            "width": 0.01555952380952381,
+            "height": 0.02930555555555556
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "Red valve symbol with label TV_0806C under the middle preheater tank section.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c1:valve-3",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "TV_0806D",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7896344537815125,
+            "y": 0.3077436974789916,
+            "width": 0.01555952380952381,
+            "height": 0.03275326797385621
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c1",
+            "evidenceText": "Green valve symbol with label TV_0806D to the left of the label, near the right-side vessel.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-10",
+        "kind": "valve",
+        "subtype": "TV",
+        "tag": "TV_0807C",
+        "displayName": "TV_0807C",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.30282738095238093,
+            "y": 0.6382166199813258,
+            "width": 0.05262780112044818,
+            "height": 0.03964869281045752
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Control-valve symbol with tag \"TV_0807C\" above Tank A310002C",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-11",
+        "kind": "valve",
+        "subtype": "TV",
+        "tag": "TV_0807D",
+        "displayName": "TV_0807D",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.3929810924369748,
+            "y": 0.6382166199813258,
+            "width": 0.05262780112044818,
+            "height": 0.03964869281045752
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Control-valve symbol with tag \"TV_0807D\" on the far-right train",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-12",
+        "kind": "valve",
+        "subtype": "KV",
+        "tag": "KV_0815A",
+        "displayName": "KV_0815A",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.20260574229691877,
+            "y": 0.6402852474323063,
+            "width": 0.020593487394957984,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Small green valve symbol with tag \"KV_0815A\" between TV_0807A and TV_0807B",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-13",
+        "kind": "valve",
+        "subtype": "KV",
+        "tag": "KV_0815B",
+        "displayName": "KV_0815B",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.2936747198879552,
+            "y": 0.6402852474323063,
+            "width": 0.020593487394957984,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Small green valve symbol with tag \"KV_0815B\" between TV_0807B and TV_0807C",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-14",
+        "kind": "valve",
+        "subtype": "KV",
+        "tag": "KV_0815C",
+        "displayName": "KV_0815C",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.3842860644257703,
+            "y": 0.6402852474323063,
+            "width": 0.020593487394957984,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Small green valve symbol with tag \"KV_0815C\" between TV_0807C and TV_0807D",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-15",
+        "kind": "valve",
+        "subtype": "unknown",
+        "tag": null,
+        "displayName": "Red valve below Tank A310002A",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Standalone red on/off valve symbol on outlet line beneath left tank",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-16",
+        "kind": "valve",
+        "subtype": "unknown",
+        "tag": null,
+        "displayName": "Red valve below Tank A310002B",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Standalone red on/off valve symbol on outlet line beneath middle tank",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-17",
+        "kind": "valve",
+        "subtype": "unknown",
+        "tag": null,
+        "displayName": "Red valve below Tank A310002C",
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Standalone red on/off valve symbol on outlet line beneath right tank",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-18",
+        "kind": "valve",
+        "subtype": "unknown",
+        "tag": null,
+        "displayName": "Loop isolation valve (left loop)",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.11748599439775911,
+            "y": 0.6244257703081233,
+            "width": 0.029746148459383753,
+            "height": 0.0448202614379085
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Two red valve symbols on the small rectangular bypass loop adjacent to TV_0807A",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-5",
+        "kind": "valve",
+        "subtype": "FV",
+        "tag": "FV_0825",
+        "displayName": "FV_0825",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.15089320728291317,
+            "y": 0.5899486461251168,
+            "width": 0.05033963585434174,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Text \"FV_0825\" with paired red valve symbols on the left train inside the red box",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-6",
+        "kind": "valve",
+        "subtype": "FV",
+        "tag": "FV_0826",
+        "displayName": "FV_0826",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.23967401960784315,
+            "y": 0.5899486461251168,
+            "width": 0.05033963585434174,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Text \"FV_0826\" with red valve symbols on the middle train",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-7",
+        "kind": "valve",
+        "subtype": "FV",
+        "tag": "FV_0827",
+        "displayName": "FV_0827",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.33348879551820726,
+            "y": 0.5899486461251168,
+            "width": 0.05033963585434174,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Text \"FV_0827\" with red valve symbols on the right train",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-8",
+        "kind": "valve",
+        "subtype": "TV",
+        "tag": "TV_0807A",
+        "displayName": "TV_0807A",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.12206232492997199,
+            "y": 0.6382166199813258,
+            "width": 0.05262780112044818,
+            "height": 0.03964869281045752
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Control-valve symbol with tag \"TV_0807A\" to the left of Tank A310002A",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c0:valve-9",
+        "kind": "valve",
+        "subtype": "TV",
+        "tag": "TV_0807B",
+        "displayName": "TV_0807B",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.2131313025210084,
+            "y": 0.6382166199813258,
+            "width": 0.05262780112044818,
+            "height": 0.03964869281045752
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "Control-valve symbol with tag \"TV_0807B\" above Tank A310002B",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v1",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0814C",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6258018207282913,
+            "y": 0.48651727357609703,
+            "width": 0.03661064425770308,
+            "height": 0.02068627450980392
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0814C",
+            "note": "Inline red valve symbol with tag at top pipeline; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v10",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "PV_0805",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6120728291316526,
+            "y": 0.6244257703081233,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PV_0805",
+            "note": "Valve tag with red valve symbol to the right inside red loop; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v11",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "PV_0806",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7035994397759103,
+            "y": 0.6244257703081233,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PV_0806",
+            "note": "Valve tag with red valve symbol to the right inside red loop; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v12",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "PV_0807",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7859733893557422,
+            "y": 0.6244257703081233,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PV_0807",
+            "note": "Valve tag with red valve symbol to the right inside red loop; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v13",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0815D",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6120728291316526,
+            "y": 0.6520074696545284,
+            "width": 0.03661064425770308,
+            "height": 0.01723856209150327
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0815D",
+            "note": "Text label adjacent to red inline valve symbol between tanks 4 and 5; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v14",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0815E",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6669887955182073,
+            "y": 0.6520074696545284,
+            "width": 0.03661064425770308,
+            "height": 0.01723856209150327
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0815E",
+            "note": "Text label adjacent to red inline valve symbol between tanks 5 and 6; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v15",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0815F",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7264810924369748,
+            "y": 0.6520074696545284,
+            "width": 0.03661064425770308,
+            "height": 0.01723856209150327
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0815F",
+            "note": "Text label adjacent to red inline valve symbol between tanks 6 and 7; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v16",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0815G",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7859733893557422,
+            "y": 0.6520074696545284,
+            "width": 0.03661064425770308,
+            "height": 0.01723856209150327
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0815G",
+            "note": "Text label adjacent to red inline valve symbol right of tank 7; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v2",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0816C",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.676141456582633,
+            "y": 0.48651727357609703,
+            "width": 0.03661064425770308,
+            "height": 0.02068627450980392
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0816C",
+            "note": "Inline red valve symbol with tag at top pipeline; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v3",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0814D",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7493627450980391,
+            "y": 0.4830695611577964,
+            "width": 0.03661064425770308,
+            "height": 0.02068627450980392
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0814D",
+            "note": "Inline red valve symbol with tag at top pipeline; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v4",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0816D",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7905497198879552,
+            "y": 0.4830695611577964,
+            "width": 0.03661064425770308,
+            "height": 0.02068627450980392
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "KV_0816D",
+            "note": "Inline red valve symbol with tag at top pipeline; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v5",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "FV_0828",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5159698879551822,
+            "y": 0.5520238095238095,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FV_0828",
+            "note": "Control valve label with adjacent red valve symbol; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v6",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "FV_0829",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6166491596638656,
+            "y": 0.5520238095238095,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FV_0829",
+            "note": "Control valve label with adjacent red valve symbol; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v7",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "FV_0830",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.6990231092436975,
+            "y": 0.5520238095238095,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FV_0830",
+            "note": "Control valve label with adjacent red valve symbol; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v8",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "FV_0831",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.7813970588235294,
+            "y": 0.5520238095238095,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FV_0831",
+            "note": "Control valve label with adjacent red valve symbol; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r1c1:v9",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "PV_0804",
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.5068172268907564,
+            "y": 0.6244257703081233,
+            "width": 0.054915966386554625,
+            "height": 0.02758169934640523
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PV_0804",
+            "note": "Valve tag with red valve symbol to the right inside red loop; pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      }
+    ],
+    "warnings": [
+      "Returned instruments only. Geometry omitted to avoid over-asserting exact locations on this dense tile."
+    ]
+  },
+  "topologyProposalCount": 0,
+  "calls": [
+    {
+      "extractionPass": "equipment_boundary",
+      "tile": {
+        "tileId": "r0c0",
+        "row": 0,
+        "column": 0,
+        "regionInRoi": {
+          "x": 0,
+          "y": 0,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 96,
+          "y": 636,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      "candidateCount": 8,
+      "candidatesReturned": 8,
+      "candidatesFullyValid": 8,
+      "candidatesRetainedWithoutGeometry": 0,
+      "candidatesRejected": 0,
+      "geometryValidationWarnings": [],
+      "providerMetadata": {
+        "provider": "openai",
+        "model": "gpt-5-2025-08-07",
+        "requestId": "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r0c0",
+        "latencyMs": 80865.33739999868,
+        "usage": {
+          "inputTokens": 1692,
+          "outputTokens": 3629,
+          "totalTokens": 5321
+        },
+        "warnings": [],
+        "rawResponseRef": "resp_03f7080141955c3e006a81446bcfd8819aab779058f489bfb8",
+        "debugMetadata": {
+          "responseStatus": "completed"
+        }
+      },
+      "warnings": []
+    },
+    {
+      "extractionPass": "equipment_boundary",
+      "tile": {
+        "tileId": "r0c1",
+        "row": 0,
+        "column": 1,
+        "regionInRoi": {
+          "x": 2250,
+          "y": 0,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 2346,
+          "y": 636,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      "candidateCount": 13,
+      "candidatesReturned": 13,
+      "candidatesFullyValid": 12,
+      "candidatesRetainedWithoutGeometry": 1,
+      "candidatesRejected": 0,
+      "geometryValidationWarnings": [
+        {
+          "candidateIndex": 9,
+          "candidateId": "eq10",
+          "component": "geometry",
+          "reason": "bbox: Value error, bounding box must remain within normalized [0,1] bounds",
+          "action": "geometry_removed"
+        }
+      ],
+      "providerMetadata": {
+        "provider": "openai",
+        "model": "gpt-5-2025-08-07",
+        "requestId": "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r0c1",
+        "latencyMs": 62788.87220000615,
+        "usage": {
+          "inputTokens": 1692,
+          "outputTokens": 3093,
+          "totalTokens": 4785
+        },
+        "warnings": [],
+        "rawResponseRef": "resp_0c1951dd5496b006006a8144bb1e00819996079f7c5ab40064",
+        "debugMetadata": {
+          "responseStatus": "completed"
+        }
+      },
+      "warnings": [
+        "candidate_validation:{\"action\": \"geometry_removed\", \"candidateId\": \"eq10\", \"candidateIndex\": 9, \"component\": \"geometry\", \"reason\": \"bbox: Value error, bounding box must remain within normalized [0,1] bounds\"}"
+      ]
+    },
+    {
+      "extractionPass": "equipment_boundary",
+      "tile": {
+        "tileId": "r1c0",
+        "row": 1,
+        "column": 0,
+        "regionInRoi": {
+          "x": 0,
+          "y": 1271,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 96,
+          "y": 1907,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      "candidateCount": 14,
+      "candidatesReturned": 14,
+      "candidatesFullyValid": 14,
+      "candidatesRetainedWithoutGeometry": 0,
+      "candidatesRejected": 0,
+      "geometryValidationWarnings": [],
+      "providerMetadata": {
+        "provider": "openai",
+        "model": "gpt-5-2025-08-07",
+        "requestId": "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r1c0",
+        "latencyMs": 71819.01530001778,
+        "usage": {
+          "inputTokens": 1692,
+          "outputTokens": 3324,
+          "totalTokens": 5016
+        },
+        "warnings": [],
+        "rawResponseRef": "resp_05e14ebd9c3ec7b6006a8144fac248819886d9fac7801fda95",
+        "debugMetadata": {
+          "responseStatus": "completed"
+        }
+      },
+      "warnings": []
+    },
+    {
+      "extractionPass": "equipment_boundary",
+      "tile": {
+        "tileId": "r1c1",
+        "row": 1,
+        "column": 1,
+        "regionInRoi": {
+          "x": 2250,
+          "y": 1271,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 2346,
+          "y": 1907,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      "candidateCount": 18,
+      "candidatesReturned": 18,
+      "candidatesFullyValid": 18,
+      "candidatesRetainedWithoutGeometry": 0,
+      "candidatesRejected": 0,
+      "geometryValidationWarnings": [],
+      "providerMetadata": {
+        "provider": "openai",
+        "model": "gpt-5-2025-08-07",
+        "requestId": "img6807-tiled-20260816-02-validation-v1:equipment_boundary:r1c1",
+        "latencyMs": 74415.58659999282,
+        "usage": {
+          "inputTokens": 1692,
+          "outputTokens": 3995,
+          "totalTokens": 5687
+        },
+        "warnings": [],
+        "rawResponseRef": "resp_014455c43fe59fed006a81454284a087d0815a9d9248aa5a7b",
+        "debugMetadata": {
+          "responseStatus": "completed"
+        }
+      },
+      "warnings": []
+    },
+    {
+      "extractionPass": "instruments",
+      "tile": {
+        "tileId": "r0c0",
+        "row": 0,
+        "column": 0,
+        "regionInRoi": {
+          "x": 0,
+          "y": 0,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 96,
+          "y": 636,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      "candidateCount": 6,
+      "candidatesReturned": 6,
+      "candidatesFullyValid": 6,
+      "candidatesRetainedWithoutGeometry": 0,
+      "candidatesRejected": 0,
+      "geometryValidationWarnings": [],
+      "providerMetadata": {
+        "provider": "openai",
+        "model": "gpt-5-2025-08-07",
+        "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r0c0",
+        "latencyMs": 21346.997199987527,
+        "usage": {
+          "inputTokens": 1703,
+          "outputTokens": 1578,
+          "totalTokens": 3281
+        },
+        "warnings": [],
+        "rawResponseRef": "resp_02415b5038009301006a814d56bc08819b8818ae194e5c5c4a",
+        "debugMetadata": {
+          "responseStatus": "completed"
+        }
+      },
+      "warnings": []
+    },
+    {
+      "extractionPass": "instruments",
+      "tile": {
+        "tileId": "r0c1",
+        "row": 0,
+        "column": 1,
+        "regionInRoi": {
+          "x": 2250,
+          "y": 0,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 2346,
+          "y": 636,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      "candidateCount": 9,
+      "candidatesReturned": 9,
+      "candidatesFullyValid": 9,
+      "candidatesRetainedWithoutGeometry": 0,
+      "candidatesRejected": 0,
+      "geometryValidationWarnings": [],
+      "providerMetadata": {
+        "provider": "openai",
+        "model": "gpt-5-2025-08-07",
+        "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r0c1",
+        "latencyMs": 25279.23999997438,
+        "usage": {
+          "inputTokens": 1703,
+          "outputTokens": 2385,
+          "totalTokens": 4088
+        },
+        "warnings": [],
+        "rawResponseRef": "resp_0ad85eb1756e2ea2006a814d6b57bc819aa3c9a8bb3b9731a4",
+        "debugMetadata": {
+          "responseStatus": "completed"
+        }
+      },
+      "warnings": []
+    },
+    {
+      "extractionPass": "instruments",
+      "tile": {
+        "tileId": "r1c0",
+        "row": 1,
+        "column": 0,
+        "regionInRoi": {
+          "x": 0,
+          "y": 1271,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 96,
+          "y": 1907,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      "candidateCount": 12,
+      "candidatesReturned": 12,
+      "candidatesFullyValid": 12,
+      "candidatesRetainedWithoutGeometry": 0,
+      "candidatesRejected": 0,
+      "geometryValidationWarnings": [],
+      "providerMetadata": {
+        "provider": "openai",
+        "model": "gpt-5-2025-08-07",
+        "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r1c0",
+        "latencyMs": 24643.64850000129,
+        "usage": {
+          "inputTokens": 1703,
+          "outputTokens": 2638,
+          "totalTokens": 4341
+        },
+        "warnings": [],
+        "rawResponseRef": "resp_0881b6db9c7670c6006a814d85675087d0b2479d808d227622",
+        "debugMetadata": {
+          "responseStatus": "completed"
+        }
+      },
+      "warnings": []
+    },
+    {
+      "extractionPass": "instruments",
+      "tile": {
+        "tileId": "r1c1",
+        "row": 1,
+        "column": 1,
+        "regionInRoi": {
+          "x": 2250,
+          "y": 1271,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 2346,
+          "y": 1907,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      "candidateCount": 12,
+      "candidatesReturned": 12,
+      "candidatesFullyValid": 12,
+      "candidatesRetainedWithoutGeometry": 0,
+      "candidatesRejected": 0,
+      "geometryValidationWarnings": [],
+      "providerMetadata": {
+        "provider": "openai",
+        "model": "gpt-5-2025-08-07",
+        "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r1c1",
+        "latencyMs": 22984.6891000052,
+        "usage": {
+          "inputTokens": 1703,
+          "outputTokens": 1962,
+          "totalTokens": 3665
+        },
+        "warnings": [],
+        "rawResponseRef": "resp_09ff2eab284aacf3006a814d9fc26081998a934ae4179d1228",
+        "debugMetadata": {
+          "responseStatus": "completed"
+        }
+      },
+      "warnings": [
+        "Returned instruments only. Geometry omitted to avoid over-asserting exact locations on this dense tile."
+      ]
+    },
+    {
+      "extractionPass": "valves",
+      "tile": {
+        "tileId": "r0c0",
+        "row": 0,
+        "column": 0,
+        "regionInRoi": {
+          "x": 0,
+          "y": 0,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 96,
+          "y": 636,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      "candidateCount": 6,
+      "candidatesReturned": 6,
+      "candidatesFullyValid": 6,
+      "candidatesRetainedWithoutGeometry": 0,
+      "candidatesRejected": 0,
+      "geometryValidationWarnings": [],
+      "providerMetadata": {
+        "provider": "openai",
+        "model": "gpt-5-2025-08-07",
+        "requestId": "img6807-tiled-20260816-02-validation-v1:valves:r0c0",
+        "latencyMs": 58912.52379998332,
+        "usage": {
+          "inputTokens": 1678,
+          "outputTokens": 2987,
+          "totalTokens": 4665
+        },
+        "warnings": [],
+        "rawResponseRef": "resp_0a6a20305819e716006a814db55194819ba461d0a52ad9af73",
+        "debugMetadata": {
+          "responseStatus": "completed"
+        }
+      },
+      "warnings": []
+    },
+    {
+      "extractionPass": "valves",
+      "tile": {
+        "tileId": "r0c1",
+        "row": 0,
+        "column": 1,
+        "regionInRoi": {
+          "x": 2250,
+          "y": 0,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 2346,
+          "y": 636,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      "candidateCount": 3,
+      "candidatesReturned": 3,
+      "candidatesFullyValid": 3,
+      "candidatesRetainedWithoutGeometry": 0,
+      "candidatesRejected": 0,
+      "geometryValidationWarnings": [],
+      "providerMetadata": {
+        "provider": "openai",
+        "model": "gpt-5-2025-08-07",
+        "requestId": "img6807-tiled-20260816-02-validation-v1:valves:r0c1",
+        "latencyMs": 24938.927700015483,
+        "usage": {
+          "inputTokens": 1678,
+          "outputTokens": 1251,
+          "totalTokens": 2929
+        },
+        "warnings": [],
+        "rawResponseRef": "resp_068d34c95974b94b006a814df0a3dc81999b60fdf15565e4f8",
+        "debugMetadata": {
+          "responseStatus": "completed"
+        }
+      },
+      "warnings": []
+    },
+    {
+      "extractionPass": "valves",
+      "tile": {
+        "tileId": "r1c0",
+        "row": 1,
+        "column": 0,
+        "regionInRoi": {
+          "x": 0,
+          "y": 1271,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 96,
+          "y": 1907,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      "candidateCount": 18,
+      "candidatesReturned": 18,
+      "candidatesFullyValid": 15,
+      "candidatesRetainedWithoutGeometry": 3,
+      "candidatesRejected": 0,
+      "geometryValidationWarnings": [
+        {
+          "candidateIndex": 14,
+          "candidateId": "valve-15",
+          "component": "geometry",
+          "reason": "bbox: Value error, bounding box must remain within normalized [0,1] bounds",
+          "action": "geometry_removed"
+        },
+        {
+          "candidateIndex": 15,
+          "candidateId": "valve-16",
+          "component": "geometry",
+          "reason": "bbox: Value error, bounding box must remain within normalized [0,1] bounds",
+          "action": "geometry_removed"
+        },
+        {
+          "candidateIndex": 16,
+          "candidateId": "valve-17",
+          "component": "geometry",
+          "reason": "bbox: Value error, bounding box must remain within normalized [0,1] bounds",
+          "action": "geometry_removed"
+        }
+      ],
+      "providerMetadata": {
+        "provider": "openai",
+        "model": "gpt-5-2025-08-07",
+        "requestId": "img6807-tiled-20260816-02-validation-v1:valves:r1c0",
+        "latencyMs": 62431.48930001189,
+        "usage": {
+          "inputTokens": 1678,
+          "outputTokens": 3900,
+          "totalTokens": 5578
+        },
+        "warnings": [],
+        "rawResponseRef": "resp_04db688a4df37a67006a814e0a3b2087d099454d4ec2486457",
+        "debugMetadata": {
+          "responseStatus": "completed"
+        }
+      },
+      "warnings": [
+        "candidate_validation:{\"action\": \"geometry_removed\", \"candidateId\": \"valve-15\", \"candidateIndex\": 14, \"component\": \"geometry\", \"reason\": \"bbox: Value error, bounding box must remain within normalized [0,1] bounds\"}",
+        "candidate_validation:{\"action\": \"geometry_removed\", \"candidateId\": \"valve-16\", \"candidateIndex\": 15, \"component\": \"geometry\", \"reason\": \"bbox: Value error, bounding box must remain within normalized [0,1] bounds\"}",
+        "candidate_validation:{\"action\": \"geometry_removed\", \"candidateId\": \"valve-17\", \"candidateIndex\": 16, \"component\": \"geometry\", \"reason\": \"bbox: Value error, bounding box must remain within normalized [0,1] bounds\"}"
+      ]
+    },
+    {
+      "extractionPass": "valves",
+      "tile": {
+        "tileId": "r1c1",
+        "row": 1,
+        "column": 1,
+        "regionInRoi": {
+          "x": 2250,
+          "y": 1271,
+          "width": 2614,
+          "height": 1477
+        },
+        "regionInOriginal": {
+          "x": 2346,
+          "y": 1907,
+          "width": 2614,
+          "height": 1477
+        }
+      },
+      "candidateCount": 16,
+      "candidatesReturned": 16,
+      "candidatesFullyValid": 16,
+      "candidatesRetainedWithoutGeometry": 0,
+      "candidatesRejected": 0,
+      "geometryValidationWarnings": [],
+      "providerMetadata": {
+        "provider": "openai",
+        "model": "gpt-5-2025-08-07",
+        "requestId": "img6807-tiled-20260816-02-validation-v1:valves:r1c1",
+        "latencyMs": 50576.58319998882,
+        "usage": {
+          "inputTokens": 1678,
+          "outputTokens": 3668,
+          "totalTokens": 5346
+        },
+        "warnings": [],
+        "rawResponseRef": "resp_03d7171cb449a4fc006a814e4936248199b9928c2c33db5775",
+        "debugMetadata": {
+          "responseStatus": "completed"
+        }
+      },
+      "warnings": []
+    }
+  ],
+  "duplicateProposalsRemoved": 4,
+  "ambiguousDeduplicationGroups": [
+    [
+      "equipment_boundary:r0c0:cand-2",
+      "equipment_boundary:r1c0:eq-1"
+    ]
+  ],
+  "canonicalGraphMutated": false
+}

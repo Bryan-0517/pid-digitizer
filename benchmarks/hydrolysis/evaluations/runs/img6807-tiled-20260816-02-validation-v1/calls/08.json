@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "0.1",
+  "callNumber": 8,
+  "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r1c1",
+  "result": {
+    "extractionPass": "instruments",
+    "tile": {
+      "tileId": "r1c1",
+      "row": 1,
+      "column": 1,
+      "regionInRoi": {
+        "x": 2250,
+        "y": 1271,
+        "width": 2614,
+        "height": 1477
+      },
+      "regionInOriginal": {
+        "x": 2346,
+        "y": 1907,
+        "width": 2614,
+        "height": 1477
+      }
+    },
+    "candidateCount": 12,
+    "candidatesReturned": 12,
+    "candidatesFullyValid": 12,
+    "candidatesRetainedWithoutGeometry": 0,
+    "candidatesRejected": 0,
+    "geometryValidationWarnings": [],
+    "providerMetadata": {
+      "provider": "openai",
+      "model": "gpt-5-2025-08-07",
+      "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r1c1",
+      "latencyMs": 22984.6891000052,
+      "usage": {
+        "inputTokens": 1703,
+        "outputTokens": 1962,
+        "totalTokens": 3665
+      },
+      "warnings": [],
+      "rawResponseRef": "resp_09ff2eab284aacf3006a814d9fc26081998a934ae4179d1228",
+      "debugMetadata": {
+        "responseStatus": "completed"
+      }
+    },
+    "warnings": [
+      "Returned instruments only. Geometry omitted to avoid over-asserting exact locations on this dense tile."
+    ]
+  },
+  "proposal": {
+    "candidates": [
+      {
+        "candidateId": "instruments:r1c1:inst-1",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI 0829",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FI 0829",
+            "note": "Flow indicator label inside leftmost grey batch control panel; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-2",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI 0830",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FI 0830",
+            "note": "Flow indicator label inside second grey batch control panel from left; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-3",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI 0831",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FI 0831",
+            "note": "Flow indicator label inside third grey batch control panel from left; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-4",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI 0832",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "FI 0832",
+            "note": "Flow indicator label inside rightmost grey batch control panel; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-5",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE 0807E",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "TE 0807E",
+            "note": "Temperature element label above tank A310002E; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-6",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT 0805",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PIT 0805",
+            "note": "Pressure indicator transmitter label near tank A310002E; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-7",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE 0807F",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "TE 0807F",
+            "note": "Temperature element label above tank A310002F; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-8",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT 0806",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PIT 0806",
+            "note": "Pressure indicator transmitter label near tank A310002F; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-9",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE 0807G",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "TE 0807G",
+            "note": "Temperature element label above tank A310002G; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-10",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT 0807",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PIT 0807",
+            "note": "Pressure indicator transmitter label near tank A310002G; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-11",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE 0807H",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "TE 0807H",
+            "note": "Temperature element label on far right side of tile; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c1:inst-12",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT 0808",
+        "displayName": null,
+        "properties": [],
+        "geometry": null,
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c1",
+            "evidenceText": "PIT 0808",
+            "note": "Pressure indicator transmitter label on far right side of tile; pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      }
+    ],
+    "warnings": [
+      "Returned instruments only. Geometry omitted to avoid over-asserting exact locations on this dense tile."
+    ]
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "schemaVersion": "0.1",
+  "callNumber": 9,
+  "requestId": "img6807-tiled-20260816-02-validation-v1:valves:r0c0",
+  "result": {
+    "extractionPass": "valves",
+    "tile": {
+      "tileId": "r0c0",
+      "row": 0,
+      "column": 0,
+      "regionInRoi": {
+        "x": 0,
+        "y": 0,
+        "width": 2614,
+        "height": 1477
+      },
+      "regionInOriginal": {
+        "x": 96,
+        "y": 636,
+        "width": 2614,
+        "height": 1477
+      }
+    },
+    "candidateCount": 6,
+    "candidatesReturned": 6,
+    "candidatesFullyValid": 6,
+    "candidatesRetainedWithoutGeometry": 0,
+    "candidatesRejected": 0,
+    "geometryValidationWarnings": [],
+    "providerMetadata": {
+      "provider": "openai",
+      "model": "gpt-5-2025-08-07",
+      "requestId": "img6807-tiled-20260816-02-validation-v1:valves:r0c0",
+      "latencyMs": 58912.52379998332,
+      "usage": {
+        "inputTokens": 1678,
+        "outputTokens": 2987,
+        "totalTokens": 4665
+      },
+      "warnings": [],
+      "rawResponseRef": "resp_0a6a20305819e716006a814db55194819ba461d0a52ad9af73",
+      "debugMetadata": {
+        "responseStatus": "completed"
+      }
+    },
+    "warnings": []
+  },
+  "proposal": {
+    "candidates": [
+      {
+        "candidateId": "valves:r0c0:valve-1",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "TV_0806A",
+        "displayName": "TV_0806A",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.35087885154061627,
+            "y": 0.3277404295051354,
+            "width": 0.054915966386554625,
+            "height": 0.03447712418300654
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Label 'TV_0806A' beside a red control-valve symbol under the pink batching control box.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c0:valve-2",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0816A",
+        "displayName": "KV_0816A",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.20443627450980392,
+            "y": 0.4725443510737628,
+            "width": 0.03661064425770308,
+            "height": 0.013790849673202614
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Text 'KV_0816A' along the green pipeline near the bottom edge.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c0:valve-3",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0816B",
+        "displayName": "KV_0816B",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.24104691876750697,
+            "y": 0.4725443510737628,
+            "width": 0.03661064425770308,
+            "height": 0.013790849673202614
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Text 'KV_0816B' adjacent to KV_0816A on the same bottom pipeline.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c0:valve-4",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0814A",
+        "displayName": "KV_0814A",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.2913865546218487,
+            "y": 0.4725443510737628,
+            "width": 0.03661064425770308,
+            "height": 0.013790849673202614
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Text 'KV_0814A' on the bottom pipeline, right of the 0816 pair.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c0:valve-5",
+        "kind": "valve",
+        "subtype": null,
+        "tag": "KV_0814B",
+        "displayName": "KV_0814B",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.33257352941176466,
+            "y": 0.4725443510737628,
+            "width": 0.03661064425770308,
+            "height": 0.013790849673202614
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Text 'KV_0814B' further right on the same lower pipeline.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "valves:r0c0:valve-6",
+        "kind": "valve",
+        "subtype": null,
+        "tag": null,
+        "displayName": null,
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.28681022408963586,
+            "y": 0.3966946778711485,
+            "width": 0.01830532212885154,
+            "height": 0.01723856209150327
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r0c0",
+            "evidenceText": "Small red valve symbol located just right of the 'C310001' area on the yellow line.",
+            "note": "pass=valves; tile-local geometry restored to original image"
+          }
+        ]
+      }
+    ],
+    "warnings": []
+  }
+}

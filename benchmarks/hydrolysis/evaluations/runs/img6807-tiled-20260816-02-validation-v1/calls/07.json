@@ -1,0 +1,365 @@
+{
+  "schemaVersion": "0.1",
+  "callNumber": 7,
+  "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r1c0",
+  "result": {
+    "extractionPass": "instruments",
+    "tile": {
+      "tileId": "r1c0",
+      "row": 1,
+      "column": 0,
+      "regionInRoi": {
+        "x": 0,
+        "y": 1271,
+        "width": 2614,
+        "height": 1477
+      },
+      "regionInOriginal": {
+        "x": 96,
+        "y": 1907,
+        "width": 2614,
+        "height": 1477
+      }
+    },
+    "candidateCount": 12,
+    "candidatesReturned": 12,
+    "candidatesFullyValid": 12,
+    "candidatesRetainedWithoutGeometry": 0,
+    "candidatesRejected": 0,
+    "geometryValidationWarnings": [],
+    "providerMetadata": {
+      "provider": "openai",
+      "model": "gpt-5-2025-08-07",
+      "requestId": "img6807-tiled-20260816-02-validation-v1:instruments:r1c0",
+      "latencyMs": 24643.64850000129,
+      "usage": {
+        "inputTokens": 1703,
+        "outputTokens": 2638,
+        "totalTokens": 4341
+      },
+      "warnings": [],
+      "rawResponseRef": "resp_0881b6db9c7670c6006a814d85675087d0b2479d808d227622",
+      "debugMetadata": {
+        "responseStatus": "completed"
+      }
+    },
+    "warnings": []
+  },
+  "proposal": {
+    "candidates": [
+      {
+        "candidateId": "instruments:r1c0:inst-1",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI_0826",
+        "displayName": "FI 0826",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.1495203081232493,
+            "y": 0.5451283846872081,
+            "width": 0.045763305322128855,
+            "height": 0.031029411764705885
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "FI 0826",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-2",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI_0827",
+        "displayName": "FI 0827",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.23647058823529413,
+            "y": 0.5451283846872081,
+            "width": 0.045763305322128855,
+            "height": 0.031029411764705885
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "FI 0827",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-3",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI_0828",
+        "displayName": "FI 0828",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.32342086834733896,
+            "y": 0.5451283846872081,
+            "width": 0.045763305322128855,
+            "height": 0.031029411764705885
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "FI 0828",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-4",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "FI_0829",
+        "displayName": "FI 0829",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.41037114845938377,
+            "y": 0.5451283846872081,
+            "width": 0.045763305322128855,
+            "height": 0.031029411764705885
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "FI 0829",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-5",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0807A",
+        "displayName": "TE 0807A",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.11290966386554621,
+            "y": 0.7002754435107377,
+            "width": 0.05949229691876751,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "TE_0807A",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-6",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT_0801",
+        "displayName": "PIT 0801",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.11290966386554621,
+            "y": 0.7209617180205417,
+            "width": 0.05949229691876751,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "PIT_0801",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-7",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0807B",
+        "displayName": "TE 0807B",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.22731792717086835,
+            "y": 0.7002754435107377,
+            "width": 0.05949229691876751,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "TE_0807B",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-8",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT_0802",
+        "displayName": "PIT 0802",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.22731792717086835,
+            "y": 0.7209617180205417,
+            "width": 0.05949229691876751,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "PIT_0802",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-9",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0807C",
+        "displayName": "TE 0807C",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.33714985994397756,
+            "y": 0.7002754435107377,
+            "width": 0.05949229691876751,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "TE_0807C",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-10",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT_0803",
+        "displayName": "PIT 0803",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.33714985994397756,
+            "y": 0.7209617180205417,
+            "width": 0.05949229691876751,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "PIT_0803",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-11",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "TE_0807D",
+        "displayName": "TE 0807D",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.42867647058823527,
+            "y": 0.7002754435107377,
+            "width": 0.045763305322128855,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "TE_0807D",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      },
+      {
+        "candidateId": "instruments:r1c0:inst-12",
+        "kind": "instrument",
+        "subtype": null,
+        "tag": "PIT_0804",
+        "displayName": "PIT 0804",
+        "properties": [],
+        "geometry": {
+          "bbox": {
+            "x": 0.42867647058823527,
+            "y": 0.7209617180205417,
+            "width": 0.045763305322128855,
+            "height": 0.02413398692810458
+          },
+          "polygon": null,
+          "anchorPoints": null
+        },
+        "confidence": null,
+        "provenance": [
+          {
+            "sourceRef": "IMG_6807.JPG#tile:r1c0",
+            "evidenceText": "PIT_0804",
+            "note": "pass=instruments; tile-local geometry restored to original image"
+          }
+        ]
+      }
+    ],
+    "warnings": []
+  }
+}
