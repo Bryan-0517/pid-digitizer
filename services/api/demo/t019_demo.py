@@ -1,8 +1,9 @@
 """Prepare and validate the isolated, non-production T019 local demo.
 
 This module is never imported by production routing. It validates one fixed saved entity proposal,
-creates two inferred/unreviewed canonical entities, and adds one separately human-reviewed source-
-image connection. It is not a proposal-acceptance or graph-import product boundary.
+creates two inferred/unreviewed canonical entities, and adds one separately human-reviewed,
+directionless source-image reference association. It is not a proposal-acceptance or graph-import
+product boundary.
 """
 
 from __future__ import annotations
@@ -34,6 +35,11 @@ DEFAULT_MANIFEST = Path("/demo/t019-manifest.json")
 DEFAULT_PROPOSAL = Path("/demo/proposal.json")
 DEFAULT_IMAGE = Path("/demo/IMG_6807.JPG")
 FIXED_TIMESTAMP = "2026-08-16T00:00:00Z"
+EXPECTED_ENTITIES = {
+    "instruments:r1c0:inst-3": ("t019:entity:fi-0828", "FI_0828", "instrument", None),
+    "valves:r1c0:valve-7": ("t019:entity:fv-0827", "FV_0827", "valve", "FV"),
+}
+EXPECTED_CONNECTION_ID = "t019:connection:fi-0828--fv-0827"
 
 
 def load_and_validate_assets(
@@ -60,6 +66,12 @@ def load_and_validate_assets(
     if proposal.get("canonicalGraphMutated") is not False:
         raise ValueError("saved proposal must record canonicalGraphMutated=false")
     by_id = {candidate["candidateId"]: candidate for candidate in candidates}
+    manifest_entities = {
+        item["proposalCandidateId"]: (item["canonicalId"], item["tag"], item["kind"], item["subtype"])
+        for item in manifest["entities"]
+    }
+    if manifest_entities != EXPECTED_ENTITIES:
+        raise ValueError("prepared entities differ from the audited FI_0828/FV_0827 pair")
     for entity in manifest["entities"]:
         candidate = by_id.get(entity["proposalCandidateId"])
         if candidate is None:
@@ -72,10 +84,17 @@ def load_and_validate_assets(
             raise ValueError(f"manifest provenance differs from {entity['proposalCandidateId']}")
         if entity["assertion"] != {"mode": "inferred", "reviewStatus": "unreviewed"}:
             raise ValueError("proposal-derived entities must start inferred/unreviewed")
+        if "manually verified against IMG_6807" not in entity.get("geometryReview", ""):
+            raise ValueError("prepared entity geometry review is missing")
     connections = manifest["connections"]
     if len(connections) != 1:
         raise ValueError("T019 manifest must contain exactly one connection")
     connection = connections[0]
+    if (connection["canonicalId"] != EXPECTED_CONNECTION_ID
+            or connection["sourceEntityId"] != "t019:entity:fi-0828"
+            or connection["targetEntityId"] != "t019:entity:fv-0827"
+            or connection["kind"] != "reference"):
+        raise ValueError("prepared connection differs from the audited FI_0828/FV_0827 reference")
     if connection["modelTopologyCandidateId"] is not None:
         raise ValueError("human-reviewed connection cannot claim a model topology candidate")
     if connection["direction"] != "unknown" or connection["geometry"] is not None:
@@ -163,9 +182,9 @@ def check() -> dict:
         expected = build_graph(manifest, prepared["documentId"], prepared["pageId"])
         _assert_initial_graph(graph, expected)
         query = GraphQueryService().query(graph, NeighborsQuery(
-            operation="neighbors", entity_id="t019:entity:tv-0806b"))
+            operation="neighbors", entity_id="t019:entity:fi-0828"))
         expected_chat = manifest["graphChat"]
-        if query.entity_ids != ["t019:entity:a310001b"] or query.connection_ids != expected_chat["expectedSupportingConnectionIds"]:
+        if query.entity_ids != ["t019:entity:fv-0827"] or query.connection_ids != expected_chat["expectedSupportingConnectionIds"]:
             raise ValueError("deterministic neighbor query differs from demo manifest")
         chat = asyncio.run(ChatService().respond(graph, ChatRequest(
             message=expected_chat["question"], verbalize=False)))

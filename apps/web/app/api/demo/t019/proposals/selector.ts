@@ -6,36 +6,37 @@ type SnapshotCandidate = Partial<ProposalOverlayCandidate> & {
   geometry?: { bbox?: Partial<ProposalOverlayCandidate["geometry"]["bbox"]> | null } | null;
 };
 
-const canonicalCandidateIds = new Set(["valves:r0c1:valve-1", "equipment_boundary:r0c1:eq1"]);
-const canonicalTags = new Set(["TV_0806B", "A310001B"]);
-const kindRank: Record<ProposalOverlayCandidate["kind"], number> = {
-  equipment: 4, valve: 3, instrument: 2, boundary: 1,
-};
+const canonicalCandidateIds = new Set(["instruments:r1c0:inst-3", "valves:r1c0:valve-7"]);
+const canonicalTags = new Set(["FI_0828", "FV_0827"]);
+
+// Each stored bbox in this fixed presentation allowlist was visually checked against IMG_6807.
+// Selection is deliberately not inferred from box size, score, or page distribution.
+export const verifiedProposalCandidateIds = [
+  "equipment_boundary:r0c0:cand-1",
+  "equipment_boundary:r0c0:cand-6",
+  "equipment_boundary:r0c0:cand-7",
+  "equipment_boundary:r1c1:bdry-top-header",
+  "equipment_boundary:r1c1:bdry-inlet-D",
+  "equipment_boundary:r1c1:bdry-inlet-F",
+  "equipment_boundary:r1c1:bdry-inlet-G",
+  "equipment_boundary:r1c1:bdry-bottom-header",
+] as const;
 
 export function selectProposalOverlays(candidates: SnapshotCandidate[]): ProposalOverlayCandidate[] {
-  const cells = new Map<string, { candidate: ProposalOverlayCandidate; score: number }>();
+  const byId = new Map<string, ProposalOverlayCandidate>();
   for (const raw of candidates) {
     const candidate = normalizedCandidate(raw);
     if (!candidate || canonicalCandidateIds.has(candidate.candidateId)
       || (candidate.tag ? canonicalTags.has(candidate.tag) : false)) continue;
     const box = candidate.geometry.bbox;
-    const area = box.width * box.height;
     if (box.x < 0 || box.y < 0 || box.x + box.width > 1 || box.y + box.height > 1
-      || box.width < 0.02 || box.height < 0.02 || area < 0.0003 || area > 0.025) continue;
-
-    const column = Math.min(3, Math.floor((box.x + box.width / 2) * 4));
-    const row = Math.min(2, Math.floor((box.y + box.height / 2) * 3));
-    const cell = `${column}:${row}`;
-    const score = kindRank[candidate.kind] + (candidate.tag ? 2 : 0)
-      + (candidate.displayName?.trim() ? 0.5 : 0) - Math.abs(Math.log(area / 0.002));
-    const current = cells.get(cell);
-    if (!current || score > current.score
-      || (score === current.score && candidate.candidateId < current.candidate.candidateId)) {
-      cells.set(cell, { candidate, score });
-    }
+      || box.width <= 0 || box.height <= 0) continue;
+    byId.set(candidate.candidateId, candidate);
   }
-  return [...cells.entries()].sort(([left], [right]) => left.localeCompare(right))
-    .map(([, item]) => item.candidate).slice(0, 8);
+  return verifiedProposalCandidateIds.flatMap((candidateId) => {
+    const candidate = byId.get(candidateId);
+    return candidate ? [candidate] : [];
+  });
 }
 
 function normalizedCandidate(raw: SnapshotCandidate): ProposalOverlayCandidate | null {

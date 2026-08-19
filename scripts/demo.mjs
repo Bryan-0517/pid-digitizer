@@ -34,10 +34,24 @@ async function checkProposalOverlays() {
   if (payload.sourceFilename !== "IMG_6807.JPG" || candidates.length !== 8) {
     throw new Error("proposal overlay payload does not contain the expected eight presentation candidates");
   }
-  if (candidates.some((candidate) => ["TV_0806B", "A310001B"].includes(candidate.tag))) {
+  if (candidates.some((candidate) => ["FI_0828", "FV_0827"].includes(candidate.tag))) {
     throw new Error("proposal overlay payload duplicates a prepared canonical tag");
   }
-  process.stdout.write(`${JSON.stringify({ proposalOverlayStatus: "ready", proposalOverlayCount: candidates.length })}\n`);
+  const expectedIds = [
+    "equipment_boundary:r0c0:cand-1",
+    "equipment_boundary:r0c0:cand-6",
+    "equipment_boundary:r0c0:cand-7",
+    "equipment_boundary:r1c1:bdry-top-header",
+    "equipment_boundary:r1c1:bdry-inlet-D",
+    "equipment_boundary:r1c1:bdry-inlet-F",
+    "equipment_boundary:r1c1:bdry-inlet-G",
+    "equipment_boundary:r1c1:bdry-bottom-header",
+  ];
+  if (JSON.stringify(candidates.map((candidate) => candidate.candidateId)) !== JSON.stringify(expectedIds)) {
+    throw new Error("proposal overlay payload differs from the manually verified presentation allowlist");
+  }
+  process.stdout.write(`${JSON.stringify({ proposalOverlayStatus: "ready", proposalOverlayCount: candidates.length,
+    proposalOverlayCandidateIds: expectedIds })}\n`);
 }
 
 const command = process.argv[2];

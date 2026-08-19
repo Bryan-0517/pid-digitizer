@@ -203,7 +203,8 @@ test("loads proposal-only overlays for the prepared demo without changing canoni
     }) })
     .mockResolvedValueOnce({ ok: true, json: async () => ({
       schemaVersion: "0.1", documentId: "t019-demo-img6807",
-      entities: [persistedEntity, { ...persistedEntity, id: "entity-2", tag: "TV_0806B" }],
+      entities: [{ ...persistedEntity, id: "t019:entity:fi-0828", tag: "FI_0828" },
+        { ...persistedEntity, id: "t019:entity:fv-0827", tag: "FV_0827", kind: "valve", subtype: "FV" }],
       connections: [persistedConnection], metadata: {},
     }) })
     .mockResolvedValueOnce({ ok: true, json: async () => ({

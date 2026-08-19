@@ -27,12 +27,20 @@ def test_saved_proposal_and_manifest_preserve_provenance_boundaries() -> None:
     assert manifest["connections"][0]["modelTopologyCandidateId"] is None
     graph = build_graph(manifest, "document", "page")
     assert len(graph.entities) == 2
+    assert {(item.id, item.tag, item.kind, item.subtype) for item in graph.entities} == {
+        ("t019:entity:fi-0828", "FI_0828", "instrument", None),
+        ("t019:entity:fv-0827", "FV_0827", "valve", "FV"),
+    }
+    assert {item["proposalCandidateId"] for item in manifest["entities"]} == {
+        "instruments:r1c0:inst-3", "valves:r1c0:valve-7",
+    }
     assert all(item.assertion.mode == "inferred" for item in graph.entities)
     assert all(item.assertion.review_status == "unreviewed" for item in graph.entities)
     assert all(item.confidence is None for item in graph.entities)
     assert all(item.provenance[0].source_type == "model" for item in graph.entities)
     connection = graph.connections[0]
-    assert connection.kind == "process"
+    assert connection.id == "t019:connection:fi-0828--fv-0827"
+    assert connection.kind == "reference"
     assert connection.direction == "unknown"
     assert connection.geometry is None and connection.confidence is None
     assert connection.assertion.mode == "human_added"
@@ -40,6 +48,8 @@ def test_saved_proposal_and_manifest_preserve_provenance_boundaries() -> None:
     assert connection.provenance[0].source_type == "human"
     assert "not model output" in connection.provenance[0].note
     assert "not derived from benchmark truth" in connection.provenance[0].note
+    assert "not process flow" in connection.provenance[0].note
+    assert "formal control-loop" in connection.provenance[0].note
 
 
 def test_demo_graph_has_only_the_approved_undirected_neighbor_result() -> None:
@@ -47,6 +57,6 @@ def test_demo_graph_has_only_the_approved_undirected_neighbor_result() -> None:
     graph = build_graph(manifest, "document", "page")
     service = GraphQueryService()
     result = service.query(graph, NeighborsQuery(
-        operation="neighbors", entity_id="t019:entity:tv-0806b"))
-    assert result.entity_ids == ["t019:entity:a310001b"]
-    assert result.connection_ids == ["t019:connection:tv-0806b--a310001b"]
+        operation="neighbors", entity_id="t019:entity:fi-0828"))
+    assert result.entity_ids == ["t019:entity:fv-0827"]
+    assert result.connection_ids == ["t019:connection:fi-0828--fv-0827"]

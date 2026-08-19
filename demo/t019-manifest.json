@@ -28,76 +28,78 @@
   },
   "entities": [
     {
-      "proposalCandidateId": "valves:r0c1:valve-1",
-      "canonicalId": "t019:entity:tv-0806b",
+      "proposalCandidateId": "instruments:r1c0:inst-3",
+      "canonicalId": "t019:entity:fi-0828",
+      "copiedFields": ["kind", "subtype", "tag", "displayName", "geometry", "confidence", "provenance"],
+      "omittedFields": ["properties: proposal evidence-list shape is not a canonical properties object", "geometry.polygon: absent", "geometry.anchorPoints: absent"],
+      "kind": "instrument",
+      "subtype": null,
+      "tag": "FI_0828",
+      "displayName": "FI 0828",
+      "geometry": {
+        "bbox": { "x": 0.32342086834733896, "y": 0.5451283846872081, "width": 0.045763305322128855, "height": 0.031029411764705885 }
+      },
+      "confidence": null,
+      "assertion": { "mode": "inferred", "reviewStatus": "unreviewed" },
+      "proposalProvenance": {
+        "sourceRef": "IMG_6807.JPG#tile:r1c0",
+        "evidenceText": "FI 0828",
+        "note": "pass=instruments; tile-local geometry restored to original image"
+      },
+      "geometryReview": "Exact stored candidate bbox manually verified against IMG_6807; it encloses the FI_0828 display and tag."
+    },
+    {
+      "proposalCandidateId": "valves:r1c0:valve-7",
+      "canonicalId": "t019:entity:fv-0827",
       "copiedFields": ["kind", "subtype", "tag", "displayName", "geometry", "confidence", "provenance"],
       "omittedFields": ["properties: proposal evidence-list shape is not a canonical properties object", "geometry.polygon: absent", "geometry.anchorPoints: absent"],
       "kind": "valve",
-      "subtype": null,
-      "tag": "TV_0806B",
-      "displayName": null,
+      "subtype": "FV",
+      "tag": "FV_0827",
+      "displayName": "FV_0827",
       "geometry": {
-        "bbox": { "x": 0.5685976890756302, "y": 0.3225688608776844, "width": 0.0160171568627451, "height": 0.02930555555555556 }
+        "bbox": { "x": 0.33348879551820726, "y": 0.5899486461251168, "width": 0.05033963585434174, "height": 0.02413398692810458 }
       },
       "confidence": null,
       "assertion": { "mode": "inferred", "reviewStatus": "unreviewed" },
       "proposalProvenance": {
-        "sourceRef": "IMG_6807.JPG#tile:r0c1",
-        "evidenceText": "Red valve symbol with label TV_0806B under the left preheater tank section.",
+        "sourceRef": "IMG_6807.JPG#tile:r1c0",
+        "evidenceText": "Text \"FV_0827\" with red valve symbols on the right train",
         "note": "pass=valves; tile-local geometry restored to original image"
-      }
-    },
-    {
-      "proposalCandidateId": "equipment_boundary:r0c1:eq1",
-      "canonicalId": "t019:entity:a310001b",
-      "copiedFields": ["kind", "subtype", "tag", "displayName", "geometry", "confidence", "provenance"],
-      "omittedFields": ["properties: proposal evidence-list shape is not a canonical properties object", "geometry.polygon: absent", "geometry.anchorPoints: absent"],
-      "kind": "equipment",
-      "subtype": "tank",
-      "tag": "A310001B",
-      "displayName": "2#浓钛液预热槽",
-      "geometry": {
-        "bbox": { "x": 0.5319870448179271, "y": 0.3880753968253968, "width": 0.07459418767507002, "height": 0.056197712418300655 }
       },
-      "confidence": null,
-      "assertion": { "mode": "inferred", "reviewStatus": "unreviewed" },
-      "proposalProvenance": {
-        "sourceRef": "IMG_6807.JPG#tile:r0c1",
-        "evidenceText": "A310001B 2#浓钛液预热槽 搅拌",
-        "note": "left vessel with impeller; pass=equipment_boundary; tile-local geometry restored to original image"
-      }
+      "geometryReview": "Exact stored candidate bbox manually verified against IMG_6807; it encloses the FV_0827 tag, valve symbol, and green branch."
     }
   ],
   "connections": [
     {
       "modelTopologyCandidateId": null,
-      "canonicalId": "t019:connection:tv-0806b--a310001b",
-      "sourceEntityId": "t019:entity:tv-0806b",
-      "targetEntityId": "t019:entity:a310001b",
+      "canonicalId": "t019:connection:fi-0828--fv-0827",
+      "sourceEntityId": "t019:entity:fi-0828",
+      "targetEntityId": "t019:entity:fv-0827",
       "endpointOrdering": "Structural identifiers only; direction=unknown makes no engineering-flow claim.",
-      "humanReviewStatement": "On IMG_6807.JPG, the continuous red feed line passing through valve TV_0806B visibly terminates at vessel A310001B. Connectivity between these two displayed objects is confirmed directly from the source image.",
-      "kind": "process",
+      "humanReviewStatement": "On IMG_6807.JPG, FI_0828 and FV_0827 are visibly associated in the same feed-control column, with the continuous green branch below the FI display passing through the FV valve symbol. This confirms only a displayed reference association.",
+      "kind": "reference",
       "direction": "unknown",
       "geometry": null,
       "confidence": null,
       "assertion": { "mode": "human_added", "reviewStatus": "confirmed" },
       "humanProvenance": {
         "sourceRef": "IMG_6807.JPG",
-        "note": "Connectivity confirmed from visible source image; direction not established; relationship is not model output; relationship was not derived from benchmark truth."
+        "note": "Reference association confirmed from visible source image; direction not established; no connection geometry recorded; not process flow, upstream/downstream, or a formal control-loop claim; relationship is not model output; relationship was not derived from benchmark truth."
       }
     }
   ],
   "graphChat": {
-    "question": "What is connected to TV_0806B?",
-    "expectedAnswer": "TV_0806B has 1 directly connected canonical entities.",
-    "expectedSupportingEntityIds": ["t019:entity:a310001b", "t019:entity:tv-0806b"],
-    "expectedSupportingConnectionIds": ["t019:connection:tv-0806b--a310001b"]
+    "question": "What is connected to FI_0828?",
+    "expectedAnswer": "FI_0828 has 1 directly connected canonical entities.",
+    "expectedSupportingEntityIds": ["t019:entity:fi-0828", "t019:entity:fv-0827"],
+    "expectedSupportingConnectionIds": ["t019:connection:fi-0828--fv-0827"]
   },
   "warnings": [
     "Prepared local demo fixture only; proposal-derived canonical entities are inferred and unreviewed, not verified plant truth.",
     "The saved model snapshot contains entity candidates and zero topology proposals.",
-    "The single connection is a separate human source-image review, not model output, benchmark truth, or evaluation matching.",
+    "The single directionless reference connection is a separate human source-image review of a visible association, not model output, process flow, formal control-loop semantics, benchmark truth, or evaluation matching.",
     "No automated proposal-acceptance product behavior exists.",
-    "Proposal geometry is displayed for interaction and was not verified against benchmark geometry."
+    "The two canonical candidate boxes and the fixed presentation-overlay allowlist were manually checked against IMG_6807; this review is limited to visible source correspondence and is not benchmark or engineering truth."
   ]
 }
