@@ -90,23 +90,29 @@ export default function EntityInspector({ entity, apiUrl, onSaved }: EntityInspe
         <label>Subtype<input value={subtype} onChange={(event) => setSubtype(event.target.value)} /></label>
         <label>Tag<input value={tag} onChange={(event) => setTag(event.target.value)} /></label>
         <label>Display name<input value={displayName} onChange={(event) => setDisplayName(event.target.value)} /></label>
-        <label>Properties<textarea rows={8} value={properties} onChange={(event) => setProperties(event.target.value)} /></label>
         <label>Review status<select value={reviewStatus} onChange={(event) => setReviewStatus(event.target.value as EngineeringEntity["assertion"]["reviewStatus"])}>{reviewStatuses.map((value) => <option key={value}>{value}</option>)}</select></label>
         <div className="inspector-actions">
           <button type="submit" disabled={saving} aria-busy={saving}>{saving ? "Saving…" : "Save"}</button>
           <button type="button" disabled={saving} onClick={() => reset()}>Cancel</button>
         </div>
+        <details className="inspector-details">
+          <summary>Advanced properties</summary>
+          <label>Properties JSON<textarea rows={4} value={properties} onChange={(event) => setProperties(event.target.value)} /></label>
+        </details>
         {error && <p role="alert" className="error">{error}</p>}
       </form>
       {saving && <p role="status">Saving canonical entity…</p>}
-      <ReviewStatus confidence={entity.confidence} assertion={entity.assertion} />
-      <dl className="read-only-fields">
+      <details className="inspector-details"><summary>Provenance &amp; metadata</summary>
+        <ReviewStatus confidence={entity.confidence} assertion={entity.assertion} />
+        <dl className="read-only-fields">
         <dt>ID</dt><dd>{entity.id}</dd>
         <dt>Document ID</dt><dd>{entity.documentId}</dd>
         <dt>Page ID</dt><dd>{entity.pageId}</dd>
-        <dt>Created</dt><dd>{entity.createdAt}</dd>
-      </dl>
-      <details><summary>Read-only engineering metadata</summary><pre>{JSON.stringify({ provenance: entity.provenance, geometry: entity.geometry, dexpi: entity.dexpi }, null, 2)}</pre></details>
+          <dt>Created</dt><dd>{entity.createdAt}</dd>
+          <dt>Updated</dt><dd>{entity.updatedAt}</dd>
+        </dl>
+        <pre>{JSON.stringify({ provenance: entity.provenance, geometry: entity.geometry, dexpi: entity.dexpi }, null, 2)}</pre>
+      </details>
     </aside>
   );
 }

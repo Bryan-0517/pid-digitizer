@@ -41,7 +41,9 @@ export default function GraphChat({ apiUrl, documentId, onHighlight }: GraphChat
   return (
     <section className="graph-chat" aria-label="Graph chat">
       <h3>Graph query</h3>
-      <p>Supported: connected, upstream, downstream, exact lookup, and shortest path.</p>
+      <details className="query-help"><summary>Supported queries</summary>
+        <p>Connected, upstream, downstream, exact lookup, and shortest path.</p>
+      </details>
       <form onSubmit={submit}>
         <label htmlFor="graph-chat-message">Question</label>
         <input

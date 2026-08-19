@@ -18,7 +18,14 @@ type GraphOverlayProps = {
 };
 
 export function entityLabel(entity: EngineeringEntity): string {
-  return entity.tag ?? entity.displayName ?? entity.id;
+  const tag = visibleLabel(entity.tag);
+  const displayName = visibleLabel(entity.displayName);
+  return tag ?? displayName ?? `Unnamed ${entity.kind}`;
+}
+
+function visibleLabel(value: string | null | undefined): string | null {
+  const trimmed = value?.trim();
+  return trimmed && trimmed.toLowerCase() !== "none" ? trimmed : null;
 }
 
 export default function GraphOverlay({

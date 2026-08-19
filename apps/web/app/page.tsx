@@ -3,6 +3,7 @@
 import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import type { Document, DocumentPage, EngineeringConnection, EngineeringEntity, EngineeringGraph } from "../types/engineering-graph";
+import type { DemoProposalOverlayResponse, ProposalOverlayCandidate } from "../types/proposal-overlay";
 import { sourceTypeForFilename, supportedInputMessage } from "./upload-validation";
 import EntityInspector from "../components/entity-inspector";
 import ConnectionInspector from "../components/connection-inspector";
@@ -14,6 +15,14 @@ import { useWorkspaceKeyboard } from "../components/use-workspace-keyboard";
 
 type DocumentDetail = { document: Document; page?: DocumentPage };
 type BenchmarkData = { page: BenchmarkPageFixture; graph: EngineeringGraph };
+type SidebarTab = "inspector" | "query" | "connections" | "validate";
+
+const sidebarTabs: Array<{ id: SidebarTab; label: string }> = [
+  { id: "inspector", label: "Inspector" },
+  { id: "query", label: "Query" },
+  { id: "connections", label: "Connections" },
+  { id: "validate", label: "Validate" },
+];
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 const DiagramViewer = dynamic(() => import("../components/diagram-viewer"), {
@@ -37,6 +46,8 @@ export default function Home() {
   const [undoing, setUndoing] = useState(false);
   const [undoError, setUndoError] = useState<string | null>(null);
   const [deletingConnection, setDeletingConnection] = useState(false);
+  const [activeSidebarTab, setActiveSidebarTab] = useState<SidebarTab>("inspector");
+  const [proposalCandidates, setProposalCandidates] = useState<ProposalOverlayCandidate[]>([]);
 
   useEffect(() => {
     const parameters = new URLSearchParams(window.location.search);
@@ -80,6 +91,8 @@ export default function Home() {
       setHighlightedConnectionIds([]);
       setUndoEntry(null);
       setUndoError(null);
+      setActiveSidebarTab("inspector");
+      setProposalCandidates(await loadDemoProposalOverlays(documentId));
     } catch (reason) {
       setDetail(null);
       setGraph(null);
@@ -126,6 +139,8 @@ export default function Home() {
       setHighlightedConnectionIds([]);
       setUndoEntry(null);
       setUndoError(null);
+      setActiveSidebarTab("inspector");
+      setProposalCandidates([]);
       window.history.replaceState(null, "", `?documentId=${encodeURIComponent(created.id)}`);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Upload failed");
@@ -144,6 +159,8 @@ export default function Home() {
     setUndoEntry(null);
     setUndoError(null);
     setError(null);
+    setActiveSidebarTab("inspector");
+    setProposalCandidates([]);
     window.history.replaceState(null, "", window.location.pathname);
   }
 
@@ -160,6 +177,7 @@ export default function Home() {
     setGraph((current) => current ? { ...current, connections: [...current.connections, created] } : current);
     setSelectedEntityId(null);
     setSelectedConnectionId(created.id);
+    setActiveSidebarTab("connections");
   }
 
   function connectionSaved(saved: EngineeringConnection, before: EngineeringConnection) {
@@ -207,8 +225,14 @@ export default function Home() {
     } finally { setUndoing(false); }
   }
 
-  function selectEntity(id: string | null) { setSelectedEntityId(id); if (id) setSelectedConnectionId(null); }
-  function selectConnection(id: string | null) { setSelectedConnectionId(id); if (id) setSelectedEntityId(null); }
+  function selectEntity(id: string | null) {
+    setSelectedEntityId(id);
+    if (id) { setSelectedConnectionId(null); setActiveSidebarTab("inspector"); }
+  }
+  function selectConnection(id: string | null) {
+    setSelectedConnectionId(id);
+    if (id) { setSelectedEntityId(null); setActiveSidebarTab("connections"); }
+  }
   function clearSelection() { setSelectedEntityId(null); setSelectedConnectionId(null); }
 
   const clearHighlights = useCallback(() => {
@@ -272,32 +296,66 @@ export default function Home() {
               selectedConnectionId={selectedConnectionId}
               highlightedEntityIds={highlightedEntityIds}
               highlightedConnectionIds={highlightedConnectionIds}
+              proposalCandidates={proposalCandidates}
               onSelectEntity={selectEntity}
               onSelectConnection={selectConnection}
               onClearSelection={clearSelection}
             />
-            <div className="inspectors">
-              <GraphChat
-                apiUrl={apiUrl}
-                documentId={graph.documentId}
-                onHighlight={(entityIds, connectionIds) => {
-                  setHighlightedEntityIds([...entityIds]);
-                  setHighlightedConnectionIds([...connectionIds]);
-                }}
-              />
-              <DexpiValidation
-                apiUrl={apiUrl}
-                documentId={graph.documentId}
-                onSelectEntity={selectEntity}
-                onSelectConnection={selectConnection}
-              />
-              <EntityInspector entity={selectedEntity} apiUrl={apiUrl} onSaved={entitySaved} />
-              <ConnectionInspector
-                apiUrl={apiUrl} documentId={graph.documentId} entities={graph.entities}
-                connections={graph.connections} connection={selectedConnection}
-                onSelect={selectConnection} onCreated={connectionCreated}
-                onSaved={connectionSaved} onDeleteRequested={deleteSelectedConnection}
-              />
+            <div className="sidebar-workspace">
+              <div className="sidebar-tabs" role="tablist" aria-label="Engineering workspace">
+                {sidebarTabs.map((tab, index) => <button
+                  key={tab.id}
+                  id={`sidebar-tab-${tab.id}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeSidebarTab === tab.id}
+                  aria-controls={`sidebar-panel-${tab.id}`}
+                  tabIndex={activeSidebarTab === tab.id ? 0 : -1}
+                  onClick={() => setActiveSidebarTab(tab.id)}
+                  onKeyDown={(event) => {
+                    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+                    event.preventDefault();
+                    const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? sidebarTabs.length - 1
+                      : (index + (event.key === "ArrowRight" ? 1 : -1) + sidebarTabs.length) % sidebarTabs.length;
+                    const next = sidebarTabs[nextIndex].id;
+                    setActiveSidebarTab(next);
+                    document.getElementById(`sidebar-tab-${next}`)?.focus();
+                  }}
+                >{tab.label}</button>)}
+              </div>
+              <div className="sidebar-panel" role="tabpanel" id="sidebar-panel-inspector"
+                aria-labelledby="sidebar-tab-inspector" hidden={activeSidebarTab !== "inspector"}>
+                <EntityInspector entity={selectedEntity} apiUrl={apiUrl} onSaved={entitySaved} />
+              </div>
+              <div className="sidebar-panel" role="tabpanel" id="sidebar-panel-query"
+                aria-labelledby="sidebar-tab-query" hidden={activeSidebarTab !== "query"}>
+                <GraphChat
+                  apiUrl={apiUrl}
+                  documentId={graph.documentId}
+                  onHighlight={(entityIds, connectionIds) => {
+                    setHighlightedEntityIds([...entityIds]);
+                    setHighlightedConnectionIds([...connectionIds]);
+                  }}
+                />
+              </div>
+              <div className="sidebar-panel" role="tabpanel" id="sidebar-panel-connections"
+                aria-labelledby="sidebar-tab-connections" hidden={activeSidebarTab !== "connections"}>
+                <ConnectionInspector
+                  apiUrl={apiUrl} documentId={graph.documentId} entities={graph.entities}
+                  connections={graph.connections} connection={selectedConnection}
+                  onSelect={selectConnection} onCreated={connectionCreated}
+                  onSaved={connectionSaved} onDeleteRequested={deleteSelectedConnection}
+                />
+              </div>
+              <div className="sidebar-panel" role="tabpanel" id="sidebar-panel-validate"
+                aria-labelledby="sidebar-tab-validate" hidden={activeSidebarTab !== "validate"}>
+                <DexpiValidation
+                  apiUrl={apiUrl}
+                  documentId={graph.documentId}
+                  onSelectEntity={selectEntity}
+                  onSelectConnection={selectConnection}
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -322,4 +380,15 @@ export default function Home() {
 async function errorMessage(response: Response): Promise<string> {
   const body = (await response.json().catch(() => null)) as { detail?: string } | null;
   return body?.detail ?? `Upload failed (${response.status})`;
+}
+
+async function loadDemoProposalOverlays(documentId: string): Promise<ProposalOverlayCandidate[]> {
+  if (documentId !== "t019-demo-img6807") return [];
+  try {
+    const response = await fetch("/api/demo/t019/proposals");
+    if (!response.ok) return [];
+    return ((await response.json()) as DemoProposalOverlayResponse).candidates;
+  } catch {
+    return [];
+  }
 }

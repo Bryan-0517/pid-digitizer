@@ -26,6 +26,20 @@ function helper(command) {
   process.stdout.write(`${output}\n`);
 }
 
+async function checkProposalOverlays() {
+  const response = await fetch("http://127.0.0.1:14000/api/demo/t019/proposals");
+  if (!response.ok) throw new Error(`proposal overlay check returned ${response.status}`);
+  const payload = await response.json();
+  const candidates = payload.candidates ?? [];
+  if (payload.sourceFilename !== "IMG_6807.JPG" || candidates.length !== 8) {
+    throw new Error("proposal overlay payload does not contain the expected eight presentation candidates");
+  }
+  if (candidates.some((candidate) => ["TV_0806B", "A310001B"].includes(candidate.tag))) {
+    throw new Error("proposal overlay payload duplicates a prepared canonical tag");
+  }
+  process.stdout.write(`${JSON.stringify({ proposalOverlayStatus: "ready", proposalOverlayCount: candidates.length })}\n`);
+}
+
 const command = process.argv[2];
 if (command === "start") {
   runDocker(["up", "--detach", "--build"]);
@@ -40,6 +54,7 @@ if (command === "start") {
   await waitFor("http://127.0.0.1:19000/health");
   await waitFor("http://127.0.0.1:14000");
   helper("check");
+  await checkProposalOverlays();
 } else if (command === "cleanup") {
   runDocker(["down", "--volumes", "--remove-orphans"]);
 } else {

@@ -5,7 +5,9 @@ import React from "react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Image as KonvaImage, Layer, Stage } from "react-konva";
 import type { DocumentPage, EngineeringGraph } from "../types/engineering-graph";
+import type { ProposalOverlayCandidate } from "../types/proposal-overlay";
 import GraphOverlay, { entityLabel } from "./graph-overlay";
+import ProposalOverlay from "./proposal-overlay";
 import { fitTransform, Point, ViewTransform, zoomAtPoint } from "./view-transform";
 
 type DiagramViewerProps = {
@@ -17,6 +19,7 @@ type DiagramViewerProps = {
   selectedConnectionId: string | null;
   highlightedEntityIds?: string[];
   highlightedConnectionIds?: string[];
+  proposalCandidates?: ProposalOverlayCandidate[];
   onSelectEntity: (entityId: string | null) => void;
   onSelectConnection: (connectionId: string | null) => void;
   onClearSelection: () => void;
@@ -30,6 +33,7 @@ const WHEEL_SCALE = 1.08;
 export default function DiagramViewer({
   page, imageUrl, documentName, graph, selectedEntityId, selectedConnectionId,
   highlightedEntityIds = [], highlightedConnectionIds = [],
+  proposalCandidates = [],
   onSelectEntity, onSelectConnection, onClearSelection,
 }: DiagramViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -43,6 +47,7 @@ export default function DiagramViewer({
   const [fitMode, setFitMode] = useState(true);
   const [showEntities, setShowEntities] = useState(true);
   const [showConnections, setShowConnections] = useState(true);
+  const [showProposals, setShowProposals] = useState(true);
   const entitiesById = new Map(graph.entities.map((entity) => [entity.id, entity]));
   const highlightedConnectionsWithoutGeometry = graph.connections.filter((connection) =>
     highlightedConnectionIds.includes(connection.id) && !connection.geometry?.polyline,
@@ -137,6 +142,12 @@ export default function DiagramViewer({
         <output aria-label="Zoom level">{Math.round(view.scale * 100)}%</output>
         <label><input type="checkbox" checked={showEntities} onChange={(event) => setShowEntities(event.target.checked)} /> Entities</label>
         <label><input type="checkbox" checked={showConnections} onChange={(event) => setShowConnections(event.target.checked)} /> Connections</label>
+        {proposalCandidates.length > 0 && <label><input type="checkbox" checked={showProposals}
+          onChange={(event) => setShowProposals(event.target.checked)} /> AI proposals</label>}
+        {proposalCandidates.length > 0 && <div className="overlay-legend" aria-label="Overlay legend">
+          <span><i className="legend-proposal" />AI proposal — dashed</span>
+          <span><i className="legend-canonical" />Canonical — solid</span>
+        </div>}
         {graph.entities.some((entity) => entity.provenance.some(
           (evidence) => evidence.sourceRef === "t004-mock-fixture",
         )) && <span className="mock-notice">Mock overlay — unreviewed</span>}
@@ -183,6 +194,11 @@ export default function DiagramViewer({
                 />
               )}
             </Layer>
+            {showProposals && proposalCandidates.length > 0 && <ProposalOverlay
+              candidates={proposalCandidates}
+              imageSize={{ width: page.widthPx, height: page.heightPx }}
+              viewScale={view.scale}
+            />}
             <GraphOverlay
               graph={graph}
               imageSize={{ width: page.widthPx, height: page.heightPx }}
@@ -201,10 +217,7 @@ export default function DiagramViewer({
         {imageError && <p className="viewer-error" role="alert">Page image could not be loaded.</p>}
         {imageLoading && <p className="viewer-status" role="status">Loading page image…</p>}
       </div>
-      <output aria-label="Selected entity">{selectedEntityId ?? "None"}</output>
-      <output aria-label="Selected connection">{selectedConnectionId ?? "None"}</output>
-      <output aria-label="Highlighted entities">{highlightedEntityIds.join(", ") || "None"}</output>
-      <output aria-label="Highlighted connections">{highlightedConnectionIds.join(", ") || "None"}</output>
+      <p className="viewer-help">Drag to pan. Scroll or pinch to zoom.</p>
       {highlightedConnectionsWithoutGeometry.length > 0 && (
         <section className="highlighted-topology" aria-label="Highlighted topology without geometry">
           <h3>Highlighted topology</h3>
@@ -213,15 +226,13 @@ export default function DiagramViewer({
             const target = entitiesById.get(connection.targetEntityId);
             return (
               <div key={connection.id} className="highlighted-topology-item">
-                <strong>{source ? entityLabel(source) : connection.sourceEntityId} ↔ {target ? entityLabel(target) : connection.targetEntityId}</strong>
-                <span>Canonical connection: <code>{connection.id}</code></span>
+                <strong>{source ? entityLabel(source) : "Unknown source"} ↔ {target ? entityLabel(target) : "Unknown target"}</strong>
                 <span>Connection geometry not recorded.</span>
               </div>
             );
           })}
         </section>
       )}
-      <p className="viewer-help">Drag to pan. Scroll or pinch to zoom.</p>
     </div>
   );
 }

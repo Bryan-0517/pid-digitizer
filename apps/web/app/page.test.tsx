@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import React from "react";
 import { afterEach, expect, test, vi } from "vitest";
 import Home from "./page";
@@ -6,7 +6,7 @@ import { sourceTypeForFilename } from "./upload-validation";
 
 vi.mock("../components/diagram-viewer", () => ({
   default: ({ documentName, graph, onSelectEntity, onSelectConnection, selectedEntityId,
-    selectedConnectionId, highlightedEntityIds = [] }: {
+    selectedConnectionId, highlightedEntityIds = [], proposalCandidates = [] }: {
     documentName: string;
     graph: { entities: Array<{ id: string }>; connections: Array<{ id: string }> };
     onSelectEntity: (id: string) => void;
@@ -14,11 +14,13 @@ vi.mock("../components/diagram-viewer", () => ({
     selectedEntityId: string | null;
     selectedConnectionId: string | null;
     highlightedEntityIds?: string[];
+    proposalCandidates?: Array<{ candidateId: string }>;
   }) => (
     <div role="img" aria-label={`Interactive page 1 of ${documentName}`}>
       {graph.entities[0] && <button onClick={() => onSelectEntity(graph.entities[0].id)}>Select fixture entity</button>}
       {graph.connections[0] && <button onClick={() => onSelectConnection(graph.connections[0].id)}>Select fixture connection</button>}
       <output data-testid="viewer-state">{`${selectedEntityId ?? "none"}|${selectedConnectionId ?? "none"}|${highlightedEntityIds.join(",")}`}</output>
+      <output data-testid="viewer-counts">{`${graph.entities.length}|${graph.connections.length}|${proposalCandidates.length}`}</output>
     </div>
   ),
 }));
@@ -121,10 +123,99 @@ test("reopens a persisted document and graph from the URL", async () => {
     name: "Interactive page 1 of saved.png",
   })).toBeInTheDocument());
   expect(fetchMock).toHaveBeenCalledWith("http://localhost:8000/documents/doc-1/graph");
+  expect(screen.getByRole("tab", { name: "Inspector" })).toHaveAttribute("aria-selected", "true");
+  expect(screen.getByText("Select an entity to inspect it.")).toBeInTheDocument();
+  expect(screen.getByRole("tabpanel", { name: "Inspector" })).toBeVisible();
+  expect(screen.queryByRole("tabpanel", { name: "Query" })).not.toBeInTheDocument();
+  expect(screen.queryByRole("tabpanel", { name: "Validate" })).not.toBeInTheDocument();
   fireEvent.click(screen.getByRole("button", { name: "Select fixture entity" }));
   expect(screen.getByLabelText("Tag")).toHaveValue("P-SAVED");
-  expect(screen.getByLabelText("Graph chat")).toBeInTheDocument();
-  expect(screen.getByLabelText("DEXPI Validation")).toBeInTheDocument();
+});
+
+test("switches one visible sidebar panel at a time and selection opens the relevant tab", async () => {
+  window.history.replaceState(null, "", "/?documentId=doc-1");
+  vi.stubGlobal("fetch", vi.fn()
+    .mockResolvedValueOnce({ ok: true, json: async () => ({
+      document: { id: "doc-1", name: "saved.png", sourceType: "image", status: "ready" },
+      page: { id: "page-1", documentId: "doc-1", pageNumber: 1, imageUri: "/page.png", widthPx: 20, heightPx: 10 },
+    }) })
+    .mockResolvedValueOnce({ ok: true, json: async () => ({
+      schemaVersion: "0.1", documentId: "doc-1", entities: [persistedEntity],
+      connections: [persistedConnection], metadata: {},
+    }) }));
+  render(<Home />);
+  await screen.findByRole("img", { name: "Interactive page 1 of saved.png" });
+
+  fireEvent.click(screen.getByRole("tab", { name: "Query" }));
+  expect(within(screen.getByRole("tabpanel", { name: "Query" })).getByLabelText("Graph chat")).toBeVisible();
+  expect(screen.queryByRole("tabpanel", { name: "Inspector" })).not.toBeInTheDocument();
+  expect(screen.queryByRole("tabpanel", { name: "Validate" })).not.toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole("tab", { name: "Validate" }));
+  expect(within(screen.getByRole("tabpanel", { name: "Validate" })).getByLabelText("DEXPI Validation")).toBeVisible();
+  expect(screen.queryByRole("tabpanel", { name: "Query" })).not.toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole("button", { name: "Select fixture entity" }));
+  expect(screen.getByRole("tab", { name: "Inspector" })).toHaveAttribute("aria-selected", "true");
+  expect(screen.getByLabelText("Tag")).toHaveValue("P-SAVED");
+
+  fireEvent.click(screen.getByRole("button", { name: "Select fixture connection" }));
+  expect(screen.getByRole("tab", { name: "Connections" })).toHaveAttribute("aria-selected", "true");
+  expect(screen.getByLabelText("Medium")).toBeInTheDocument();
+  expect(within(screen.getByRole("tabpanel", { name: "Connections" })).queryByLabelText("Tag")).not.toBeInTheDocument();
+});
+
+test("Graph Query still highlights its deterministic result from the tabbed panel", async () => {
+  window.history.replaceState(null, "", "/?documentId=doc-1");
+  const fetchMock = vi.fn()
+    .mockResolvedValueOnce({ ok: true, json: async () => ({
+      document: { id: "doc-1", name: "saved.png", sourceType: "image", status: "ready" },
+      page: { id: "page-1", documentId: "doc-1", pageNumber: 1, imageUri: "/page.png", widthPx: 20, heightPx: 10 },
+    }) })
+    .mockResolvedValueOnce({ ok: true, json: async () => ({
+      schemaVersion: "0.1", documentId: "doc-1", entities: [persistedEntity], connections: [], metadata: {},
+    }) })
+    .mockResolvedValueOnce({ ok: true, json: async () => ({
+      answer: "Found P-SAVED.", supportingEntityIds: ["entity-1"], supportingConnectionIds: [],
+      highlight: { entityIds: ["entity-1"], connectionIds: [] }, warnings: [],
+      outcome: "ok", resolvedIntent: {}, queryResults: [],
+    }) });
+  vi.stubGlobal("fetch", fetchMock);
+  render(<Home />);
+  await screen.findByRole("img", { name: "Interactive page 1 of saved.png" });
+  fireEvent.click(screen.getByRole("tab", { name: "Query" }));
+  fireEvent.change(screen.getByLabelText("Question"), { target: { value: "Find P-SAVED" } });
+  fireEvent.click(screen.getByRole("button", { name: "Ask graph" }));
+  expect(await screen.findByText("Found P-SAVED.")).toBeInTheDocument();
+  expect(screen.getByTestId("viewer-state")).toHaveTextContent("none|none|entity-1");
+});
+
+test("loads proposal-only overlays for the prepared demo without changing canonical counts", async () => {
+  window.history.replaceState(null, "", "/?documentId=t019-demo-img6807");
+  const proposals = Array.from({ length: 8 }, (_, index) => ({
+    candidateId: `proposal-${index}`, kind: "instrument", tag: `AI-${index}`,
+    geometry: { bbox: { x: .05 * index, y: .2, width: .02, height: .03 } },
+  }));
+  const fetchMock = vi.fn()
+    .mockResolvedValueOnce({ ok: true, json: async () => ({
+      document: { id: "t019-demo-img6807", name: "IMG_6807.JPG", sourceType: "image", status: "ready" },
+      page: { id: "page-1", documentId: "t019-demo-img6807", pageNumber: 1, imageUri: "/page.jpg", widthPx: 20, heightPx: 10 },
+    }) })
+    .mockResolvedValueOnce({ ok: true, json: async () => ({
+      schemaVersion: "0.1", documentId: "t019-demo-img6807",
+      entities: [persistedEntity, { ...persistedEntity, id: "entity-2", tag: "TV_0806B" }],
+      connections: [persistedConnection], metadata: {},
+    }) })
+    .mockResolvedValueOnce({ ok: true, json: async () => ({
+      snapshotLabel: "MODEL OUTPUT SNAPSHOT — NOT BENCHMARK TRUTH",
+      sourceFilename: "IMG_6807.JPG", candidates: proposals,
+    }) });
+  vi.stubGlobal("fetch", fetchMock);
+
+  render(<Home />);
+  await screen.findByRole("img", { name: "Interactive page 1 of IMG_6807.JPG" });
+  await waitFor(() => expect(screen.getByTestId("viewer-counts")).toHaveTextContent("2|1|8"));
+  expect(fetchMock).toHaveBeenCalledWith("/api/demo/t019/proposals");
 });
 
 test("opens explicit hydrolysis benchmark mode without upload or mock overlays", async () => {

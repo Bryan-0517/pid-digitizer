@@ -104,11 +104,13 @@ export default function ConnectionInspector(props: Props) {
       <label>Kind<select value={kind} onChange={e => setKind(e.target.value as EngineeringConnection["kind"])}>{kinds.map(value => <option key={value}>{value}</option>)}</select></label>
       <label>Medium<input value={medium} onChange={e => setMedium(e.target.value)} /></label>
       <label>Direction<select value={direction} onChange={e => setDirection(e.target.value as NonNullable<EngineeringConnection["direction"]>)}>{directions.map(value => <option key={value}>{value}</option>)}</select></label>
-      <label>Properties<textarea rows={5} value={properties} onChange={e => setProperties(e.target.value)} /></label>
       <label>Review status<select value={reviewStatus} onChange={e => setReviewStatus(e.target.value as EngineeringConnection["assertion"]["reviewStatus"])}>{statuses.map(value => <option key={value}>{value}</option>)}</select></label>
       <label><input type="checkbox" checked={allowSelfLoop} onChange={e => setAllowSelfLoop(e.target.checked)} /> Allow self-loop</label>
       {!creating && !props.connection?.geometry?.polyline && <p>No diagram geometry; this semantic connection is not rendered on Canvas.</p>}
       <div className="inspector-actions"><button type="submit" disabled={saving} aria-busy={saving}>{saving ? "Saving…" : "Save"}</button><button type="button" disabled={saving} onClick={reset}>Cancel</button>{!creating && <button type="button" disabled={saving} onClick={remove}>Delete</button>}</div>
+      <details className="inspector-details"><summary>Advanced properties</summary>
+        <label>Properties JSON<textarea rows={4} value={properties} onChange={e => setProperties(e.target.value)} /></label>
+      </details>
       {error && <p role="alert" className="error">{error}</p>}
       {saving && <p role="status">Saving canonical connection…</p>}
       {!creating && props.connection && <><ReviewStatus confidence={props.connection.confidence} assertion={props.connection.assertion} /><dl className="read-only-fields"><dt>ID</dt><dd>{props.connection.id}</dd><dt>Document ID</dt><dd>{props.connection.documentId}</dd><dt>Created</dt><dd>{props.connection.createdAt}</dd></dl><details><summary>Read-only engineering metadata</summary><pre>{JSON.stringify({ provenance: props.connection.provenance, geometry: props.connection.geometry }, null, 2)}</pre></details></>}

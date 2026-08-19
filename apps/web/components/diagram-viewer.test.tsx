@@ -3,6 +3,7 @@ import React, { useImperativeHandle, useState } from "react";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import DiagramViewer from "./diagram-viewer";
 import type { EngineeringGraph } from "../types/engineering-graph";
+import type { ProposalOverlayCandidate } from "../types/proposal-overlay";
 
 vi.mock("react-konva", () => ({
   Stage: React.forwardRef(function MockStage(
@@ -48,19 +49,29 @@ vi.mock("react-konva", () => ({
       }}
     >{children}</button>
   ),
-  Rect: ({ name, stroke, strokeWidth, shadowColor }: {
+  Rect: ({ name, stroke, strokeWidth, shadowColor, dash, opacity }: {
     name?: string; stroke: string; strokeWidth?: number; shadowColor?: string;
+    dash?: number[]; opacity?: number;
   }) => <span
-    data-testid={name === "entity-highlight-halo" ? "entity-highlight-halo" : "entity-rect"}
+    data-testid={name === "entity-highlight-halo" ? "entity-highlight-halo"
+      : name === "proposal-rect" ? "proposal-rect" : "entity-rect"}
     data-stroke={stroke}
     data-stroke-width={strokeWidth}
     data-shadow-color={shadowColor}
+    data-dash={dash?.join(",")}
+    data-opacity={opacity}
   />,
   Text: ({ text }: { text: string }) => <span data-testid="entity-label">{text}</span>,
   Line: ({ id, onClick, stroke }: { id: string; stroke: string; onClick?: (event: { cancelBubble: boolean }) => void }) => <button type="button" data-testid="connection-line" data-connection-id={id} data-stroke={stroke} onClick={(event) => { event.stopPropagation(); onClick?.({ cancelBubble: false }); }} />,
 }));
 
 const graph = testGraph();
+const proposalCandidates: ProposalOverlayCandidate[] = [
+  { candidateId: "proposal-equipment", kind: "equipment", tag: "V310001B",
+    geometry: { bbox: { x: .05, y: .45, width: .07, height: .05 } } },
+  { candidateId: "proposal-instrument", kind: "instrument", tag: "TE_0807A",
+    geometry: { bbox: { x: .2, y: .65, width: .03, height: .03 } } },
+];
 
 class ResizeObserverMock {
   constructor(private callback: ResizeObserverCallback) {}
@@ -151,23 +162,23 @@ test("fit-to-screen restores the fitted transform after pointer zoom", async () 
   expect(screen.getByLabelText("Zoom level")).toHaveTextContent("47%");
 });
 
-test("renders entity labels with tag, display name, and id fallbacks", () => {
+test("renders entity labels without exposing internal ID fallbacks", () => {
   renderViewer();
 
   expect(screen.getByText("P-MOCK-1")).toBeInTheDocument();
   expect(screen.getByText("Mock indicator")).toBeInTheDocument();
-  expect(screen.getByText("mock-boundary-1")).toBeInTheDocument();
+  expect(screen.getByText("Unnamed boundary")).toBeInTheDocument();
+  expect(screen.queryByText("mock-boundary-1")).not.toBeInTheDocument();
 });
 
 test("selects one entity and clears selection from the background", () => {
   renderViewer();
 
   fireEvent.click(screen.getByTestId("entity-mock-valve-1"));
-  expect(screen.getByLabelText("Selected entity")).toHaveTextContent("mock-valve-1");
   expect(screen.getAllByTestId("entity-rect")[1]).toHaveAttribute("data-stroke", "#facc15");
 
   fireEvent.click(screen.getByTestId("konva-stage"));
-  expect(screen.getByLabelText("Selected entity")).toHaveTextContent("None");
+  expect(screen.getAllByTestId("entity-rect")[1]).toHaveAttribute("data-stroke", "#0ea5e9");
 });
 
 test("entity and connection layer controls toggle independently", () => {
@@ -181,6 +192,37 @@ test("entity and connection layer controls toggle independently", () => {
 
   fireEvent.click(screen.getByRole("checkbox", { name: "Connections" }));
   expect(screen.queryByTestId("connections-layer")).not.toBeInTheDocument();
+});
+
+test("renders non-interactive proposal candidates separately and toggles their layer", () => {
+  const onSelectEntity = vi.fn();
+  render(
+    <DiagramViewer
+      documentName="IMG_6807.JPG" imageUrl="http://localhost/image.jpg"
+      page={{ id: "page-1", documentId: "t019-demo-img6807", pageNumber: 1,
+        imageUri: "/image.jpg", widthPx: 5000, heightPx: 3750 }}
+      graph={graph} proposalCandidates={proposalCandidates}
+      selectedEntityId={null} selectedConnectionId={null}
+      onSelectEntity={onSelectEntity} onSelectConnection={vi.fn()} onClearSelection={vi.fn()}
+    />,
+  );
+
+  expect(screen.getByTestId("proposals-layer")).toBeInTheDocument();
+  expect(screen.getAllByTestId("proposal-rect")).toHaveLength(2);
+  expect(screen.getAllByTestId("proposal-rect")[0]).toHaveAttribute("data-stroke", "#f97316");
+  expect(screen.getAllByTestId("proposal-rect")[0]).toHaveAttribute("data-dash");
+  expect(screen.getByLabelText("Zoom level")).toHaveTextContent("15%");
+  expect(Number(screen.getAllByTestId("proposal-rect")[0].getAttribute("data-stroke-width")) * .1472)
+    .toBeCloseTo(2.25);
+  expect(screen.queryByText("V310001B · proposal")).not.toBeInTheDocument();
+  expect(screen.getByLabelText("Overlay legend")).toHaveTextContent("AI proposal — dashed");
+  expect(onSelectEntity).not.toHaveBeenCalled();
+
+  fireEvent.click(screen.getByTestId("entity-mock-equipment-1"));
+  expect(onSelectEntity).toHaveBeenCalledWith("mock-equipment-1");
+  fireEvent.click(screen.getByRole("checkbox", { name: "AI proposals" }));
+  expect(screen.queryByTestId("proposals-layer")).not.toBeInTheDocument();
+  expect(screen.getByTestId("entities-layer")).toBeInTheDocument();
 });
 
 test("renders only a connection with explicit polyline geometry", () => {
@@ -203,8 +245,7 @@ test("does not fabricate a path for a geometry-less connection", () => {
 test("selects a rendered connection independently", () => {
   renderViewer();
   fireEvent.click(screen.getByTestId("connection-line"));
-  expect(screen.getByLabelText("Selected connection")).toHaveTextContent("mock-connection-with-geometry");
-  expect(screen.getByLabelText("Selected entity")).toHaveTextContent("None");
+  expect(screen.getByTestId("connection-line")).toHaveAttribute("data-stroke", "#facc15");
 });
 
 test("renders stronger entity highlights and non-geometric topology independently from selection", () => {
@@ -235,10 +276,9 @@ test("renders stronger entity highlights and non-geometric topology independentl
   expect(screen.getAllByTestId("connection-line")).toHaveLength(1);
   expect(screen.getByTestId("connection-line")).toHaveAttribute("data-stroke", "#c084fc");
   const topology = screen.getByLabelText("Highlighted topology without geometry");
-  expect(topology).toHaveTextContent("V-MOCK-1 ↔ mock-boundary-1");
-  expect(topology).toHaveTextContent("mock-connection-without-geometry");
+  expect(topology).toHaveTextContent("V-MOCK-1 ↔ Unnamed boundary");
+  expect(topology).not.toHaveTextContent("mock-connection-without-geometry");
   expect(topology).toHaveTextContent("Connection geometry not recorded.");
-  expect(screen.getByLabelText("Selected entity")).toHaveTextContent("mock-equipment-1");
 });
 
 test("a highlighted drawable connection retains its canvas line without a topology warning", () => {
@@ -255,6 +295,30 @@ test("a highlighted drawable connection retains its canvas line without a topolo
 
   expect(screen.getByTestId("connection-line")).toHaveAttribute("data-stroke", "#c084fc");
   expect(screen.queryByLabelText("Highlighted topology without geometry")).not.toBeInTheDocument();
+});
+
+test("keeps IDs and empty metadata out of the canvas footer", () => {
+  const emptyMetadataGraph: EngineeringGraph = {
+    ...graph,
+    entities: graph.entities.map((entity, index) => index === 0
+      ? { ...entity, id: "t019:entity:a310001b", tag: "None", displayName: " " }
+      : entity),
+  };
+  render(
+    <DiagramViewer
+      documentName="diagram.png" imageUrl="http://localhost:8000/files/page.png"
+      page={{ id: "page-1", documentId: "doc-1", pageNumber: 1,
+        imageUri: "/files/page.png", widthPx: 1600, heightPx: 800 }}
+      graph={emptyMetadataGraph} selectedEntityId="t019:entity:a310001b" selectedConnectionId={null}
+      highlightedEntityIds={["t019:entity:a310001b"]} highlightedConnectionIds={[]}
+      onSelectEntity={vi.fn()} onSelectConnection={vi.fn()} onClearSelection={vi.fn()}
+    />,
+  );
+
+  expect(screen.queryByText("t019:entity:a310001b")).not.toBeInTheDocument();
+  expect(screen.queryByText("None")).not.toBeInTheDocument();
+  expect(screen.getByText("Unnamed equipment")).toBeInTheDocument();
+  expect(screen.getByText("Drag to pan. Scroll or pinch to zoom.")).toHaveClass("viewer-help");
 });
 
 function renderViewer() {

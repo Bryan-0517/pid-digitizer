@@ -26,6 +26,25 @@ exact proposal geometry are copied from candidates `valves:r0c1:valve-1` and
 `equipment_boundary:r0c1:eq1`; confidence is absent because the proposal supplies none. Both begin
 `assertion=inferred`, `reviewStatus=unreviewed`, with model-candidate provenance.
 
+For presentation only, the web app also reads that committed snapshot locally and displays eight
+proposal-only boxes. They are not inserted into `EngineeringGraph`, persisted, queried, reviewed,
+or sent to DEXPI. A fixed selector excludes the two prepared candidates and their tags, rejects
+invalid, tiny, and page-covering boxes, then selects the best labeled engineering candidate in each
+occupied cell of a 4-by-3 image grid. The selected snapshot candidate IDs are:
+
+- `equipment_boundary:r0c0:cand-2`
+- `instruments:r1c0:inst-5`
+- `equipment_boundary:r0c0:cand-6`
+- `instruments:r1c0:inst-10`
+- `equipment_boundary:r0c1:eq4`
+- `equipment_boundary:r1c1:eq-A310002D-tank`
+- `equipment_boundary:r0c1:eq7`
+- `equipment_boundary:r1c1:eq-A310002G-tank`
+
+These are unreviewed model-output visualizations, not benchmark truth or verified engineering truth.
+Their muted dashed boxes sit behind the stronger solid canonical overlays and can be hidden with the
+**AI proposals** checkbox. No live model call occurs.
+
 The one connection was not produced by the model. A human directly reviewed IMG_6807 and confirmed
 that the visible red feed line through TV_0806B terminates at A310001B. It is stored as
 `human_added`/`confirmed`, `kind=process`, no confidence, no geometry, and `direction=unknown`.
@@ -90,7 +109,8 @@ No digitization endpoint is invoked during setup or presentation.
 
 1. Run `npm run demo:check`; expect JSON with `status=ready`, two entity IDs, one connection ID,
    `topologyProposalCount=0`, and `aiProviderInvoked=false`.
-2. Open the exact URL above; expect `IMG_6807.JPG` and two canonical overlays.
+2. Open the exact URL above; expect `IMG_6807.JPG`, two strong canonical overlays, and eight visible,
+   dashed proposal-only overlays. Toggle **AI proposals** to demonstrate the separate visual layer.
 3. Explain the source image, fixed entity-only saved snapshot, prepared editable canonical state, and
    separately human-reviewed connection. State that no live AI call occurred.
 4. Briefly drag, zoom, and select **Fit to screen**.
@@ -107,7 +127,7 @@ No digitization endpoint is invoked during setup or presentation.
     `t019:connection:tv-0806b--a310001b`.
 11. Expect both entity IDs to have high-contrast canvas highlights while Inspector selection remains
     the single `t019:entity:a310001b`. The **Highlighted topology** notice shows
-    `TV_0806B ↔ A310001B`, the canonical connection ID, and **Connection geometry not recorded.**
+    `TV_0806B ↔ A310001B` and **Connection geometry not recorded.**
     No connection line is drawn because the canonical relationship has no geometry. Query and
     highlight behavior are read-only.
 12. Run `npm run demo:reset` and `npm run demo:check`. Reopen the URL; expect blank Display name,
@@ -126,7 +146,8 @@ distribution implications remain unresolved, and the spike is not a standard DEX
 
 - `npm run demo:check` validates asset hashes, proposal identity/counts, manifest-to-candidate fields,
   canonical graph integrity, provenance separation, initial review states, revision count, T013
-  neighbors, and the exact provider-free T014 response.
+  neighbors, and the exact provider-free T014 response. The web proposal endpoint is a separate
+  non-canonical visualization check and does not change the expected graph counts.
 - If ports 14000/19000 are occupied, stop the conflicting local service; do not point the demo at a
   developer database.
 - If setup reports an asset hash mismatch, restore the committed fixed artifact rather than editing it.
@@ -136,8 +157,9 @@ distribution implications remain unresolved, and the spike is not a standard DEX
 ## Known v0.1 limitations
 
 - There is no production proposal-acceptance/import workflow.
-- Only two saved entity candidates and one independently human-reviewed connection are prepared.
-- Proposal geometry supports interaction but is not benchmark-verified.
+- Only two saved entity candidates and one independently human-reviewed connection are prepared as
+  canonical state; the eight additional boxes are proposal-only visualizations.
+- Proposal geometry is model output and is not benchmark-verified or selectable for canonical review.
 - Connectivity is confirmed; flow direction is deliberately unknown.
 - Graph Chat supports only the documented deterministic intent patterns.
 - Multi-page documents, collaboration, safety reasoning, and automated plant control remain out of scope.
