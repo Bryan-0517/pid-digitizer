@@ -53,7 +53,7 @@ Topology questions can be answered from the structured EngineeringGraph instead 
 Example:
 
 ```text
-What is connected to TV_0806B?
+What is connected to FI_0828?
 ```
 
 The system identifies canonical connected entities and provides supporting entity and connection information.
