@@ -7,7 +7,7 @@ P&ID Digitizer is designed to help transform information contained in engineerin
 > **v0.1 Proof of Concept**
 > The current version focuses on entity extraction, human-in-the-loop review, graph persistence, and deterministic topology queries.
 
-![P&ID Digitizer Demo](docs/assets/demo-overview.png)
+![P&ID Digitizer Demo](docs/assets/demo-overview-v2.png)
 
 ---
 
